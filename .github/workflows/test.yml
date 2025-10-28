@@ -2,16 +2,10 @@ name: Vitest
 
 on: [push]
 
-env:
-  WORKING_DIRECTORY: sugutan_frontend
-
 jobs:
   test:
     name: Run test codes
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
     steps:
       - name: Checkout repository
@@ -20,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ${{ env.WORKING_DIRECTORY }}/package.json
+          node-version-file: package.json
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
@@ -32,5 +26,3 @@ jobs:
 
       - name: Show coverage report
         uses: davelosert/vitest-coverage-report-action@v2
-        with:
-          working-directory: ${{ env.WORKING_DIRECTORY }}
