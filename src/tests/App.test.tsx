@@ -5,6 +5,6 @@ import App from "../App";
 
 test("renders h1 text", () => {
   render(<App />);
-  const headerElement = screen.getByText("Vite + React");
+  const headerElement = screen.getByText("API status: OK");
   expect(headerElement).toBeInTheDocument();
 });
