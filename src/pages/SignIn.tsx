@@ -6,6 +6,9 @@ import type { SignInParams } from "@/types";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+// import components
+import { GoogleIcon } from "@/components/auth/GoogleIcon";
+
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +74,7 @@ const SignIn: React.FC = () => {
         />
         <button onClick={handleSubmit}>Sign In</button>
       </form>
+      <GoogleIcon />
     </div>
   );
 };
