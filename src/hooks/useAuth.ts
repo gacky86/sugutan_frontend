@@ -10,8 +10,12 @@ export const useAuth = () => {
   const [currentUser, setCurrentUser] = useState<User | undefined>();
 
   const handleGetCurrentUser = async () => {
+    console.log("handleGetCurrentUser");
+
     try {
       const res = await getCurrentUser();
+      console.log(res);
+
       if (res?.data.isLogin === true) {
         setIsSignedIn(true);
         setCurrentUser(res?.data.data);
