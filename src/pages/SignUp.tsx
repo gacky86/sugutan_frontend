@@ -5,6 +5,8 @@ import { signUp } from "@/api/auth";
 import type { SignUpParams } from "@/types";
 import { useNavigate } from "react-router-dom";
 
+import { GoogleIcon } from "@/components/auth/GoogleIcon";
+
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -86,6 +88,7 @@ const SignUp: React.FC = () => {
         />
         <button onClick={handleSubmit}>Sign Up</button>
       </form>
+      <GoogleIcon />
     </div>
   );
 };
