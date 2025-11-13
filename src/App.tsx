@@ -1,4 +1,4 @@
-// import libraries
+// Libraries
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,18 +7,19 @@ import {
   Outlet,
 } from "react-router-dom";
 
-// import style
+// Style
 import "@/App.css";
 
-// Import pages
+// Pages
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
+import CheckEmail from "@/pages/CheckEmail";
 import Home from "@/pages/Home";
 
-//import functions
+//Functions
 import { useAuth } from "@/hooks/useAuth";
 
-// import contexts
+// Contexts
 import { AuthContext } from "@/contexts/AuthContext";
 
 // 認証情報が確認できる場合はPrivate内を表示
@@ -65,6 +66,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="checkemail" element={<CheckEmail />} />
           <Route element={<Private />}>
             <Route path="/" element={<Home />} />
           </Route>

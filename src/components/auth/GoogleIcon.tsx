@@ -1,25 +1,12 @@
 // import { useEffect } from "react";
-import styled from "styled-components";
 // import GoogleIconImage from "@/assets/google_icon.png";
 // import { useSearchParams } from "react-router-dom";
 // import Cookies from "js-cookie";
-
-const Button = styled.button`
-  background-color: white;
-  border-radius: 20px;
-  width: 300px;
-  height: 40px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    background-color: #e1e3e1;
-  }
-`;
-
-export function GoogleIcon() {
+import { FcGoogle } from "react-icons/fc";
+type Props = {
+  text: string;
+};
+export function GoogleIcon({ text }: Props) {
   // const [searchParams] = useSearchParams();
   // const navigate = useNavigate();
 
@@ -55,5 +42,16 @@ export function GoogleIcon() {
   //   }
   // }, [searchParams]);
 
-  return <Button onClick={handleGoogleLogin}>Google で登録</Button>;
+  return (
+    <button
+      onClick={handleGoogleLogin}
+      className="border border-gray-400 duration-300 text-sm h-10 w-full rounded-full
+      hover:border-gray-500 hover:shadow-lg hover:shadow-gray-400/30"
+    >
+      <div className="flex justify-center">
+        <FcGoogle className="text-xl mx-2" />
+        <p>{text} with Google</p>
+      </div>
+    </button>
+  );
 }
