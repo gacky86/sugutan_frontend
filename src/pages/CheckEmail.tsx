@@ -1,16 +1,16 @@
 import AuthLayout from "@/components/layouts/AuthLayout";
-import SignInForm from "@/components/auth/SignInForm";
+import CheckEmailMessage from "@/components/auth/CheckEmailMessage";
 import Introduction from "@/components/auth/Introduction";
 
-const SignIn: React.FC = () => {
+const CheckEmail = () => {
   return (
     <div>
       <AuthLayout
         childrenIntroduction={<Introduction />}
-        childrenForms={<SignInForm />}
+        childrenForms={<CheckEmailMessage />}
       />
     </div>
   );
 };
 
-export default SignIn;
+export default CheckEmail;
