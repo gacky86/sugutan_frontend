@@ -6,6 +6,7 @@ import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/common/SubmitButton";
 import type { SignUpParams } from "@/types";
 import { signUp } from "@/api/auth";
+import TextInput from "@/components/common/TextInput";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const SignUpForm = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const navigate = useNavigate();
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const params: SignUpParams = {
@@ -48,63 +49,33 @@ const SignUpForm = () => {
           build your own Flashcards!
         </p>
       </div>
-      <form action="">
-        <div className="text-start">
-          <label className="block w-full text-gray-400" htmlFor="email">
-            E-mail
-          </label>
-          <input
-            className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-            type="text"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div className="text-start">
-          <label className="block w-full text-gray-400" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-            type="text"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div className="text-start">
-          <label className="block w-full text-gray-400" htmlFor="password">
-            Password Confirmation
-          </label>
-          <input
-            className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-            type="text"
-            id="password"
-            name="password"
-            value={passwordConfirmation}
-            onChange={(e) => {
-              setPasswordConfirmation(e.target.value);
-            }}
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          label="E-mail"
+          name="email"
+          id="email"
+          type="text"
+          value={email}
+          onChange={setEmail}
+        />
+        <TextInput
+          label="Password"
+          name="password"
+          id="password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+        />
+        <TextInput
+          label="Password Confirmation"
+          name="passwordConfirmation"
+          id="passwordConfirmation"
+          type="passwordConfirmation"
+          value={passwordConfirmation}
+          onChange={setPasswordConfirmation}
+        />
         <div className="my-6">
-          <SubmitButton handleSubmit={handleSubmit} text="Sign up" />
+          <SubmitButton text="Sign up" />
         </div>
       </form>
       <p>OR</p>
