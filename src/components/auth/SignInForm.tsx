@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 // components
 import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/common/SubmitButton";
+import TextInput from "@/components/common/TextInput";
 
 const SignInForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const SignInForm: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const params: SignInParams = {
@@ -60,45 +61,25 @@ const SignInForm: React.FC = () => {
           build your own Flashcards!
         </p>
       </div>
-      <form action="">
-        <div className="text-start">
-          <label className="block w-full text-gray-400" htmlFor="email">
-            E-mail
-          </label>
-          <input
-            className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-            type="text"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div className="text-start">
-          <label className="block w-full text-gray-400" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-            type="text"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          label="E-mail"
+          name="email"
+          id="email"
+          type="text"
+          value={email}
+          onChange={setEmail}
+        />
+        <TextInput
+          label="Password"
+          name="password"
+          id="password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+        />
         <div className="my-6">
-          <SubmitButton handleSubmit={handleSubmit} text="Log in" />
+          <SubmitButton text="Log in" />
         </div>
       </form>
       <p>OR</p>
