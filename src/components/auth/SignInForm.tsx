@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 import { signIn } from "@/api/auth";
@@ -34,9 +34,9 @@ const SignInForm: React.FC = () => {
 
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
+        // Cookies.set("_access_token", res.headers["access-token"]);
+        // Cookies.set("_client", res.headers["client"]);
+        // Cookies.set("_uid", res.headers["uid"]);
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);

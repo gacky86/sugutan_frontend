@@ -27,5 +27,5 @@ export const signOut = () => {
 
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
-  return client.get("/user/sessions");
+  return client.get("/auth/sessions");
 };
