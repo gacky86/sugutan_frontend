@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "@/api/auth";
 
-// import types
+// types
 import type { User } from "@/types";
 
 export const useAuth = () => {

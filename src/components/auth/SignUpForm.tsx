@@ -1,45 +1,86 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 // components
-import { GoogleIcon } from "@/components/auth/GoogleIcon";
+// import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/common/SubmitButton";
-import type { SignUpParams } from "@/types";
-import { signUp } from "@/api/auth";
 import TextInput from "@/components/common/TextInput";
+import PasswordInput from "@/components/common/PasswordInput";
+// func
+import { signUp } from "@/api/auth";
+// type
+import type { SignUpParams, RailsErrorResponse } from "@/types";
 
 const SignUpForm = () => {
+  // ============= State定義 開始 ==============
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [password, setPassword] = useState<{
+    lengthCheck: boolean;
+    patternCheck: boolean;
+    input: string;
+  }>({
+    lengthCheck: true,
+    patternCheck: true,
+    input: "",
+  });
+  const [passwordConfirmation, setPasswordConfirmation] = useState<{
+    lengthCheck: boolean;
+    patternCheck: boolean;
+    input: string;
+  }>({
+    lengthCheck: true,
+    patternCheck: true,
+    input: "",
+  });
+  const [samePassword, setSamePassword] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<{
+    message: string;
+    hasError: boolean;
+  }>({
+    message: "",
+    hasError: false,
+  });
+  // ============= State定義 終了 ==============
 
   const navigate = useNavigate();
+
+  // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const params: SignUpParams = {
       email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
-      confirmSuccessUrl: "http://localhost:5173/",
+      password: password.input,
+      passwordConfirmation: passwordConfirmation.input,
     };
 
-    try {
-      const res = await signUp(params);
-      console.log(res);
-
-      if (res.status === 200) {
-        // アカウント作成に成功した場合はログイン画面にリダイレクト
-        navigate("/checkemail");
-
-        console.log("Create an account successfully!");
-      } else {
-        console.log("Account creation error");
+    // パスワードと確認用パスワードの一致確認
+    if (password.input === passwordConfirmation.input) {
+      // API関数を実行
+      try {
+        const res = await signUp(params);
+        if (res.status === 200) {
+          // アカウント作成に成功した場合はログイン画面にリダイレクト
+          navigate("/checkemail");
+        } else {
+          console.log("Account creation error");
+        }
+        // エラー処理
+      } catch (err) {
+        const error = err as AxiosError<RailsErrorResponse>;
+        const message = error.response?.data?.error || "エラーが発生しました";
+        setErrorMessage({
+          message: message,
+          hasError: true,
+        });
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      setSamePassword(false);
     }
   };
+  // ============= ボタン押下時関数 終了 ==============
+
   return (
     <div className="max-w-md m-auto text-center">
       <div className="my-6">
@@ -49,6 +90,7 @@ const SignUpForm = () => {
           build your own Flashcards!
         </p>
       </div>
+      {/* 入力フォーム 開始 */}
       <form onSubmit={handleSubmit}>
         <TextInput
           label="E-mail"
@@ -58,30 +100,59 @@ const SignUpForm = () => {
           value={email}
           onChange={setEmail}
         />
-        <TextInput
+        <PasswordInput
           label="Password"
           name="password"
           id="password"
-          type="password"
-          value={password}
-          onChange={setPassword}
+          setPassword={setPassword}
         />
-        <TextInput
+        <PasswordInput
           label="Password Confirmation"
           name="passwordConfirmation"
           id="passwordConfirmation"
-          type="passwordConfirmation"
-          value={passwordConfirmation}
-          onChange={setPasswordConfirmation}
+          setPassword={setPasswordConfirmation}
         />
+        {/* パスワードチェック警告文 */}
+        <div className="text-sm text-red-600 text-left">
+          {password.patternCheck === false && (
+            <p>
+              パスワードに使用できない文字が入力されています（半角英数字、"_"
+              アンダースコアのみ使用可）
+            </p>
+          )}
+          {password.lengthCheck === false && (
+            <p>パスワードの入力文字数は8文字以上20文字以下です</p>
+          )}
+          {samePassword === false && (
+            <p>パスワードと確認用パスワードが一致しません</p>
+          )}
+          {errorMessage.hasError === true && <p>{errorMessage.message}</p>}
+        </div>
+        {/* Submitボタン */}
+        {/* 入力バリデーション通過時以外はボタンをdisabledにする */}
         <div className="my-6">
-          <SubmitButton text="Sign up" />
+          <SubmitButton
+            text="Sign up"
+            disabled={
+              !email ||
+              !password.input ||
+              !password.lengthCheck ||
+              !password.patternCheck ||
+              !passwordConfirmation.input ||
+              !passwordConfirmation.lengthCheck ||
+              !passwordConfirmation.patternCheck
+            }
+          />
         </div>
       </form>
-      <p>OR</p>
+      {/* 入力フォーム 終了 */}
+
+      {/* Googleログインボタン：実装保留中 */}
+      {/* <p>OR</p>
       <div className="my-6">
         <GoogleIcon text="Sign in" />
-      </div>
+      </div> */}
+
       <div className="text-base">
         <p>
           アカウントを既にお持ちの方は
