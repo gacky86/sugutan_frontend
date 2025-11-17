@@ -1,3 +1,5 @@
+// DTAとの併用実装がうまくいかず、実装保留中（2025/11/16）
+
 // import { useEffect } from "react";
 // import GoogleIconImage from "@/assets/google_icon.png";
 // import { useSearchParams } from "react-router-dom";

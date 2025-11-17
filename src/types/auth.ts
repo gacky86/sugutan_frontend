@@ -3,7 +3,7 @@ export interface SignUpParams {
   email: string;
   password: string;
   passwordConfirmation: string;
-  confirmSuccessUrl: string;
+  // confirmSuccessUrl: string;
 }
 
 // サインイン
