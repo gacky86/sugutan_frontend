@@ -18,7 +18,7 @@ export default defineConfig({
     ],
     environment: "jsdom",
     coverage: {
-      reporter: ["text", "github-actions", "json-summary", "json"],
+      reporter: ["text", "json-summary", "json"],
     },
   },
   plugins: [tsconfigPaths()],
