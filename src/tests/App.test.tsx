@@ -5,6 +5,6 @@ import App from "../App";
 
 test("renders h1 text", () => {
   render(<App />);
-  const headerElement = screen.getByText("API status: OK");
+  const headerElement = screen.getByText("Sugutan");
   expect(headerElement).toBeInTheDocument();
 });
