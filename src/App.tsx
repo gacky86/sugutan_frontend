@@ -14,7 +14,7 @@ import "@/App.css";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import CheckEmail from "@/pages/CheckEmail";
-import Home from "@/pages/Home";
+import Flashcards from "@/pages/Flashcards";
 
 //Functions
 import { useAuth } from "@/hooks/useAuth";
@@ -68,7 +68,7 @@ const App: React.FC = () => {
           <Route path="signup" element={<SignUp />} />
           <Route path="checkemail" element={<CheckEmail />} />
           <Route element={<Private />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Flashcards />} />
           </Route>
         </Routes>
       </AuthContext.Provider>
