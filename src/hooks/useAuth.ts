@@ -1,3 +1,5 @@
+// stateをApp.tsxで管理しないとログイン状態を維持できなかったため、こちらの実装はApp.tsxに移行
+
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "@/api/auth";
 
@@ -14,9 +16,11 @@ export const useAuth = () => {
 
     try {
       const res = await getCurrentUser();
-      console.log(res);
+      console.log(res.data.success);
 
-      if (res?.data.isLogin === true) {
+      if (res?.data.success === true) {
+        console.log("ログインしてる");
+
         setIsSignedIn(true);
         setCurrentUser(res?.data.data);
       } else {
@@ -24,8 +28,9 @@ export const useAuth = () => {
       }
     } catch {
       setIsSignedIn(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
