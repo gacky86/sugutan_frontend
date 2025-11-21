@@ -11,6 +11,8 @@ export const signUp = (params: SignUpParams) => {
 
 // サインイン（ログイン）
 export const signIn = (params: SignInParams) => {
+  console.log("signIn");
+
   return client.post("auth/sign_in", params);
 };
 
@@ -27,5 +29,7 @@ export const signOut = () => {
 
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
-  return client.get("/auth/sessions");
+  console.log("getCurrentUSer");
+
+  return client.get("/auth/validate_token");
 };
