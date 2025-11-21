@@ -1,4 +1,5 @@
 import MenuBar from "@/components/common/MenuBar";
+import Header from "@/components/common/Header";
 
 type Props = {
   childrenContent: React.ReactNode;
@@ -6,13 +7,17 @@ type Props = {
 
 const MainLayout = ({ childrenContent }: Props) => {
   return (
-    <div>
-      <div className="border border-black">header</div>
-      <div className="grid grid-cols-5 grid-rows-1 gap-4 h-screen">
-        <div className="border border-black">
+    <div className="h-screen flex flex-col">
+      <div className="border border-gray-300">
+        <Header />
+      </div>
+      <div className="grid grid-cols-5 grid-rows-1 flex-1">
+        <div className="border border-gray-300">
           <MenuBar />
         </div>
-        <div className="col-span-4 border border-black">{childrenContent}</div>
+        <div className="col-span-4 border border-gray-300 bg-orange-50">
+          {childrenContent}
+        </div>
       </div>
     </div>
   );
