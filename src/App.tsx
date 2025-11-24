@@ -25,6 +25,10 @@ import { getCurrentUser } from "@/api/auth";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 
+// redux
+import { Provider } from "react-redux";
+import { store } from "@/stores/index";
+
 // 認証情報が確認できる場合はPrivate内を表示
 // それ以外の場合はSigninの表示
 const App: React.FC = () => {
@@ -70,27 +74,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
-      <AuthContext.Provider
-        value={{
-          loading,
-          setLoading,
-          isSignedIn,
-          setIsSignedIn,
-          currentUser,
-          setCurrentUser,
-        }}
-      >
-        <Routes>
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="checkemail" element={<CheckEmail />} />
-          <Route element={<Private />}>
-            <Route path="/" element={<Flashcards />} />
-          </Route>
-        </Routes>
-      </AuthContext.Provider>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <AuthContext.Provider
+          value={{
+            loading,
+            setLoading,
+            isSignedIn,
+            setIsSignedIn,
+            currentUser,
+            setCurrentUser,
+          }}
+        >
+          <Routes>
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="checkemail" element={<CheckEmail />} />
+            <Route element={<Private />}>
+              <Route path="/" element={<Flashcards />} />
+            </Route>
+          </Routes>
+        </AuthContext.Provider>
+      </Router>
+    </Provider>
   );
 };
 
