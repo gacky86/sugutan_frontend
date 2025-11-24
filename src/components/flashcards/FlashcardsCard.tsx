@@ -1,9 +1,22 @@
 import type { Flashcard } from "@/types/index";
+import { useDispatch } from "react-redux";
+import { openModal } from "@/stores/modalSlice";
 type Props = { flashcard: Flashcard };
 
 const FlashcardsCard = ({ flashcard }: Props) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="rounded-lg border border-gray-300 shadow-md w-[300px] h-[110px] bg-white p-1">
+    // 単語帳リストのカードを押下時に、押下された単語帳に対応する単語帳詳細モーダルを表示する。
+    // modalSliceのstateに対応するflashcardの情報を渡す。
+    <div
+      className="rounded-lg border border-gray-300 shadow-md w-[300px] h-[110px] bg-white p-1"
+      onClick={() =>
+        dispatch(
+          openModal({ modalContent: "flashcardDetail", modalProps: flashcard })
+        )
+      }
+    >
       {/* タイトル */}
       <h1 className="text-xl">{flashcard.title}</h1>
       {/* カード単語帳詳細 */}

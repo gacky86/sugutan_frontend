@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import flashcardReducer from "@/stores/flashcardsSlice";
-// import modalReducer from './modalSlice';
+import modalReducer from "@/stores/modalSlice";
 
 export const store = configureStore({
   reducer: {
     flashcards: flashcardReducer,
-    // modal: modalReducer,
+    modal: modalReducer,
   },
 });
 
