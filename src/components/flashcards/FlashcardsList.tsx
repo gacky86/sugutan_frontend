@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 // react-icon
 import { FaBook } from "react-icons/fa";
+import { IoMdAddCircle } from "react-icons/io";
 // components
 import FlashcardsCard from "@/components/flashcards/FlashcardsCard";
 import PageTitle from "@/components/common/PageTitle";
@@ -36,6 +37,10 @@ const FlashcardsList = () => {
             </h3>
           </>
         )}
+      </div>
+      <div className="flex items-center absolute bottom-15 right-15 cursor-pointer">
+        <IoMdAddCircle className="text-4xl text-blue-500" />
+        <p className="text-lg">単語帳を新規作成</p>
       </div>
     </div>
   );
