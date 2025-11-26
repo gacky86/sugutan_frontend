@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 // components
 // import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/common/SubmitButton";
-import TextInput from "@/components/common/TextInput";
+import EmailInput from "@/components/common/EmailInput";
 import PasswordInput from "@/components/common/PasswordInput";
 // func
 import { signUp } from "@/api/auth";
@@ -92,7 +92,7 @@ const SignUpForm = () => {
       </div>
       {/* 入力フォーム 開始 */}
       <form onSubmit={handleSubmit}>
-        <TextInput
+        <EmailInput
           label="E-mail"
           name="email"
           id="email"

@@ -1,0 +1,93 @@
+import type { FlashcardParams } from "@/types";
+import { useState } from "react";
+import TextInput from "@/components/common/TextInput";
+import SubmitButton from "../common/SubmitButton";
+import { createFlashcard } from "@/api/flashcard";
+import { useNavigate } from "react-router-dom";
+
+const NewFlashcardModal = () => {
+  // ============= State定義 開始 ==============
+  const [title, setTitle] = useState<{
+    lengthCheck: boolean;
+    input: string;
+  }>({
+    lengthCheck: true,
+    input: "",
+  });
+  const [description, setDescription] = useState<{
+    lengthCheck: boolean;
+    input: string;
+  }>({
+    lengthCheck: true,
+    input: "",
+  });
+  // ============= State定義 終了 ==============
+
+  const navigate = useNavigate();
+
+  // ============= ボタン押下時関数 開始 ==============
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params: FlashcardParams = {
+      title: title.input,
+      description: description.input,
+      language: "EN",
+      iconColor: "red",
+    };
+    try {
+      const res = await createFlashcard(params);
+      console.log(res);
+
+      if (res.status === 200) {
+        navigate("/");
+      } else {
+        console.log("login error");
+      }
+      // エラー処理
+    } catch (err) {
+      console.log(err);
+
+      // const error = err as AxiosError<RailsErrorResponse>;
+      // const message = error.response?.data?.error || "エラーが発生しました";
+      // setErrorMessage({
+      //   message: message,
+      //   hasError: true,
+      // });
+    }
+  };
+  // ============= ボタン押下時関数 終了 ==============
+
+  return (
+    <div>
+      <div className="text-center">
+        <h1 className="text-2xl mt-4">単語帳新規作成</h1>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="mx-auto my-10 max-w-[600px]">
+          <TextInput
+            label="Title"
+            name="title"
+            id="title"
+            maxLength={25}
+            text={title}
+            setText={setTitle}
+          />
+          <TextInput
+            label="Description"
+            name="description"
+            id="description"
+            maxLength={120}
+            text={description}
+            setText={setDescription}
+          />
+        </div>
+        {/* Submitボタン */}
+        <div className="mx-auto my-6 max-w-[200px]">
+          <SubmitButton text="作成" disabled={false} />
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default NewFlashcardModal;
