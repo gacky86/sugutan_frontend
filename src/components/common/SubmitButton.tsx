@@ -22,5 +22,3 @@ const SubmitButton = ({ text, disabled }: Props) => {
 };
 
 export default SubmitButton;
-
-// "bg-indigo-500 duration-300 hover:bg-indigo-600 text-white text-sm h-10 w-full rounded-full"
