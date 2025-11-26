@@ -32,18 +32,18 @@ const flashcardSlice = createSlice({
     addFlashcard: (state, action) => {
       state.flashcards.push(action.payload);
     },
-    // removeFlashcard: (state, action) => {
-    //   state.flashcards = state.flashcards.filter(
-    //     (fc) => fc.id !== action.payload.id
-    //   );
-    // },
-    // editFlashcard: (state, action) => {
-    //   const updated = action.payload;
-    //   const index = state.flashcards.findIndex((fc) => fc.id === updated.id);
-    //   if (index !== -1) {
-    //     state.flashcards[index] = updated;
-    //   }
-    // },
+    removeFlashcard: (state, action) => {
+      state.flashcards = state.flashcards.filter(
+        (fc) => fc.id !== action.payload.id
+      );
+    },
+    editFlashcard: (state, action) => {
+      const updated = action.payload;
+      const index = state.flashcards.findIndex((fc) => fc.id === updated.id);
+      if (index !== -1) {
+        state.flashcards[index] = updated;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -61,7 +61,6 @@ const flashcardSlice = createSlice({
   },
 });
 
-export const { addFlashcard } = flashcardSlice.actions;
-// export const { addFlashcard, removeFlashcard, editFlashcard } =
-//   flashcardSlice.actions;
+export const { addFlashcard, removeFlashcard, editFlashcard } =
+  flashcardSlice.actions;
 export default flashcardSlice.reducer;

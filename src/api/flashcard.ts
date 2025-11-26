@@ -21,7 +21,7 @@ export const createFlashcard = (params: FlashcardParams) => {
 };
 
 // 更新
-export const updateFlashcard = (id: number, params: Flashcard) => {
+export const updateFlashcard = (id: number, params: FlashcardParams) => {
   return client.patch(`/flashcards/${id}`, params);
 };
 

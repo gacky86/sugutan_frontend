@@ -2,12 +2,17 @@
 import type { Flashcard } from "@/types/index";
 // components
 import MainButton from "@/components/common/MainButton";
+// redux
+import { openModal } from "@/stores/modalSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {
   flashcard: Flashcard;
 };
 
 const FlashcardDetailModal = ({ flashcard }: Props) => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <div className="text-center">
@@ -49,7 +54,12 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
           text="単語帳設定"
           disabled={false}
           onClick={() => {
-            console.log("clicked");
+            dispatch(
+              openModal({
+                modalContent: "editFlashcard",
+                modalProps: flashcard,
+              })
+            );
           }}
         />
       </div>
