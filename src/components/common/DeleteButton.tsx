@@ -1,12 +1,14 @@
 type Props = {
   text: string;
+  handleDelete: () => void;
   disabled: boolean;
 };
 
-const DeleteButton = ({ text, disabled }: Props) => {
+const DeleteButton = ({ text, handleDelete, disabled }: Props) => {
   return (
     <button
-      className="bg-indigo-500 duration-300 hover:bg-indigo-600 text-white text-sm h-10 w-full rounded-full"
+      className="bg-white border border-red-600 duration-300 hover:shadow-xl text-red-600 text-sm h-10 w-full rounded-full"
+      onClick={handleDelete}
       disabled={disabled}
     >
       <p className="text-base">{text}</p>

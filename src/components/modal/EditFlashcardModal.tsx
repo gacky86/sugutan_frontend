@@ -7,12 +7,13 @@ import type { Flashcard, FlashcardParams, RailsErrorResponse } from "@/types";
 // components
 import TextInput from "@/components/common/TextInput";
 import SubmitButton from "@/components/common/SubmitButton";
-import { updateFlashcard } from "@/api/flashcard";
+import DeleteButton from "@/components/common/DeleteButton";
+import { updateFlashcard, deleteFlashcard } from "@/api/flashcard";
 
 // redux
 import { useDispatch } from "react-redux";
-import { openModal } from "@/stores/modalSlice";
-import { editFlashcard } from "@/stores/flashcardsSlice";
+import { openModal, closeModal } from "@/stores/modalSlice";
+import { editFlashcard, removeFlashcard } from "@/stores/flashcardsSlice";
 
 const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   });
   // ============= State定義 終了 ==============
 
-  // ============= ボタン押下時関数 開始 ==============
+  // ============= 更新ボタン押下時関数 開始 ==============
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params: FlashcardParams = {
@@ -75,7 +77,33 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       });
     }
   };
-  // ============= ボタン押下時関数 終了 ==============
+  // ============= 更新ボタン押下時関数 終了 ==============
+
+  // ============= 削除ボタン押下時関数 開始 ==============
+  const handleDelete = async () => {
+    try {
+      const res = await deleteFlashcard(flashcard.id);
+      if (res.status === 200) {
+        // モーダルを閉じる
+        dispatch(closeModal());
+        // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
+        dispatch(removeFlashcard(flashcard));
+      } else {
+        console.log("flashcard delete error");
+      }
+      // エラー処理
+    } catch (err) {
+      const error = err as AxiosError<RailsErrorResponse>;
+      const message =
+        error.response?.data?.error ||
+        "エラーが発生しました。もう一度やり直してください。";
+      setErrorMessage({
+        message: message,
+        hasError: true,
+      });
+    }
+  };
+  // ============= 削除ボタン押下時関数 終了 ==============
 
   return (
     <div>
@@ -104,14 +132,19 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         {errorMessage.hasError === true && (
           <p className="text-sm text-red-600">{errorMessage.message}</p>
         )}
-        <div className="flex"></div>
-        {/* deleteボタン */}
-
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
           <SubmitButton text="更新" disabled={false} />
         </div>
+        {/* deleteボタン */}
       </form>
+      <div className="mx-auto my-6 max-w-[200px]">
+        <DeleteButton
+          text="単語帳を削除"
+          handleDelete={handleDelete}
+          disabled={false}
+        />
+      </div>
     </div>
   );
 };
