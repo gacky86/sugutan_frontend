@@ -1,9 +1,17 @@
-import type { FlashcardParams } from "@/types";
+import { AxiosError } from "axios";
 import { useState } from "react";
+
+// types
+import type { FlashcardParams, RailsErrorResponse } from "@/types";
+
+// components
 import TextInput from "@/components/common/TextInput";
-import SubmitButton from "../common/SubmitButton";
+import SubmitButton from "@/components/common/SubmitButton";
 import { createFlashcard } from "@/api/flashcard";
-import { useNavigate } from "react-router-dom";
+
+// redux
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/stores/modalSlice";
 
 const NewFlashcardModal = () => {
   // ============= State定義 開始 ==============
@@ -21,9 +29,16 @@ const NewFlashcardModal = () => {
     lengthCheck: true,
     input: "",
   });
+  const [errorMessage, setErrorMessage] = useState<{
+    message: string;
+    hasError: boolean;
+  }>({
+    message: "",
+    hasError: false,
+  });
   // ============= State定義 終了 ==============
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,20 +54,22 @@ const NewFlashcardModal = () => {
       console.log(res);
 
       if (res.status === 200) {
-        navigate("/");
+        dispatch(closeModal());
       } else {
-        console.log("login error");
+        console.log("flashcard create error");
       }
       // エラー処理
     } catch (err) {
       console.log(err);
 
-      // const error = err as AxiosError<RailsErrorResponse>;
-      // const message = error.response?.data?.error || "エラーが発生しました";
-      // setErrorMessage({
-      //   message: message,
-      //   hasError: true,
-      // });
+      const error = err as AxiosError<RailsErrorResponse>;
+      const message =
+        error.response?.data?.error ||
+        "エラーが発生しました。もう一度やり直してください。";
+      setErrorMessage({
+        message: message,
+        hasError: true,
+      });
     }
   };
   // ============= ボタン押下時関数 終了 ==============
@@ -81,6 +98,9 @@ const NewFlashcardModal = () => {
             setText={setDescription}
           />
         </div>
+        {errorMessage.hasError === true && (
+          <p className="text-sm text-red-600">{errorMessage.message}</p>
+        )}
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
           <SubmitButton text="作成" disabled={false} />
