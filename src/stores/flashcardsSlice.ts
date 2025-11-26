@@ -28,9 +28,10 @@ const flashcardSlice = createSlice({
   name: "flashcards",
   initialState,
   reducers: {
-    // addFlashcard: (state, action) => {
-    //   state.flashcards.push(action.payload);
-    // },
+    // 楽観的UIのためのreducer
+    addFlashcard: (state, action) => {
+      state.flashcards.push(action.payload);
+    },
     // removeFlashcard: (state, action) => {
     //   state.flashcards = state.flashcards.filter(
     //     (fc) => fc.id !== action.payload.id
@@ -60,6 +61,7 @@ const flashcardSlice = createSlice({
   },
 });
 
+export const { addFlashcard } = flashcardSlice.actions;
 // export const { addFlashcard, removeFlashcard, editFlashcard } =
 //   flashcardSlice.actions;
 export default flashcardSlice.reducer;

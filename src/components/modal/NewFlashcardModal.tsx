@@ -12,6 +12,7 @@ import { createFlashcard } from "@/api/flashcard";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
+import { addFlashcard } from "@/stores/flashcardsSlice";
 
 const NewFlashcardModal = () => {
   // ============= State定義 開始 ==============
@@ -55,6 +56,8 @@ const NewFlashcardModal = () => {
 
       if (res.status === 200) {
         dispatch(closeModal());
+        // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
+        dispatch(addFlashcard(res.data));
       } else {
         console.log("flashcard create error");
       }
