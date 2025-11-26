@@ -1,13 +1,20 @@
+// func
+import { checkText } from "@/utils/checkText";
+
 type Props = {
   label: string;
   name: string;
   id: string;
-  type: string;
-  value: string;
-  onChange: (value: string) => void;
+  maxLength: number;
+  text: {
+    lengthCheck: boolean;
+    input: string;
+  };
+  setText: (password: { lengthCheck: boolean; input: string }) => void;
 };
 
-const TextInput = ({ label, name, id, type, value, onChange }: Props) => {
+// 入力時に長さのチェックをして
+const TextInput = ({ label, name, id, maxLength, text, setText }: Props) => {
   return (
     <div className="text-start">
       <label className="block w-full text-gray-400" htmlFor="email">
@@ -18,14 +25,18 @@ const TextInput = ({ label, name, id, type, value, onChange }: Props) => {
             duration-300
             hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
             focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
-        type={type}
         name={name}
         id={id}
-        value={value}
-        onChange={(e) => {
-          onChange(e.target.value);
+        value={text.input}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setText(checkText(event, maxLength));
         }}
       />
+      {text.lengthCheck === false && (
+        <p className="text-red-600 text-sm">
+          {label}の入力文字数は{maxLength}文字以内です
+        </p>
+      )}
     </div>
   );
 };

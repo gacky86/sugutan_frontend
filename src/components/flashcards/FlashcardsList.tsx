@@ -10,6 +10,7 @@ import PageTitle from "@/components/common/PageTitle";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/stores/index";
 import { fetchFlashcards } from "@/stores/flashcardsSlice";
+import { openModal } from "@/stores/modalSlice";
 
 const FlashcardsList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,7 +39,12 @@ const FlashcardsList = () => {
           </>
         )}
       </div>
-      <div className="flex items-center absolute bottom-15 right-15 cursor-pointer">
+
+      {/* 単語帳作成モーダルを開く */}
+      <div
+        className="flex items-center absolute bottom-15 right-15 cursor-pointer"
+        onClick={() => dispatch(openModal({ modalContent: "newFlashcard" }))}
+      >
         <IoMdAddCircle className="text-4xl text-blue-500" />
         <p className="text-lg">単語帳を新規作成</p>
       </div>

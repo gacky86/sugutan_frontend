@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 // components
 // import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/common/SubmitButton";
-import TextInput from "@/components/common/TextInput";
+import EmailInput from "@/components/common/EmailInput";
 import PasswordInput from "@/components/common/PasswordInput";
 
 // func
@@ -82,7 +82,7 @@ const SignInForm: React.FC = () => {
         </p>
       </div>
       <form onSubmit={handleSubmit}>
-        <TextInput
+        <EmailInput
           label="E-mail"
           name="email"
           id="email"

@@ -9,4 +9,5 @@ export interface FlashcardParams {
   title: string;
   description: string;
   language: string;
+  iconColor: string;
 }

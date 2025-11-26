@@ -4,6 +4,7 @@ import type { RootState } from "@/stores/index";
 
 // Components
 import FlashcardDetailModal from "@/components/modal/FlashcardDetailModal";
+import NewFlashcardModal from "@/components/modal/NewFlashcardModal";
 import type { Flashcard } from "@/types";
 
 const ModalManager = () => {
@@ -18,6 +19,8 @@ const ModalManager = () => {
   switch (modalContent) {
     case "flashcardDetail":
       return <FlashcardDetailModal flashcard={modalProps as Flashcard} />;
+    case "newFlashcard":
+      return <NewFlashcardModal />;
     default:
       return null;
   }
