@@ -3,8 +3,9 @@ import type { Flashcard } from "@/types/index";
 // components
 import MainButton from "@/components/common/MainButton";
 // redux
-import { openModal } from "@/stores/modalSlice";
+import { openModal, closeModal } from "@/stores/modalSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   flashcard: Flashcard;
@@ -12,6 +13,7 @@ type Props = {
 
 const FlashcardDetailModal = ({ flashcard }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -47,7 +49,8 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
           text="登録カードの管理"
           disabled={false}
           onClick={() => {
-            console.log("clicked");
+            navigate(`/flashcards/${flashcard.id}/cards`);
+            dispatch(closeModal());
           }}
         />
         <MainButton
