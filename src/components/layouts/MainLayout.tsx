@@ -15,7 +15,7 @@ const MainLayout = ({ childrenContent }: Props) => {
         <div className="border border-gray-300">
           <MenuBar />
         </div>
-        <div className="col-span-4 border border-gray-300 bg-orange-50">
+        <div className="col-span-4 border border-gray-300 bg-white">
           {childrenContent}
         </div>
       </div>
