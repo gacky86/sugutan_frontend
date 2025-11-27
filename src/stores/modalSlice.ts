@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type ModalPayload = {
-  modalContent: "flashcardDetail" | "newFlashcard" | "editFlashcard";
+  modalContent:
+    | "flashcardDetail"
+    | "newFlashcard"
+    | "editFlashcard"
+    | "newCard"
+    | "editCard";
   modalProps?: unknown;
 };
 

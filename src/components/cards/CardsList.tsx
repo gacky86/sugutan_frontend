@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 // react-icons
 import { PiCardsThin } from "react-icons/pi";
-
+import { IoMdAddCircle } from "react-icons/io";
 // components
 import CardsTable from "@/components/cards/CardsTable";
 import PageTitle from "@/components/common/PageTitle";
@@ -12,6 +12,7 @@ import PageTitle from "@/components/common/PageTitle";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/stores/index";
 import { fetchCards } from "@/stores/cardsSlice";
+import { openModal } from "@/stores/modalSlice";
 
 // functions
 import { selectFlashcardById } from "@/utils/selectors";
@@ -49,6 +50,18 @@ const CardsList = () => {
               </h3>
             </>
           )}
+          {/* 単語カード作成モーダルを開く */}
+          <div
+            className="flex items-center absolute bottom-15 right-15 cursor-pointer"
+            onClick={() =>
+              dispatch(
+                openModal({ modalContent: "newCard", modalProps: flashcard })
+              )
+            }
+          >
+            <IoMdAddCircle className="text-4xl text-blue-500" />
+            <p className="text-lg">単語カードを追加</p>
+          </div>
         </>
       ) : (
         <h3 className="text-center">
