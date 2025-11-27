@@ -1,12 +1,14 @@
 // Redux
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/index";
-
+// types
+import type { Flashcard } from "@/types";
 // Components
 import FlashcardDetailModal from "@/components/modal/FlashcardDetailModal";
 import NewFlashcardModal from "@/components/modal/NewFlashcardModal";
-import type { Flashcard } from "@/types";
-import EditFlashcardModal from "./EditFlashcardModal";
+import EditFlashcardModal from "@/components/modal/EditFlashcardModal";
+import EditCardModal from "@/components/modal/EditCardModal";
+import NewCardModal from "@/components/modal/NewCardModal";
 
 const ModalManager = () => {
   const { isVisible, modalContent, modalProps } = useSelector(
@@ -24,6 +26,10 @@ const ModalManager = () => {
       return <NewFlashcardModal />;
     case "editFlashcard":
       return <EditFlashcardModal flashcard={modalProps as Flashcard} />;
+    case "newCard":
+      return <NewCardModal flashcard={modalProps as Flashcard} />;
+    case "editCard":
+      return <EditCardModal />;
     default:
       return null;
   }
