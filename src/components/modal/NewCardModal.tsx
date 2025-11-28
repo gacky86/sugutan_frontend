@@ -1,54 +1,36 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
 // types
-import type { CardParams, Flashcard, RailsErrorResponse } from "@/types";
+import type {
+  CardParams,
+  Flashcard,
+  RailsErrorResponse,
+  FieldState,
+  CardInputState,
+} from "@/types";
 // components
 import TextInput from "@/components/common/TextInput";
 import SubmitButton from "@/components/common/SubmitButton";
+import TextAreaInput from "@/components/common/TextAreaInput";
+// functions
 import { createCard } from "@/api/card";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { addCard } from "@/stores/cardsSlice";
-// import { addFlashcard } from "@/stores/flashcardsSlice";
 
 const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
+  const dispatch = useDispatch();
   // ============= State定義 開始 ==============
-  const [front, setFront] = useState<{
-    lengthCheck: boolean;
-    input: string;
-  }>({
-    lengthCheck: true,
-    input: "",
-  });
-  const [back, setBack] = useState<{
-    lengthCheck: boolean;
-    input: string;
-  }>({
-    lengthCheck: true,
-    input: "",
-  });
-  const [frontSentence, setFrontSentence] = useState<{
-    lengthCheck: boolean;
-    input: string;
-  }>({
-    lengthCheck: true,
-    input: "",
-  });
-  const [backSentence, setBackSentence] = useState<{
-    lengthCheck: boolean;
-    input: string;
-  }>({
-    lengthCheck: true,
-    input: "",
-  });
-  const [explanation, setExplanation] = useState<{
-    lengthCheck: boolean;
-    input: string;
-  }>({
-    lengthCheck: true,
-    input: "",
-  });
+  const initialState: CardInputState = {
+    front: { input: "", lengthCheck: true },
+    back: { input: "", lengthCheck: true },
+    frontSentence: { input: "", lengthCheck: true },
+    backSentence: { input: "", lengthCheck: true },
+    explanation: { input: "", lengthCheck: true },
+  };
+  const [fields, setFields] = useState<CardInputState>(initialState);
+
   const [errorMessage, setErrorMessage] = useState<{
     message: string;
     hasError: boolean;
@@ -58,17 +40,24 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   });
   // ============= State定義 終了 ==============
 
-  const dispatch = useDispatch();
+  // ============= fields更新用関数 開始 =============
+  const updateField = (name: keyof CardInputState, value: FieldState) => {
+    setFields((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  // ============= fields更新用関数 終了 =============
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params: CardParams = {
-      front: front.input,
-      back: back.input,
-      frontSentence: frontSentence.input,
-      backSentence: backSentence.input,
-      explanation: explanation.input,
+      front: fields.front.input,
+      back: fields.back.input,
+      frontSentence: fields.frontSentence.input,
+      backSentence: fields.backSentence.input,
+      explanation: fields.explanation.input,
     };
     try {
       const res = await createCard(flashcard.id, params);
@@ -105,40 +94,40 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
             name="front"
             id="front"
             maxLength={50}
-            text={front}
-            setText={setFront}
+            text={fields.front}
+            setText={(val) => updateField("front", val)}
           />
           <TextInput
             label="English"
             name="back"
             id="back"
             maxLength={50}
-            text={back}
-            setText={setBack}
+            text={fields.back}
+            setText={(val) => updateField("back", val)}
           />
-          <TextInput
+          <TextAreaInput
             label="Japanese sentence"
             name="frontSentence"
             id="frontSentence"
             maxLength={50}
-            text={frontSentence}
-            setText={setFrontSentence}
+            text={fields.frontSentence}
+            setText={(val) => updateField("frontSentence", val)}
           />
-          <TextInput
+          <TextAreaInput
             label="English sentence"
             name="backSentence"
             id="backSentence"
             maxLength={50}
-            text={backSentence}
-            setText={setBackSentence}
+            text={fields.backSentence}
+            setText={(val) => updateField("backSentence", val)}
           />
-          <TextInput
+          <TextAreaInput
             label="Explanation"
             name="explanation"
             id="explanation"
             maxLength={50}
-            text={explanation}
-            setText={setExplanation}
+            text={fields.explanation}
+            setText={(val) => updateField("explanation", val)}
           />
         </div>
         {errorMessage.hasError === true && (

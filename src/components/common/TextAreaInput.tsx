@@ -13,24 +13,31 @@ type Props = {
   setText: (password: { lengthCheck: boolean; input: string }) => void;
 };
 
-const TextInput = ({ label, name, id, maxLength, text, setText }: Props) => {
+const TextAreaInput = ({
+  label,
+  name,
+  id,
+  maxLength,
+  text,
+  setText,
+}: Props) => {
   return (
     <div className="text-start">
       <label className="block w-full text-gray-400" htmlFor={name}>
         {label}
       </label>
-      <input
-        className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
-            hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
-            focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
+      <textarea
+        className="block w-full p-1 border border-gray-300 rounded-md my-1
+                duration-300
+                hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
+                focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
         name={name}
         id={id}
-        value={text.input}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        value={text.input ?? ""}
+        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
           setText(checkText(event, maxLength));
         }}
-      />
+      ></textarea>
       {text.lengthCheck === false && (
         <p className="text-red-600 text-sm">
           {label}の入力文字数は{maxLength}文字以内です
@@ -40,4 +47,4 @@ const TextInput = ({ label, name, id, maxLength, text, setText }: Props) => {
   );
 };
 
-export default TextInput;
+export default TextAreaInput;
