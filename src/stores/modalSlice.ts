@@ -1,3 +1,4 @@
+import type { Card, Flashcard } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export type ModalPayload = {
@@ -7,13 +8,19 @@ export type ModalPayload = {
     | "editFlashcard"
     | "newCard"
     | "editCard";
-  modalProps?: unknown;
+  modalProps?: {
+    flashcard?: Flashcard;
+    card?: Card;
+  };
 };
 
 type ModalState = {
   isVisible: boolean;
   modalContent: ModalPayload["modalContent"] | null;
-  modalProps: unknown;
+  modalProps: {
+    flashcard?: Flashcard;
+    card?: Card;
+  } | null;
 };
 
 const initialState: ModalState = {

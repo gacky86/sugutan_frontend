@@ -25,7 +25,7 @@ const ModalLayout = () => {
       onClick={() => dispatch(closeModal())}
     >
       <div
-        className="mx-auto my-30 bg-white min-w-[350px] max-w-[800px] w-[60%] min-h-[300px] max-h-[550px] rounded-sm relative"
+        className="mx-auto my-30 bg-white min-w-[350px] max-w-[800px] w-[60%] min-h-[300px] rounded-sm relative"
         onClick={(e) => e.stopPropagation()}
       >
         <ModalBackButton />

@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/index";
 // types
-import type { Flashcard } from "@/types";
+import type { Card, Flashcard } from "@/types";
 // Components
 import FlashcardDetailModal from "@/components/modal/FlashcardDetailModal";
 import NewFlashcardModal from "@/components/modal/NewFlashcardModal";
@@ -29,7 +29,12 @@ const ModalManager = () => {
     case "newCard":
       return <NewCardModal flashcard={modalProps as Flashcard} />;
     case "editCard":
-      return <EditCardModal />;
+      return (
+        <EditCardModal
+          flashcard={modalProps?.flashcard as Flashcard}
+          card={modalProps?.card as Card}
+        />
+      );
     default:
       return null;
   }
