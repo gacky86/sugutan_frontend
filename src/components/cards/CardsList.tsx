@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/stores/index";
 import { fetchCards } from "@/stores/cardsSlice";
 import { openModal } from "@/stores/modalSlice";
+import { fetchFlashcards } from "@/stores/flashcardsSlice";
 
 // functions
 import { selectFlashcardById } from "@/utils/selectors";
@@ -26,6 +27,7 @@ const CardsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const cards = useSelector((state: RootState) => state.cards.cards);
   useEffect(() => {
+    dispatch(fetchFlashcards());
     dispatch(fetchCards(flashcardId));
   }, [dispatch, flashcardId]);
 
