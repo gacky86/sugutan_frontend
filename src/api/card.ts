@@ -1,7 +1,7 @@
 // card.ts
 // 役割：HTTPリクエストを定義すること
 import client from "./client";
-import type { Card, CardParams } from "@/types/index";
+import type { CardParams } from "@/types/index";
 
 // 一覧
 export const getCardList = (flashcard_id: number) => {
@@ -19,7 +19,11 @@ export const createCard = (flashcard_id: number, params: CardParams) => {
 };
 
 // 更新
-export const updateCard = (flashcard_id: number, id: number, params: Card) => {
+export const updateCard = (
+  flashcard_id: number,
+  id: number,
+  params: CardParams
+) => {
   return client.patch(`/flashcards/${flashcard_id}/cards/${id}`, params);
 };
 
