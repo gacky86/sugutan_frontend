@@ -1,5 +1,7 @@
 export const checkText = (
-  event: React.ChangeEvent<HTMLInputElement>,
+  event:
+    | React.ChangeEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLTextAreaElement>,
   maxLength: number
 ) => {
   const value = event.target.value;
