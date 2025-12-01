@@ -139,7 +139,13 @@ const EditCardModal = ({
               !fields.front.input ||
               !fields.back.input ||
               !fields.frontSentence.input ||
-              !fields.backSentence.input
+              !fields.backSentence.input ||
+              !fields.front.lengthCheck ||
+              !fields.back.lengthCheck ||
+              !fields.frontSentence.lengthCheck ||
+              !fields.backSentence.lengthCheck ||
+              !fields.explanationFront.lengthCheck ||
+              !fields.explanationBack.lengthCheck
             }
           />
         </div>
