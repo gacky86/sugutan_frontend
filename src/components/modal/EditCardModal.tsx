@@ -35,7 +35,9 @@ const EditCardModal = ({
     back: { input: card.back, lengthCheck: true },
     frontSentence: { input: card.frontSentence, lengthCheck: true },
     backSentence: { input: card.backSentence, lengthCheck: true },
-    explanation: { input: card.explanation, lengthCheck: true },
+    explanationFront: { input: card.explanationFront, lengthCheck: true },
+    explanationBack: { input: card.explanationBack, lengthCheck: true },
+    cardType: { input: card.cardType, lengthCheck: true },
   };
   const [fields, setFields] = useState<CardInputState>(initialState);
 
@@ -65,7 +67,9 @@ const EditCardModal = ({
       back: fields.back.input,
       frontSentence: fields.frontSentence.input,
       backSentence: fields.backSentence.input,
-      explanation: fields.explanation.input,
+      explanationFront: fields.explanationFront.input,
+      explanationBack: fields.explanationBack.input,
+      cardType: fields.cardType.input,
     };
     try {
       const res = await updateCard(flashcard.id, card.id, params);
@@ -127,7 +131,7 @@ const EditCardModal = ({
             label="Japanese"
             name="front"
             id="front"
-            maxLength={50}
+            maxLength={60}
             text={fields.front}
             setText={(val) => updateField("front", val)}
           />
@@ -135,7 +139,7 @@ const EditCardModal = ({
             label="English"
             name="back"
             id="back"
-            maxLength={50}
+            maxLength={60}
             text={fields.back}
             setText={(val) => updateField("back", val)}
           />
@@ -143,7 +147,7 @@ const EditCardModal = ({
             label="Japanese sentence"
             name="frontSentence"
             id="frontSentence"
-            maxLength={50}
+            maxLength={256}
             text={fields.frontSentence}
             setText={(val) => updateField("frontSentence", val)}
           />
@@ -151,17 +155,33 @@ const EditCardModal = ({
             label="English sentence"
             name="backSentence"
             id="backSentence"
-            maxLength={50}
+            maxLength={256}
             text={fields.backSentence}
             setText={(val) => updateField("backSentence", val)}
           />
           <TextAreaInput
-            label="Explanation"
-            name="explanation"
-            id="explanation"
-            maxLength={50}
-            text={fields.explanation}
-            setText={(val) => updateField("explanation", val)}
+            label="Explanation in Japanese"
+            name="explanationFront"
+            id="explanationFront"
+            maxLength={256}
+            text={fields.explanationFront}
+            setText={(val) => updateField("explanationFront", val)}
+          />
+          <TextAreaInput
+            label="Explanation in English"
+            name="explanationBack"
+            id="explanationBack"
+            maxLength={256}
+            text={fields.explanationBack}
+            setText={(val) => updateField("explanationBack", val)}
+          />
+          <TextAreaInput
+            label="Card type"
+            name="cardType"
+            id="cardType"
+            maxLength={10}
+            text={fields.cardType}
+            setText={(val) => updateField("cardType", val)}
           />
         </div>
         {errorMessage.hasError === true && (

@@ -27,7 +27,9 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     back: { input: "", lengthCheck: true },
     frontSentence: { input: "", lengthCheck: true },
     backSentence: { input: "", lengthCheck: true },
-    explanation: { input: "", lengthCheck: true },
+    explanationFront: { input: "", lengthCheck: true },
+    explanationBack: { input: "", lengthCheck: true },
+    cardType: { input: "", lengthCheck: true },
   };
   const [fields, setFields] = useState<CardInputState>(initialState);
 
@@ -57,7 +59,9 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       back: fields.back.input,
       frontSentence: fields.frontSentence.input,
       backSentence: fields.backSentence.input,
-      explanation: fields.explanation.input,
+      explanationFront: fields.explanationFront.input,
+      explanationBack: fields.explanationBack.input,
+      cardType: fields.cardType.input,
     };
     try {
       const res = await createCard(flashcard.id, params);
@@ -93,7 +97,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
             label="Japanese"
             name="front"
             id="front"
-            maxLength={50}
+            maxLength={60}
             text={fields.front}
             setText={(val) => updateField("front", val)}
           />
@@ -101,7 +105,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
             label="English"
             name="back"
             id="back"
-            maxLength={50}
+            maxLength={60}
             text={fields.back}
             setText={(val) => updateField("back", val)}
           />
@@ -109,7 +113,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
             label="Japanese sentence"
             name="frontSentence"
             id="frontSentence"
-            maxLength={50}
+            maxLength={256}
             text={fields.frontSentence}
             setText={(val) => updateField("frontSentence", val)}
           />
@@ -117,17 +121,33 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
             label="English sentence"
             name="backSentence"
             id="backSentence"
-            maxLength={50}
+            maxLength={256}
             text={fields.backSentence}
             setText={(val) => updateField("backSentence", val)}
           />
           <TextAreaInput
-            label="Explanation"
-            name="explanation"
-            id="explanation"
-            maxLength={50}
-            text={fields.explanation}
-            setText={(val) => updateField("explanation", val)}
+            label="Explanation in Japanese"
+            name="explanationFront"
+            id="explanationFront"
+            maxLength={256}
+            text={fields.explanationFront}
+            setText={(val) => updateField("explanationFront", val)}
+          />
+          <TextAreaInput
+            label="Explanation in English"
+            name="explanationBack"
+            id="explanationBack"
+            maxLength={256}
+            text={fields.explanationBack}
+            setText={(val) => updateField("explanationBack", val)}
+          />
+          <TextAreaInput
+            label="Card type"
+            name="cardType"
+            id="cardType"
+            maxLength={10}
+            text={fields.cardType}
+            setText={(val) => updateField("cardType", val)}
           />
         </div>
         {errorMessage.hasError === true && (

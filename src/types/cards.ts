@@ -5,14 +5,18 @@ export interface Card {
   back: string;
   frontSentence: string;
   backSentence: string;
-  explanation: string;
+  explanationFront: string;
+  explanationBack: string;
+  cardType: string;
 }
 export interface CardParams {
   front: string;
   back: string;
   frontSentence: string;
   backSentence: string;
-  explanation: string;
+  explanationFront: string;
+  explanationBack: string;
+  cardType: string;
 }
 export type FieldState = {
   lengthCheck: boolean;
@@ -23,5 +27,7 @@ export type CardInputState = {
   back: FieldState;
   frontSentence: FieldState;
   backSentence: FieldState;
-  explanation: FieldState;
+  explanationFront: FieldState;
+  explanationBack: FieldState;
+  cardType: FieldState;
 };
