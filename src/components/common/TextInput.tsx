@@ -5,6 +5,7 @@ type Props = {
   label: string;
   name: string;
   id: string;
+  placeholder: string;
   maxLength: number;
   text: {
     lengthCheck: boolean;
@@ -13,7 +14,15 @@ type Props = {
   setText: (password: { lengthCheck: boolean; input: string }) => void;
 };
 
-const TextInput = ({ label, name, id, maxLength, text, setText }: Props) => {
+const TextInput = ({
+  label,
+  name,
+  id,
+  placeholder = "",
+  maxLength,
+  text,
+  setText,
+}: Props) => {
   return (
     <div className="text-start">
       <label className="block w-full text-gray-400" htmlFor={name}>
@@ -26,6 +35,7 @@ const TextInput = ({ label, name, id, maxLength, text, setText }: Props) => {
             focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
         name={name}
         id={id}
+        placeholder={placeholder}
         value={text.input}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setText(checkText(event, maxLength));

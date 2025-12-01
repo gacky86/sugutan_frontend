@@ -8,10 +8,10 @@ import type {
   FieldState,
   CardInputState,
 } from "@/types";
+import { cardTypes } from "@/utils/cardTypes";
 // components
-import TextInput from "@/components/common/TextInput";
 import SubmitButton from "@/components/common/SubmitButton";
-import TextAreaInput from "@/components/common/TextAreaInput";
+import CardsInputForm from "@/components/common/CardsInputForm";
 // functions
 import { createCard } from "@/api/card";
 // redux
@@ -29,7 +29,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     backSentence: { input: "", lengthCheck: true },
     explanationFront: { input: "", lengthCheck: true },
     explanationBack: { input: "", lengthCheck: true },
-    cardType: { input: "", lengthCheck: true },
+    cardType: { input: cardTypes[0], lengthCheck: true },
   };
   const [fields, setFields] = useState<CardInputState>(initialState);
 
@@ -92,70 +92,24 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         <h1 className="text-2xl mt-4">単語帳新規作成</h1>
       </div>
       <form onSubmit={handleSubmit}>
+        {/* カード入力項目 */}
         <div className="mx-auto my-10 max-w-[600px]">
-          <TextInput
-            label="Japanese"
-            name="front"
-            id="front"
-            maxLength={60}
-            text={fields.front}
-            setText={(val) => updateField("front", val)}
-          />
-          <TextInput
-            label="English"
-            name="back"
-            id="back"
-            maxLength={60}
-            text={fields.back}
-            setText={(val) => updateField("back", val)}
-          />
-          <TextAreaInput
-            label="Japanese sentence"
-            name="frontSentence"
-            id="frontSentence"
-            maxLength={256}
-            text={fields.frontSentence}
-            setText={(val) => updateField("frontSentence", val)}
-          />
-          <TextAreaInput
-            label="English sentence"
-            name="backSentence"
-            id="backSentence"
-            maxLength={256}
-            text={fields.backSentence}
-            setText={(val) => updateField("backSentence", val)}
-          />
-          <TextAreaInput
-            label="Explanation in Japanese"
-            name="explanationFront"
-            id="explanationFront"
-            maxLength={256}
-            text={fields.explanationFront}
-            setText={(val) => updateField("explanationFront", val)}
-          />
-          <TextAreaInput
-            label="Explanation in English"
-            name="explanationBack"
-            id="explanationBack"
-            maxLength={256}
-            text={fields.explanationBack}
-            setText={(val) => updateField("explanationBack", val)}
-          />
-          <TextAreaInput
-            label="Card type"
-            name="cardType"
-            id="cardType"
-            maxLength={10}
-            text={fields.cardType}
-            setText={(val) => updateField("cardType", val)}
-          />
+          <CardsInputForm fields={fields} updateField={updateField} />
         </div>
         {errorMessage.hasError === true && (
           <p className="text-sm text-red-600">{errorMessage.message}</p>
         )}
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
-          <SubmitButton text="作成" disabled={false} />
+          <SubmitButton
+            text="作成"
+            disabled={
+              !fields.front.input ||
+              !fields.back.input ||
+              !fields.frontSentence.input ||
+              !fields.backSentence.input
+            }
+          />
         </div>
       </form>
     </div>
