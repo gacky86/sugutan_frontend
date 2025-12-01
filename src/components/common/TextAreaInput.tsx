@@ -5,6 +5,7 @@ type Props = {
   label: string;
   name: string;
   id: string;
+  placeholder: string;
   maxLength: number;
   text: {
     lengthCheck: boolean;
@@ -17,6 +18,7 @@ const TextAreaInput = ({
   label,
   name,
   id,
+  placeholder = "",
   maxLength,
   text,
   setText,
@@ -33,6 +35,7 @@ const TextAreaInput = ({
                 focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
         name={name}
         id={id}
+        placeholder={placeholder}
         value={text.input ?? ""}
         onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
           setText(checkText(event, maxLength));
