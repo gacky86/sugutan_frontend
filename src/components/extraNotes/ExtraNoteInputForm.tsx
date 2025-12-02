@@ -6,29 +6,41 @@ import { extraNoteTypes } from "@/types/index";
 
 type Props = {
   fields: ExtraNoteInputState;
-  updateField: (name: keyof ExtraNoteInputState, value: FieldState) => void;
+  index: number;
+  updateField: (
+    index: number,
+    name: keyof ExtraNoteInputState,
+    value: FieldState
+  ) => void;
+  removeNote: () => void;
 };
 
-const ExtraNoteInputForm = ({ fields, updateField }: Props) => {
+const ExtraNoteInputForm = ({
+  fields,
+  index,
+  updateField,
+  removeNote,
+}: Props) => {
   return (
     <>
       <SelectInput
         label="Note type"
         name="noteType"
-        id="noteType"
+        id={`noteType_${index}`}
         options={extraNoteTypes}
         text={fields.noteType}
-        setText={(val) => updateField("noteType", val)}
+        setText={(val) => updateField(index, "noteType", val)}
       />
       <TextAreaInput
         label="Content"
         name="content"
-        id="content"
+        id={`content_${index}`}
         placeholder="単語・表現を使った例文を入力（日本語）"
         maxLength={256}
         text={fields.content}
-        setText={(val) => updateField("content", val)}
+        setText={(val) => updateField(index, "content", val)}
       />
+      <button onClick={removeNote}>ふかを削除</button>
     </>
   );
 };

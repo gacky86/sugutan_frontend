@@ -55,31 +55,35 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     content: { input: "", lengthCheck: true },
   };
   // extra_inputの入力を管理するstate
-  const [extraNoteFields, setExtraNoteFields] = useState<ExtraNoteInputState>(
-    extraNoteInitialState
-  );
+  const [extraNoteFieldsList, setExtraNoteFieldsList] = useState<
+    ExtraNoteInputState[]
+  >([extraNoteInitialState]);
   // ============= State定義 終了 ==============
 
   // ============= fields更新用関数 開始 =============
-  const updateField = (
-    name: keyof CardInputState | keyof ExtraNoteInputState,
-    value: FieldState
-  ) => {
+  const updateField = (name: keyof CardInputState, value: FieldState) => {
     setFields((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
   // ============= fields更新用関数 終了 =============
-  // ============= fields更新用関数(extra_note) 開始 =============
+
+  // ============= extra_note関連関数 開始 =============
   const updateExtraNoteField = (
-    name: keyof CardInputState | keyof ExtraNoteInputState,
+    index: number,
+    name: keyof ExtraNoteInputState,
     value: FieldState
   ) => {
-    setExtraNoteFields((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setExtraNoteFieldsList((prev) =>
+      prev.map((note, i) => (i === index ? { ...note, [name]: value } : note))
+    );
+  };
+  const addExtraNote = () => {
+    setExtraNoteFieldsList((prev) => [...prev, extraNoteInitialState]);
+  };
+  const removeExtraNote = (index: number) => {
+    setExtraNoteFieldsList((prev) => prev.filter((_, i) => i !== index));
   };
   // ============= fields更新用関数(extra_note) 終了 =============
 
@@ -102,7 +106,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(addCard(res.data));
         // cardの作成が正常終了した場合、extra_noteの作成を行う
-        handleExtraNoteSubmit(res.data);
+        handleExtraNoteSubmitAll(res.data);
       } else {
         console.log("card create error");
       }
@@ -119,28 +123,37 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     }
   };
   // cardの作成のあと、resからcard.idを取得し、extra_noteの作成を行うための関数
-  const handleExtraNoteSubmit = async (card: Card) => {
-    const params: ExtraNoteParams = {
-      noteType: extraNoteFields.noteType.input,
-      content: extraNoteFields.content.input,
-    };
-    try {
-      const res = await createExtraNote(card.id, params);
-      if (res.status === 200) {
-        console.log(res);
-      } else {
-        console.log("extranote create error");
-      }
-      // エラー処理
-    } catch (err) {
-      const error = err as AxiosError<RailsErrorResponse>;
-      const message =
-        error.response?.data?.error ||
-        "エラーが発生しました。もう一度やり直してください。";
-      setErrorMessage({
-        message: message,
-        hasError: true,
-      });
+  // const handleExtraNoteSubmit = async (card: Card) => {
+  //   const params: ExtraNoteParams = {
+  //     noteType: extraNoteFields.noteType.input,
+  //     content: extraNoteFields.content.input,
+  //   };
+  //   try {
+  //     const res = await createExtraNote(card.id, params);
+  //     if (res.status === 200) {
+  //       console.log(res);
+  //     } else {
+  //       console.log("extranote create error");
+  //     }
+  //     // エラー処理
+  //   } catch (err) {
+  //     const error = err as AxiosError<RailsErrorResponse>;
+  //     const message =
+  //       error.response?.data?.error ||
+  //       "エラーが発生しました。もう一度やり直してください。";
+  //     setErrorMessage({
+  //       message: message,
+  //       hasError: true,
+  //     });
+  //   }
+  // };
+  const handleExtraNoteSubmitAll = async (card: Card) => {
+    for (const fields of extraNoteFieldsList) {
+      const params: ExtraNoteParams = {
+        noteType: fields.noteType.input,
+        content: fields.content.input,
+      };
+      await createExtraNote(card.id, params);
     }
   };
 
@@ -161,10 +174,15 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         )}
         {/* Extra note入力項目 */}
         <div className="mx-auto my-10 max-w-[600px]">
-          <ExtraNoteInputForm
-            fields={extraNoteFields}
-            updateField={updateExtraNoteField}
-          />
+          {extraNoteFieldsList.map((fields, index) => (
+            <ExtraNoteInputForm
+              key={index}
+              fields={fields}
+              index={index}
+              updateField={updateExtraNoteField}
+              removeNote={() => removeExtraNote(index)}
+            />
+          ))}
         </div>
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
@@ -185,6 +203,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
           />
         </div>
       </form>
+      <button onClick={() => addExtraNote()}>追加を追加</button>
     </div>
   );
 };
