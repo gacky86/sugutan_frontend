@@ -3,7 +3,7 @@ import TextInput from "@/components/common/TextInput";
 import TextAreaInput from "@/components/common/TextAreaInput";
 import SelectInput from "@/components/common/SelectInput";
 import type { CardInputState, FieldState } from "@/types";
-import { cardTypes } from "@/utils/cardTypes";
+import { cardTypes } from "@/types/index";
 
 type Props = {
   fields: CardInputState;

@@ -31,3 +31,18 @@ export type CardInputState = {
   explanationBack: FieldState;
   cardType: FieldState;
 };
+
+export const cardTypes: string[] = [
+  "名詞",
+  "動詞",
+  "形容詞",
+  "副詞",
+  "連語・フレーズ",
+  "イディオム",
+  "助動詞",
+  "接続詞",
+  "代名詞",
+  "前置詞",
+  "冠詞",
+  "その他",
+];
