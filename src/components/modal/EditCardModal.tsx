@@ -11,7 +11,7 @@ import type {
 } from "@/types";
 // components
 import SubmitButton from "@/components/common/SubmitButton";
-import CardsInputForm from "@/components/common/CardsInputForm";
+import CardsInputForm from "@/components/cards/CardsInputForm";
 // functions
 import { deleteCard, updateCard } from "@/api/card";
 // redux

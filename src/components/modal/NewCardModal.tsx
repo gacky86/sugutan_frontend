@@ -7,21 +7,27 @@ import type {
   RailsErrorResponse,
   FieldState,
   CardInputState,
+  ExtraNoteInputState,
+  ExtraNoteParams,
+  Card,
 } from "@/types";
-import { cardTypes } from "@/utils/cardTypes";
+import { cardTypes, extraNoteTypes } from "@/types/index";
 // components
 import SubmitButton from "@/components/common/SubmitButton";
-import CardsInputForm from "@/components/common/CardsInputForm";
+import CardsInputForm from "@/components/cards/CardsInputForm";
+import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
 // functions
 import { createCard } from "@/api/card";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { addCard } from "@/stores/cardsSlice";
+import { createExtraNote } from "@/api/extraNote";
 
 const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   const dispatch = useDispatch();
   // ============= State定義 開始 ==============
+  // cardの入力を管理するstateの初期値
   const initialState: CardInputState = {
     front: { input: "", lengthCheck: true },
     back: { input: "", lengthCheck: true },
@@ -31,8 +37,10 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     explanationBack: { input: "", lengthCheck: true },
     cardType: { input: cardTypes[0], lengthCheck: true },
   };
+  // cardの入力を管理するstate
   const [fields, setFields] = useState<CardInputState>(initialState);
 
+  // エラーの表示・非表示を切り替えるstate
   const [errorMessage, setErrorMessage] = useState<{
     message: string;
     hasError: boolean;
@@ -40,16 +48,40 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     message: "",
     hasError: false,
   });
+
+  // extra_inputの入力を管理するstateの型
+  const extraNoteInitialState: ExtraNoteInputState = {
+    noteType: { input: extraNoteTypes[0], lengthCheck: true },
+    content: { input: "", lengthCheck: true },
+  };
+  // extra_inputの入力を管理するstate
+  const [extraNoteFields, setExtraNoteFields] = useState<ExtraNoteInputState>(
+    extraNoteInitialState
+  );
   // ============= State定義 終了 ==============
 
   // ============= fields更新用関数 開始 =============
-  const updateField = (name: keyof CardInputState, value: FieldState) => {
+  const updateField = (
+    name: keyof CardInputState | keyof ExtraNoteInputState,
+    value: FieldState
+  ) => {
     setFields((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
   // ============= fields更新用関数 終了 =============
+  // ============= fields更新用関数(extra_note) 開始 =============
+  const updateExtraNoteField = (
+    name: keyof CardInputState | keyof ExtraNoteInputState,
+    value: FieldState
+  ) => {
+    setExtraNoteFields((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  // ============= fields更新用関数(extra_note) 終了 =============
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,6 +101,8 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         dispatch(closeModal());
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(addCard(res.data));
+        // cardの作成が正常終了した場合、extra_noteの作成を行う
+        handleExtraNoteSubmit(res.data);
       } else {
         console.log("card create error");
       }
@@ -84,6 +118,32 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       });
     }
   };
+  // cardの作成のあと、resからcard.idを取得し、extra_noteの作成を行うための関数
+  const handleExtraNoteSubmit = async (card: Card) => {
+    const params: ExtraNoteParams = {
+      noteType: extraNoteFields.noteType.input,
+      content: extraNoteFields.content.input,
+    };
+    try {
+      const res = await createExtraNote(card.id, params);
+      if (res.status === 200) {
+        console.log(res);
+      } else {
+        console.log("extranote create error");
+      }
+      // エラー処理
+    } catch (err) {
+      const error = err as AxiosError<RailsErrorResponse>;
+      const message =
+        error.response?.data?.error ||
+        "エラーが発生しました。もう一度やり直してください。";
+      setErrorMessage({
+        message: message,
+        hasError: true,
+      });
+    }
+  };
+
   // ============= ボタン押下時関数 終了 ==============
 
   return (
@@ -99,6 +159,13 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         {errorMessage.hasError === true && (
           <p className="text-sm text-red-600">{errorMessage.message}</p>
         )}
+        {/* Extra note入力項目 */}
+        <div className="mx-auto my-10 max-w-[600px]">
+          <ExtraNoteInputForm
+            fields={extraNoteFields}
+            updateField={updateExtraNoteField}
+          />
+        </div>
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
           <SubmitButton
