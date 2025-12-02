@@ -19,7 +19,7 @@ const SelectInput = ({
   setText,
 }: SelectInputProps) => {
   return (
-    <div className="mb-6">
+    <div>
       <label
         htmlFor={id}
         className="block text-sm font-medium mb-1 text-gray-400"

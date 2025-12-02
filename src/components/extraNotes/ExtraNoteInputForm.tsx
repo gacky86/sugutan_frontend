@@ -3,6 +3,7 @@ import TextAreaInput from "@/components/common/TextAreaInput";
 import SelectInput from "@/components/common/SelectInput";
 import type { ExtraNoteInputState, FieldState } from "@/types";
 import { extraNoteTypes } from "@/types/index";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 type Props = {
   fields: ExtraNoteInputState;
@@ -22,7 +23,7 @@ const ExtraNoteInputForm = ({
   removeNote,
 }: Props) => {
   return (
-    <>
+    <div className="border border-gray-500 rounded-lg p-3 mb-3 shadow-lg">
       <SelectInput
         label="Note type"
         name="noteType"
@@ -40,8 +41,10 @@ const ExtraNoteInputForm = ({
         text={fields.content}
         setText={(val) => updateField(index, "content", val)}
       />
-      <button onClick={removeNote}>ふかを削除</button>
-    </>
+      <div className="text-2xl text-gray-500 flex justify-end">
+        <RiDeleteBin6Line onClick={removeNote} />
+      </div>
+    </div>
   );
 };
 
