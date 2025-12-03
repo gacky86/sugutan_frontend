@@ -1,4 +1,5 @@
 import MenuBar from "@/components/common/MenuBar";
+import MenuBarBottom from "@/components/common/MenuBarBottom";
 import Header from "@/components/common/Header";
 
 type Props = {
@@ -8,15 +9,30 @@ type Props = {
 const MainLayout = ({ childrenContent }: Props) => {
   return (
     <div className="h-screen flex flex-col">
-      <div className="border border-gray-300">
+      {/* --- Header（MD以上で表示） --- */}
+      <div className="border border-gray-300 hidden md:block">
         <Header />
       </div>
-      <div className="grid grid-cols-5 grid-rows-1 flex-1">
+
+      {/* --- PCレイアウト（md 以上）--- */}
+      <div className="hidden md:grid md:grid-cols-5 md:flex-1 md:grid-rows-1">
         <div className="border border-gray-300">
           <MenuBar />
         </div>
-        <div className="col-span-4 border border-gray-300 bg-white">
+
+        <div className="col-span-4 border border-gray-300 bg-white overflow-y-auto">
           {childrenContent}
+        </div>
+      </div>
+
+      {/* --- モバイル / タブレットレイアウト（md 未満）--- */}
+      <div className="flex flex-col flex-1 md:hidden">
+        <div className="flex-1 overflow-y-auto bg-white border border-gray-300">
+          {childrenContent}
+        </div>
+
+        <div className="border border-gray-300">
+          <MenuBarBottom />
         </div>
       </div>
     </div>

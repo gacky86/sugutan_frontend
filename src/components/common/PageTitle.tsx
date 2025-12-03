@@ -6,7 +6,7 @@ type Props = {
 
 const PageTitle = ({ text, icon: Icon }: Props) => {
   return (
-    <div className="flex items-center text-3xl m-3">
+    <div className="flex items-center text-2xl m-3">
       <Icon />
       <h1 className="ml-2">{text}</h1>
     </div>
