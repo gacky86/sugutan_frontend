@@ -1,16 +1,19 @@
 import { useState } from "react";
-import type { CardInputState, FieldState } from "@/types";
+import type { Card, CardInputState, FieldState } from "@/types";
 import { cardTypes } from "@/types";
 
-export const useCardForm = () => {
+export const useCardForm = (card?: Card) => {
   const initialState: CardInputState = {
-    front: { input: "", lengthCheck: true },
-    back: { input: "", lengthCheck: true },
-    frontSentence: { input: "", lengthCheck: true },
-    backSentence: { input: "", lengthCheck: true },
-    explanationFront: { input: "", lengthCheck: true },
-    explanationBack: { input: "", lengthCheck: true },
-    cardType: { input: cardTypes[0], lengthCheck: true },
+    front: { input: card?.front || "", lengthCheck: true },
+    back: { input: card?.back || "", lengthCheck: true },
+    frontSentence: { input: card?.frontSentence || "", lengthCheck: true },
+    backSentence: { input: card?.backSentence || "", lengthCheck: true },
+    explanationFront: {
+      input: card?.explanationFront || "",
+      lengthCheck: true,
+    },
+    explanationBack: { input: card?.explanationBack || "", lengthCheck: true },
+    cardType: { input: card?.cardType || cardTypes[0], lengthCheck: true },
   };
 
   const [fields, setFields] = useState<CardInputState>(initialState);

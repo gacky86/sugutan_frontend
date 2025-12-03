@@ -1,24 +1,29 @@
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // types
-import type {
-  Card,
-  CardParams,
-  Flashcard,
-  RailsErrorResponse,
-  FieldState,
-  CardInputState,
-} from "@/types";
+import { type Card, type Flashcard, type RailsErrorResponse } from "@/types";
 // components
 import SubmitButton from "@/components/common/SubmitButton";
 import CardsInputForm from "@/components/cards/CardsInputForm";
+import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
+
 // functions
 import { deleteCard, updateCard } from "@/api/card";
+import { getExtraNotesList } from "@/api/extraNote";
+import { createExtraNote } from "@/api/extraNote";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { editCard, removeCard } from "@/stores/cardsSlice";
 import DeleteButton from "../common/DeleteButton";
+
+// custom hook
+import { useCardForm } from "@/hooks/useCardForm";
+import { useExtraNotesForm } from "@/hooks/useExtraNoteForm";
+// utils
+import { buildCardParams } from "@/utils/buildCardParams";
+import { buildExtraNoteParams } from "@/utils/buildExtraNoteParams";
+import clsx from "clsx";
 
 const EditCardModal = ({
   flashcard,
@@ -28,17 +33,30 @@ const EditCardModal = ({
   card: Card;
 }) => {
   const dispatch = useDispatch();
-  // ============= State定義 開始 ==============
-  const initialState: CardInputState = {
-    front: { input: card.front, lengthCheck: true },
-    back: { input: card.back, lengthCheck: true },
-    frontSentence: { input: card.frontSentence, lengthCheck: true },
-    backSentence: { input: card.backSentence, lengthCheck: true },
-    explanationFront: { input: card.explanationFront, lengthCheck: true },
-    explanationBack: { input: card.explanationBack, lengthCheck: true },
-    cardType: { input: card.cardType, lengthCheck: true },
+
+  // cardが持っているextraNotesの一覧の取得
+  const [extraNotes, setExtraNotes] = useState([]);
+  const handleGetExtraNotesList = async () => {
+    try {
+      const res = await getExtraNotesList(card.id);
+      setExtraNotes(res.data);
+    } catch (err) {
+      const error = err as AxiosError<RailsErrorResponse>;
+      console.log(error);
+    }
   };
-  const [fields, setFields] = useState<CardInputState>(initialState);
+
+  const { fields, updateField } = useCardForm(card);
+  const { notes, updateNoteField, addNote, deleteNote, resetNotes } =
+    useExtraNotesForm(extraNotes);
+
+  useEffect(() => {
+    handleGetExtraNotesList();
+  }, [card.id]);
+
+  useEffect(() => {
+    resetNotes(extraNotes);
+  }, [extraNotes]);
 
   const [errorMessage, setErrorMessage] = useState<{
     message: string;
@@ -47,35 +65,23 @@ const EditCardModal = ({
     message: "",
     hasError: false,
   });
-  // ============= State定義 終了 ==============
-
-  // ============= fields更新用関数 開始 =============
-  const updateField = (name: keyof CardInputState, value: FieldState) => {
-    setFields((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  // ============= fields更新用関数 終了 =============
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const params: CardParams = {
-      front: fields.front.input,
-      back: fields.back.input,
-      frontSentence: fields.frontSentence.input,
-      backSentence: fields.backSentence.input,
-      explanationFront: fields.explanationFront.input,
-      explanationBack: fields.explanationBack.input,
-      cardType: fields.cardType.input,
-    };
+    const params = buildCardParams(fields);
     try {
       const res = await updateCard(flashcard.id, card.id, params);
       if (res.status === 200) {
         dispatch(closeModal());
         // 先にUIだけ更新できる(楽観的UI)
         dispatch(editCard(res.data));
+        // cardの作成が正常終了した場合、extra_noteの作成を行う
+        // すでにcardが持っているextraNotesを全て削除する
+        for (const fields of notes) {
+          const params = buildExtraNoteParams(fields);
+          await createExtraNote(res.data.id, params);
+        }
       } else {
         console.log("card create error");
       }
@@ -125,16 +131,47 @@ const EditCardModal = ({
         <h1 className="text-2xl mt-4">単語カード編集</h1>
       </div>
       <form onSubmit={handleSubmit}>
+        {/* カード入力項目 */}
         <div className="mx-auto my-10 max-w-[600px]">
           <CardsInputForm fields={fields} updateField={updateField} />
         </div>
         {errorMessage.hasError === true && (
           <p className="text-sm text-red-600">{errorMessage.message}</p>
         )}
+        {/* Extra note入力項目 */}
+        <div className="mx-auto max-w-[600px]">
+          <div className="border-t border-gray-300 mt-8 mb-6 relative">
+            <p className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 text-gray-500">
+              Extra notes
+            </p>
+          </div>
+          {notes.map((fields, index) => (
+            <ExtraNoteInputForm
+              key={index}
+              fields={fields}
+              index={index}
+              updateField={updateNoteField}
+              removeNote={() => deleteNote(index)}
+            />
+          ))}
+          <button
+            type="button"
+            disabled={notes.length > 5}
+            onClick={() => addNote()}
+            className={clsx(
+              notes.length > 5
+                ? "border border-gray-500"
+                : "border border-red-500  hover:bg-red-500 hover:text-white duration-300",
+              "py-1 rounded-sm w-[140px] text-center text-gray-500"
+            )}
+          >
+            + Add Extra note
+          </button>
+        </div>
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
           <SubmitButton
-            text="更新"
+            text="作成"
             disabled={
               !fields.front.input ||
               !fields.back.input ||

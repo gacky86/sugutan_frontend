@@ -8,11 +8,11 @@ import CardsInputForm from "@/components/cards/CardsInputForm";
 import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
 // functions
 import { createCard } from "@/api/card";
+import { createExtraNote } from "@/api/extraNote";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { addCard } from "@/stores/cardsSlice";
-import { createExtraNote } from "@/api/extraNote";
 
 // utils
 import { buildCardParams } from "@/utils/buildCardParams";
