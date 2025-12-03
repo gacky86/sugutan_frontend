@@ -54,7 +54,7 @@ const CardsList = () => {
           )}
           {/* 単語カード作成モーダルを開く */}
           <div
-            className="flex items-center absolute bottom-15 right-15 cursor-pointer"
+            className="flex items-center absolute bottom-15 right-5 cursor-pointer"
             onClick={() =>
               dispatch(
                 openModal({ modalContent: "newCard", modalProps: flashcard })

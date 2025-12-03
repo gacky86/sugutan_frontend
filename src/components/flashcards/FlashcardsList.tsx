@@ -25,7 +25,7 @@ const FlashcardsList = () => {
   return (
     <div>
       <PageTitle text="単語帳一覧" icon={FaBook} />
-      <div className="flex flex-wrap gap-4 m-4">
+      <div className="flex flex-wrap gap-4 m-4 justify-center max-h-[70vh] overflow-y-auto ">
         {flashcards.length > 0 ? (
           flashcards.map((flashcard, key) => {
             return <FlashcardsCard key={key} flashcard={flashcard} />;
@@ -42,7 +42,7 @@ const FlashcardsList = () => {
 
       {/* 単語帳作成モーダルを開く */}
       <div
-        className="flex items-center absolute bottom-15 right-15 cursor-pointer"
+        className="flex items-center absolute bottom-15 right-5 cursor-pointer"
         onClick={() => dispatch(openModal({ modalContent: "newFlashcard" }))}
       >
         <IoMdAddCircle className="text-4xl text-blue-500" />
