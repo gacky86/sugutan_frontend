@@ -13,6 +13,7 @@ type FieldState = {
   input: string;
 };
 export type ExtraNoteInputState = {
+  id?: number;
   noteType: FieldState;
   content: FieldState;
 };
