@@ -10,7 +10,11 @@ import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
 // functions
 import { deleteCard, updateCard } from "@/api/card";
 import { getExtraNotesList } from "@/api/extraNote";
-import { createExtraNote } from "@/api/extraNote";
+import {
+  createExtraNote,
+  deleteExtraNote,
+  updateExtraNote,
+} from "@/api/extraNote";
 // redux
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
@@ -47,8 +51,14 @@ const EditCardModal = ({
   };
 
   const { fields, updateField } = useCardForm(card);
-  const { notes, updateNoteField, addNote, deleteNote, resetNotes } =
-    useExtraNotesForm(extraNotes);
+  const {
+    notes,
+    deleteNoteIds,
+    updateNoteField,
+    addNote,
+    deleteNote,
+    resetNotes,
+  } = useExtraNotesForm(extraNotes);
 
   useEffect(() => {
     handleGetExtraNotesList();
@@ -76,12 +86,10 @@ const EditCardModal = ({
         dispatch(closeModal());
         // 先にUIだけ更新できる(楽観的UI)
         dispatch(editCard(res.data));
-        // cardの作成が正常終了した場合、extra_noteの作成を行う
-        // すでにcardが持っているextraNotesを全て削除する
-        for (const fields of notes) {
-          const params = buildExtraNoteParams(fields);
-          await createExtraNote(res.data.id, params);
-        }
+        console.log("cardの更新完了");
+
+        // cardの更新が正常終了した場合、extra_noteの更新・削除・作成を行う
+        await handleExtraNotesSubmit(res.data.id);
       } else {
         console.log("card create error");
       }
@@ -98,6 +106,46 @@ const EditCardModal = ({
     }
   };
   // ============= ボタン押下時関数 終了 ==============
+
+  // ============= ボタン押下時関数(ExtraNotesAPI処理) 開始 ==============
+  const handleExtraNotesSubmit = async (cardId: number) => {
+    try {
+      // ----------------------------------------
+      // 1. 削除処理
+      // ----------------------------------------
+      for (const noteId of deleteNoteIds) {
+        await deleteExtraNote(cardId, noteId);
+      }
+
+      // ----------------------------------------
+      // 2. notes を「既存」「新規」に振り分け
+      // ----------------------------------------
+      const existingNotes = notes.filter((n) => "id" in n && n.id);
+      const newNotes = notes.filter((n) => !("id" in n));
+
+      // ----------------------------------------
+      // 3. 既存 Note の更新
+      // ----------------------------------------
+      for (const note of existingNotes) {
+        const params = buildExtraNoteParams(note);
+        await updateExtraNote(cardId, note.id!, params);
+      }
+
+      // ----------------------------------------
+      // 4. 新規 Note の作成
+      // ----------------------------------------
+      for (const note of newNotes) {
+        const params = buildExtraNoteParams(note);
+        await createExtraNote(cardId, params);
+      }
+
+      console.log("extra note の更新が完了しました");
+    } catch (err) {
+      console.error("extra note update error", err);
+      throw err; // 呼び出し元 handleSubmit 側でエラーハンドリング可能
+    }
+  };
+  // ============= ボタン押下時関数(ExtraNotesAPI処理) 終了 ==============
 
   // ============= 削除ボタン押下時関数 開始 ==============
   const handleDelete = async () => {
