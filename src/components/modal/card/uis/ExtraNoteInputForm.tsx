@@ -1,6 +1,6 @@
 // components
-import TextAreaInput from "@/components/common/TextAreaInput";
-import SelectInput from "@/components/common/SelectInput";
+import TextAreaInput from "@/components/uis/common/TextAreaInput";
+import SelectInput from "@/components/uis/common/SelectInput";
 import type { ExtraNoteInputState, FieldState } from "@/types";
 import { extraNoteTypes } from "@/types/index";
 import { RiDeleteBin6Line } from "react-icons/ri";

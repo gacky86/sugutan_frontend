@@ -11,11 +11,11 @@ import {
 import "@/App.css";
 
 // Pages
-import SignIn from "@/pages/SignIn";
-import SignUp from "@/pages/SignUp";
-import CheckEmail from "@/pages/CheckEmail";
-import Flashcards from "@/pages/Flashcards";
-import Cards from "@/pages/Cards";
+import SignIn from "@/components/pages/SignIn";
+import SignUp from "@/components/pages/SignUp";
+import CheckEmail from "@/components/pages/CheckEmail";
+import Flashcards from "@/components/pages/Flashcards";
+import Cards from "@/components/pages/Cards";
 
 //Functions
 // import { useAuth } from "@/hooks/useAuth";

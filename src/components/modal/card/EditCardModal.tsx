@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 // types
 import { type Card, type Flashcard, type RailsErrorResponse } from "@/types";
 // components
-import SubmitButton from "@/components/common/SubmitButton";
-import CardsInputForm from "@/components/cards/CardsInputForm";
-import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
+import SubmitButton from "@/components/uis/common/SubmitButton";
+import CardsInputForm from "@/components/modal/card/uis/CardsInputForm";
+import ExtraNoteInputForm from "@/components/modal/card/uis/ExtraNoteInputForm";
 
 // functions
 import { deleteCard, updateCard } from "@/api/card";
@@ -19,7 +19,7 @@ import {
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { editCard, removeCard } from "@/stores/cardsSlice";
-import DeleteButton from "../common/DeleteButton";
+import DeleteButton from "../../uis/common/DeleteButton";
 
 // custom hook
 import { useCardForm } from "@/hooks/useCardForm";

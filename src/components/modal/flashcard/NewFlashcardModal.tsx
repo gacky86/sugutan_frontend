@@ -2,36 +2,33 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 
 // types
-import type { Flashcard, FlashcardParams, RailsErrorResponse } from "@/types";
+import type { FlashcardParams, RailsErrorResponse } from "@/types";
 
 // components
-import TextInput from "@/components/common/TextInput";
-import SubmitButton from "@/components/common/SubmitButton";
-import DeleteButton from "@/components/common/DeleteButton";
-import { updateFlashcard, deleteFlashcard } from "@/api/flashcard";
+import TextInput from "@/components/uis/common/TextInput";
+import SubmitButton from "@/components/uis/common/SubmitButton";
+import { createFlashcard } from "@/api/flashcard";
 
 // redux
 import { useDispatch } from "react-redux";
-import { openModal, closeModal } from "@/stores/modalSlice";
-import { editFlashcard, removeFlashcard } from "@/stores/flashcardsSlice";
+import { closeModal } from "@/stores/modalSlice";
+import { addFlashcard } from "@/stores/flashcardsSlice";
 
-const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
-  const dispatch = useDispatch();
-
+const NewFlashcardModal = () => {
   // ============= State定義 開始 ==============
   const [title, setTitle] = useState<{
     lengthCheck: boolean;
     input: string;
   }>({
     lengthCheck: true,
-    input: flashcard.title,
+    input: "",
   });
   const [description, setDescription] = useState<{
     lengthCheck: boolean;
     input: string;
   }>({
     lengthCheck: true,
-    input: flashcard.description,
+    input: "",
   });
   const [errorMessage, setErrorMessage] = useState<{
     message: string;
@@ -42,8 +39,9 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   });
   // ============= State定義 終了 ==============
 
-  // ============= 更新ボタン押下時関数 開始 ==============
+  const dispatch = useDispatch();
 
+  // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params: FlashcardParams = {
@@ -53,46 +51,20 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       iconColor: "red",
     };
     try {
-      const res = await updateFlashcard(flashcard.id, params);
+      const res = await createFlashcard(params);
       console.log(res);
 
       if (res.status === 200) {
-        dispatch(
-          openModal({ modalContent: "flashcardDetail", modalProps: res.data })
-        );
-        // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
-        dispatch(editFlashcard(res.data));
-      } else {
-        console.log("flashcard edit error");
-      }
-      // エラー処理
-    } catch (err) {
-      const error = err as AxiosError<RailsErrorResponse>;
-      const message =
-        error.response?.data?.error ||
-        "エラーが発生しました。もう一度やり直してください。";
-      setErrorMessage({
-        message: message,
-        hasError: true,
-      });
-    }
-  };
-  // ============= 更新ボタン押下時関数 終了 ==============
-
-  // ============= 削除ボタン押下時関数 開始 ==============
-  const handleDelete = async () => {
-    try {
-      const res = await deleteFlashcard(flashcard.id);
-      if (res.status === 200) {
-        // モーダルを閉じる
         dispatch(closeModal());
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
-        dispatch(removeFlashcard(flashcard));
+        dispatch(addFlashcard(res.data));
       } else {
-        console.log("flashcard delete error");
+        console.log("flashcard create error");
       }
       // エラー処理
     } catch (err) {
+      console.log(err);
+
       const error = err as AxiosError<RailsErrorResponse>;
       const message =
         error.response?.data?.error ||
@@ -103,18 +75,19 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       });
     }
   };
-  // ============= 削除ボタン押下時関数 終了 ==============
+  // ============= ボタン押下時関数 終了 ==============
 
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">単語帳編集</h1>
+        <h1 className="text-2xl mt-4">単語帳新規作成</h1>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mx-auto my-10 max-w-[600px]">
           <TextInput
             label="Title"
             name="title"
+            placeholder="単語帳のタイトルを入力"
             id="title"
             maxLength={25}
             text={title}
@@ -123,6 +96,7 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
           <TextInput
             label="Description"
             name="description"
+            placeholder="単語帳の説明を入力（任意）"
             id="description"
             maxLength={120}
             text={description}
@@ -134,19 +108,11 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         )}
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
-          <SubmitButton text="更新" disabled={false} />
+          <SubmitButton text="作成" disabled={false} />
         </div>
-        {/* deleteボタン */}
       </form>
-      <div className="mx-auto my-6 max-w-[200px]">
-        <DeleteButton
-          text="単語帳を削除"
-          handleDelete={handleDelete}
-          disabled={false}
-        />
-      </div>
     </div>
   );
 };
 
-export default EditFlashcardModal;
+export default NewFlashcardModal;

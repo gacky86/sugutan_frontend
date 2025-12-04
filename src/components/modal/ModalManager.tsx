@@ -7,7 +7,7 @@ import type { Card, Flashcard } from "@/types";
 import FlashcardDetailModal from "@/components/modal/FlashcardDetailModal";
 import NewFlashcardModal from "@/components/modal/NewFlashcardModal";
 import EditFlashcardModal from "@/components/modal/EditFlashcardModal";
-import EditCardModal from "@/components/modal/EditCardModal";
+import EditCardModal from "@/components/modal/editCard/EditCardModal";
 import NewCardModal from "@/components/modal/NewCardModal";
 
 const ModalManager = () => {

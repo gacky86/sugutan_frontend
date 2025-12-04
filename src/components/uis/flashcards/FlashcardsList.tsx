@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { FaBook } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 // components
-import FlashcardsCard from "@/components/flashcards/FlashcardsCard";
-import PageTitle from "@/components/common/PageTitle";
+import FlashcardsCard from "@/components/uis/flashcards/uis/FlashcardsCard";
+import PageTitle from "@/components/uis/common/PageTitle";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/stores/index";

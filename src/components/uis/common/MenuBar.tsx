@@ -1,4 +1,4 @@
-import MenuButton from "@/components/common/MenuButton";
+import MenuButton from "@/components/uis/common/MenuButton";
 import { FaSearch } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { AiOutlineGlobal } from "react-icons/ai";

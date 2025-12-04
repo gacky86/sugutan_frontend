@@ -1,6 +1,6 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import ModalLayout from "@/components/layouts/ModalLayout";
-import FlashcardsList from "@/components/flashcards/FlashcardsList";
+import FlashcardsList from "@/components/uis/flashcards/FlashcardsList";
 
 const Flashcards = () => {
   return (

@@ -1,6 +1,6 @@
-import MenuBar from "@/components/common/MenuBar";
-import MenuBarBottom from "@/components/common/MenuBarBottom";
-import Header from "@/components/common/Header";
+import MenuBar from "@/components/uis/common/MenuBar";
+import MenuBarBottom from "@/components/uis/common/MenuBarBottom";
+import Header from "@/components/uis/common/Header";
 
 type Props = {
   childrenContent: React.ReactNode;

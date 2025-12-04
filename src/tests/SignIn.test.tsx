@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
-import SignInForm from "@/components/auth/SignInForm";
+import SignInForm from "@/components/uis/auth/SignInForm";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 test("renders h1 text", () => {
