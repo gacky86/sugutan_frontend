@@ -4,11 +4,11 @@ import type { RootState } from "@/stores/index";
 // types
 import type { Card, Flashcard } from "@/types";
 // Components
-import FlashcardDetailModal from "@/components/modal/FlashcardDetailModal";
-import NewFlashcardModal from "@/components/modal/NewFlashcardModal";
-import EditFlashcardModal from "@/components/modal/EditFlashcardModal";
-import EditCardModal from "@/components/modal/editCard/EditCardModal";
-import NewCardModal from "@/components/modal/NewCardModal";
+import FlashcardDetailModal from "@/components/modal/flashcard/FlashcardDetailModal";
+import NewFlashcardModal from "@/components/modal/flashcard/NewFlashcardModal";
+import EditFlashcardModal from "@/components/modal/flashcard/EditFlashcardModal";
+import EditCardModal from "@/components/modal/card/EditCardModal";
+import NewCardModal from "@/components/modal/card/NewCardModal";
 
 const ModalManager = () => {
   const { isVisible, modalContent, modalProps } = useSelector(
