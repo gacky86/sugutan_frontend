@@ -1,7 +1,7 @@
 // components
-import TextInput from "@/components/common/TextInput";
-import TextAreaInput from "@/components/common/TextAreaInput";
-import SelectInput from "@/components/common/SelectInput";
+import TextInput from "@/components/uis/common/TextInput";
+import TextAreaInput from "@/components/uis/common/TextAreaInput";
+import SelectInput from "@/components/uis/common/SelectInput";
 import type { CardInputState, FieldState } from "@/types";
 import { cardTypes } from "@/types/index";
 

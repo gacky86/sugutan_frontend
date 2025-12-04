@@ -1,6 +1,6 @@
 import AuthLayout from "@/components/layouts/AuthLayout";
-import SignInForm from "@/components/auth/SignInForm";
-import Introduction from "@/components/auth/Introduction";
+import SignInForm from "@/components/uis/auth/SignInForm";
+import Introduction from "@/components/uis/auth/Introduction";
 
 const SignIn: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 // types
 import type { Flashcard } from "@/types/index";
 // components
-import MainButton from "@/components/common/MainButton";
+import MainButton from "@/components/uis/common/MainButton";
 // redux
 import { openModal, closeModal } from "@/stores/modalSlice";
 import { useDispatch } from "react-redux";

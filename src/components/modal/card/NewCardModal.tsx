@@ -3,9 +3,9 @@ import { useState } from "react";
 // types
 import type { Flashcard, RailsErrorResponse } from "@/types";
 // components
-import SubmitButton from "@/components/common/SubmitButton";
-import CardsInputForm from "@/components/cards/CardsInputForm";
-import ExtraNoteInputForm from "@/components/extraNotes/ExtraNoteInputForm";
+import SubmitButton from "@/components/uis/common/SubmitButton";
+import CardsInputForm from "@/components/modal/card/uis/CardsInputForm";
+import ExtraNoteInputForm from "@/components/modal/card/uis/ExtraNoteInputForm";
 // functions
 import { createCard } from "@/api/card";
 import { createExtraNote } from "@/api/extraNote";

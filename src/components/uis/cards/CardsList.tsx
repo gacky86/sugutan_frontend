@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { PiCardsThin } from "react-icons/pi";
 import { IoMdAddCircle } from "react-icons/io";
 // components
-import CardsTable from "@/components/cards/CardsTable";
-import PageTitle from "@/components/common/PageTitle";
+import CardsTable from "@/components/uis/cards/uis/CardsTable";
+import PageTitle from "@/components/uis/common/PageTitle";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";

@@ -7,9 +7,9 @@ import { AxiosError } from "axios";
 
 // components
 // import { GoogleIcon } from "@/components/auth/GoogleIcon";
-import SubmitButton from "@/components/common/SubmitButton";
-import EmailInput from "@/components/common/EmailInput";
-import PasswordInput from "@/components/common/PasswordInput";
+import SubmitButton from "@/components/uis/common/SubmitButton";
+import EmailInput from "@/components/uis/common/EmailInput";
+import PasswordInput from "@/components/uis/common/PasswordInput";
 
 // func
 import { signIn } from "@/api/auth";

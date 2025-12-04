@@ -8,8 +8,8 @@ import type { RootState } from "@/stores/index";
 import { closeModal } from "@/stores/modalSlice";
 
 // components
-import ModalCloseButton from "@/components/common/ModalCloseButton";
-import ModalBackButton from "@/components/common/ModalBackButton";
+import ModalCloseButton from "@/components/uis/common/ModalCloseButton";
+import ModalBackButton from "@/components/uis/common/ModalBackButton";
 import ModalManager from "@/components/modal/ModalManager";
 
 const ModalLayout = () => {

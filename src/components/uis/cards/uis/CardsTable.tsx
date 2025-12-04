@@ -1,6 +1,6 @@
 import type { Card, Flashcard } from "@/types";
 
-import CardRow from "@/components/cards/CardRow";
+import CardRow from "@/components/uis/cards/uis/CardRow";
 import { getLanguageName } from "@/utils/langNameMapper";
 
 type Props = {
