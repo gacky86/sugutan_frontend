@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   test: {
     globals: true,
-    include: ["src/tests/**/*.test.tsx"],
+    include: ["src/**/*.test.tsx", "src/**/*.test.ts"],
     exclude: [
       // 'src/tests/components/CardEdit.test.tsx',
       // 'src/tests/components/CardsList.test.tsx',
