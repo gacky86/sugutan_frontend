@@ -1,10 +1,10 @@
 const languageNames: { [key: string]: string } = {
   EN: "English",
   DE: "Deutsch",
-  FR: "français",
-  IT: "italiano",
+  FR: "Français",
+  IT: "Italiano",
 };
 
-export function getLanguageName(japaneseName: string): string {
-  return languageNames[japaneseName] || japaneseName;
+export function getLanguageName(langCode: string): string {
+  return languageNames[langCode] || langCode;
 }
