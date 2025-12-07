@@ -16,6 +16,7 @@ import SignUp from "@/components/pages/SignUp";
 import CheckEmail from "@/components/pages/CheckEmail";
 import Flashcards from "@/components/pages/Flashcards";
 import Cards from "@/components/pages/Cards";
+import Dictionary from "@/components/pages/Dictionary";
 
 //Functions
 // import { useAuth } from "@/hooks/useAuth";
@@ -93,6 +94,7 @@ const App: React.FC = () => {
             <Route path="checkemail" element={<CheckEmail />} />
             <Route element={<Private />}>
               <Route path="/" element={<Flashcards />} />
+              <Route path="/dictionary" element={<Dictionary />} />
               <Route path="/flashcards/:id/cards" element={<Cards />} />
             </Route>
           </Routes>
