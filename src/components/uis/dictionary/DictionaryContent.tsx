@@ -1,0 +1,29 @@
+import { FaSearch } from "react-icons/fa";
+import PageTitle from "@/components/uis/common/PageTitle";
+import RegFlashcard from "@/components/uis/dictionary/uis/RegFlashcard";
+import SearchOption from "@/components/uis/dictionary/uis/SearchOption";
+import Results from "@/components/uis/dictionary/uis/Results";
+import SearchBar from "@/components/uis/dictionary/uis/SearchBar";
+
+const DictionaryContent = () => {
+  return (
+    <div>
+      <PageTitle text="表現検索" icon={FaSearch} />
+      <div className="grid grid-cols-6 grid-rows-1 gap-4">
+        <div className="col-span-4">
+          <SearchBar />
+          <div className="mx-6 mt-7">
+            <Results />
+            <Results />
+          </div>
+        </div>
+        <div className="col-span-2 col-start-5">
+          <SearchOption />
+          <RegFlashcard />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DictionaryContent;
