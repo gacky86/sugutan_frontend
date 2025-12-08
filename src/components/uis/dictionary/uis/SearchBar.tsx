@@ -3,11 +3,18 @@ import { FaArrowRight } from "react-icons/fa";
 import TextInput from "../../common/TextInput";
 import { useState } from "react";
 
+import { geminiTest } from "@/api/gemini";
+
 const SearchBar = () => {
   const [text, setText] = useState({ input: "", lengthCheck: true });
   const [dictionaryMode, setDictionaryMode] = useState<"search" | "translate">(
     "search"
   );
+
+  const geminiTestConductor = async () => {
+    await geminiTest();
+  };
+
   return (
     <div className="mx-6">
       <div className="flex items-center gap-2 text-lg justify-center">
@@ -27,7 +34,10 @@ const SearchBar = () => {
           text={text}
           setText={setText}
         />
-        <button className="border-indigo-400 text-indigo-500 border rounded-md px-1 absolute right-1 top-[5px] hover:bg-indigo-400 hover:text-white duration-300">
+        <button
+          className="border-indigo-400 text-indigo-500 border rounded-md px-1 absolute right-1 top-[5px] hover:bg-indigo-400 hover:text-white duration-300"
+          onClick={() => geminiTestConductor()}
+        >
           検索
         </button>
       </div>
