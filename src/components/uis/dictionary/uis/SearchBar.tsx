@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import TextInput from "../../common/TextInput";
 import { useState } from "react";
 
-import { geminiTest } from "@/api/gemini";
+import { dictionary } from "@/api/gemini";
 
 const SearchBar = () => {
   const [text, setText] = useState({ input: "", lengthCheck: true });
@@ -12,7 +12,8 @@ const SearchBar = () => {
   );
 
   const geminiTestConductor = async () => {
-    await geminiTest();
+    const res = await dictionary(text.input);
+    console.log(res.data);
   };
 
   return (
