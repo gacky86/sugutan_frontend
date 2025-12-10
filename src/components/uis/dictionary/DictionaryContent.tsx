@@ -14,7 +14,6 @@ const DictionaryContent = () => {
           <SearchBar />
           <div className="mx-6 mt-7">
             <Results />
-            <Results />
           </div>
         </div>
         <div className="col-span-2 col-start-5">
