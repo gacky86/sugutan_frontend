@@ -18,8 +18,8 @@ export const buildCardParams = (fields: CardInputState): CardParams => ({
 export const buildCardParamsDictionary = (
   result: DictionarySearchResult
 ): CardParams => ({
-  front: result.translation,
-  back: result.translation,
+  front: result.translation.jp,
+  back: result.translation.en,
   frontSentence: result.example.jp,
   backSentence: result.example.en,
   explanationFront: result.definition.jp,

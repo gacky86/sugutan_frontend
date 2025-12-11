@@ -24,7 +24,7 @@ const ResultCard = ({ result }: Props) => {
     <div className="border-gray-400 border rounded-lg flex flex-col shadow-lg px-2 py-1 mb-4">
       <h2 className="text-xl mb-1 pb-1 border-b border-gray-500">
         [{getPartOfSpeechLabels(result.partOfSpeech as PartOfSpeech)}]
-        {result.translation}
+        {result.translation.en}
       </h2>
       <div className="flex justify-between ">
         <div className="">
