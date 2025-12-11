@@ -4,8 +4,13 @@ import RegFlashcard from "@/components/uis/dictionary/uis/RegFlashcard";
 import SearchOption from "@/components/uis/dictionary/uis/SearchOption";
 import Results from "@/components/uis/dictionary/uis/Results";
 import SearchBar from "@/components/uis/dictionary/uis/SearchBar";
+import LoadingOverlay from "../common/LoadingOverlay";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/stores";
 
 const DictionaryContent = () => {
+  const loading = useSelector((state: RootState) => state.dictionary.loading);
+
   return (
     <div>
       <PageTitle text="表現検索" icon={FaSearch} />
@@ -21,6 +26,7 @@ const DictionaryContent = () => {
           <RegFlashcard />
         </div>
       </div>
+      <LoadingOverlay isLoadingOverlay={loading} />
     </div>
   );
 };
