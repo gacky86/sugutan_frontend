@@ -36,44 +36,6 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     hasError: false,
   });
 
-  // extra_inputの入力を管理するstateの型
-  // const extraNoteInitialState: ExtraNoteInputState = {
-  //   noteType: { input: extraNoteTypes[0], lengthCheck: true },
-  //   content: { input: "", lengthCheck: true },
-  // };
-  // extra_inputの入力を管理するstate
-  // const [extraNoteFieldsList, setExtraNoteFieldsList] = useState<
-  //   ExtraNoteInputState[]
-  // >([extraNoteInitialState]);
-  // ============= State定義 終了 ==============
-
-  // ============= fields更新用関数 開始 =============
-  // const updateField = (name: keyof CardInputState, value: FieldState) => {
-  //   setFields((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-  // ============= fields更新用関数 終了 =============
-
-  // ============= extra_note関連関数 開始 =============
-  // const updateExtraNoteField = (
-  //   index: number,
-  //   name: keyof ExtraNoteInputState,
-  //   value: FieldState
-  // ) => {
-  //   setExtraNoteFieldsList((prev) =>
-  //     prev.map((note, i) => (i === index ? { ...note, [name]: value } : note))
-  //   );
-  // };
-  // const addExtraNote = () => {
-  //   setExtraNoteFieldsList((prev) => [...prev, extraNoteInitialState]);
-  // };
-  // const removeExtraNote = (index: number) => {
-  //   setExtraNoteFieldsList((prev) => prev.filter((_, i) => i !== index));
-  // };
-  // ============= fields更新用関数(extra_note) 終了 =============
-
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

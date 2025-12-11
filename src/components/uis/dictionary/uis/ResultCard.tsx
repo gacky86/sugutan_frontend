@@ -1,7 +1,11 @@
+// react
 import { useState } from "react";
+// components
 import WordInfo from "@/components/uis/dictionary/uis/WordInfo";
+import RegCardButton from "@/components/uis/dictionary/uis/RegCardButton";
+// types
 import type { DictionarySearchResult } from "@/types";
-import { FaBook } from "react-icons/fa";
+// icons
 import { HiLanguage } from "react-icons/hi2";
 
 import {
@@ -41,7 +45,7 @@ const ResultCard = ({ result }: Props) => {
             onClick={() => setOriginalLang(!originalLang)}
             className="hover:bg-amber-200 rounded-sm duration-300"
           />
-          <FaBook className="hover:bg-amber-200 rounded-sm duration-300" />
+          <RegCardButton result={result} />
         </div>
       </div>
       {/* 補足情報 */}

@@ -18,12 +18,14 @@ interface DictionarySearchState {
   results: DictionarySearchResult[];
   loading: boolean;
   language: "EN" | "FR" | "IT" | "DE";
+  regFlashcardTitle: string;
 }
 
 const initialState: DictionarySearchState = {
   results: [],
   loading: false,
   language: "EN",
+  regFlashcardTitle: "",
 };
 
 const dictionarySlice = createSlice({
@@ -32,6 +34,9 @@ const dictionarySlice = createSlice({
   reducers: {
     setLanguage: (state, action) => {
       state.language = action.payload;
+    },
+    setRegFlashcardTitle: (state, action) => {
+      state.regFlashcardTitle = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -49,6 +54,6 @@ const dictionarySlice = createSlice({
   },
 });
 
-export const setLanguage = dictionarySlice.actions;
+export const { setLanguage, setRegFlashcardTitle } = dictionarySlice.actions;
 
 export default dictionarySlice.reducer;
