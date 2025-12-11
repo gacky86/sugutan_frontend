@@ -1,3 +1,5 @@
+import type { PartOfSpeech } from "@/utils/dictionaryLabelMapper";
+
 export interface DictionarySearchResult {
   translation: string;
   definition: { jp: string; en: string };
@@ -5,6 +7,6 @@ export interface DictionarySearchResult {
   synonyms: string[] | [];
   antonyms: string[] | [];
   etymology: string;
-  partOfSpeech: string;
+  partOfSpeech: PartOfSpeech;
   collocations: string[];
 }

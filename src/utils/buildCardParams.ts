@@ -1,4 +1,8 @@
-import type { CardInputState, CardParams } from "@/types";
+import type {
+  CardInputState,
+  CardParams,
+  DictionarySearchResult,
+} from "@/types";
 // フォームの入力値をAPI payload用に編集する
 export const buildCardParams = (fields: CardInputState): CardParams => ({
   front: fields.front.input,
@@ -8,4 +12,17 @@ export const buildCardParams = (fields: CardInputState): CardParams => ({
   explanationFront: fields.explanationFront.input,
   explanationBack: fields.explanationBack.input,
   cardType: fields.cardType.input,
+});
+
+// Gemini APIからの返答をcard登録ように編集する
+export const buildCardParamsDictionary = (
+  result: DictionarySearchResult
+): CardParams => ({
+  front: result.translation,
+  back: result.translation,
+  frontSentence: result.example.jp,
+  backSentence: result.example.en,
+  explanationFront: result.definition.jp,
+  explanationBack: result.definition.en,
+  cardType: result.partOfSpeech,
 });
