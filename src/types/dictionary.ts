@@ -1,7 +1,7 @@
 import type { PartOfSpeech } from "@/utils/dictionaryLabelMapper";
 
 export interface DictionarySearchResult {
-  translation: string;
+  translation: { jp: string; en: string };
   definition: { jp: string; en: string };
   example: { jp: string; en: string };
   synonyms: string[] | [];
