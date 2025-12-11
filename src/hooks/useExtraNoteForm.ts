@@ -15,6 +15,7 @@ export const useExtraNotesForm = (extraNotes?: ExtraNote[]) => {
         }))
       : [];
 
+  // extraNotesの初期値を作成
   const [notes, setNotes] = useState<ExtraNoteInputState[]>(
     buildInitialState(extraNotes)
   );
@@ -28,6 +29,11 @@ export const useExtraNotesForm = (extraNotes?: ExtraNote[]) => {
     setNotes(buildInitialState(extraNotes));
   };
 
+  // extraNotesは1つのcardに対して複数ある可能性があるので
+  // ExtraNoteInputState[]でstateで管理している
+  // そのリストの中で、何番目のextraNoteか->index
+  // 指定されたextraNoteで変更するのは何か->name (noteTypeまたはcontent)
+  // ExtraNoteInputFormで受け取った値->value
   const updateNoteField = (
     index: number,
     name: keyof ExtraNoteInputState,

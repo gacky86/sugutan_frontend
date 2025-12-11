@@ -3,6 +3,7 @@ import type {
   ExtraNoteInputState,
   ExtraNoteParams,
 } from "@/types";
+import { getWordInfoLabels, type WordInfo } from "./dictionaryLabelMapper";
 // フォームの入力値をAPI payload用に編集する
 export const buildExtraNoteParams = (
   fields: ExtraNoteInputState
@@ -47,7 +48,7 @@ export function buildExtraNotesParamsDictionary(
         content = value ?? "";
       }
       return {
-        noteType: key,
+        noteType: getWordInfoLabels(key as WordInfo),
         content,
       };
     });
