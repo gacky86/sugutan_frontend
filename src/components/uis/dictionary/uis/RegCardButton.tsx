@@ -38,10 +38,11 @@ const RegCardButton = ({ result }: Props) => {
   const regCardToFlashcard = async () => {
     // 登録ボタン押下時に登録先単語帳が見つからない場合は何もしない（エラーメッセージとか必要）
     if (!regFlashcard) return;
-    // resultからcardParamsの作成(front, backの値をどうにかしないといけない)
+    // resultからcardParamsの作成
     const cardParams = buildCardParamsDictionary(result);
 
-    // extraNoteParams(補足情報分だけリスト化してみるか)
+    // resultからextraNoteParamsの作成
+    // noteTypeは日本語へ変換する（DB上では日本語で管理する）
     const extraNotesParamsList = buildExtraNotesParamsDictionary(result);
 
     console.log(result);
