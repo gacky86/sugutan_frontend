@@ -1,10 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 import PageTitle from "@/components/uis/common/PageTitle";
 import RegFlashcard from "@/components/uis/dictionary/uis/RegFlashcard";
-import SearchOption from "@/components/uis/dictionary/uis/SearchOption";
+// import SearchOption from "@/components/uis/dictionary/uis/SearchOption";
 import Results from "@/components/uis/dictionary/uis/Results";
 import SearchBar from "@/components/uis/dictionary/uis/SearchBar";
-import LoadingOverlay from "../common/LoadingOverlay";
+import LoadingOverlay from "@/components/uis/common/LoadingOverLay";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores";
 
@@ -22,7 +22,7 @@ const DictionaryContent = () => {
           </div>
         </div>
         <div className="col-span-2 col-start-5">
-          <SearchOption />
+          {/* <SearchOption /> */}
           <RegFlashcard />
         </div>
       </div>
