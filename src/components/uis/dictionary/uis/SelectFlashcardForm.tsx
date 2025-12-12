@@ -23,7 +23,6 @@ const SelectFlashcardForm = () => {
   const regFlashcardTitle = useSelector(
     (state: RootState) => state.dictionary.regFlashcardTitle
   );
-
   // flashcardSlice.flashcards取得
   const flashcards = useSelector(
     (state: RootState) => state.flashcards.flashcards
@@ -40,7 +39,10 @@ const SelectFlashcardForm = () => {
   // セレクタフォームのオプションに使う単語帳のtitle一覧のリストを更新する
   useEffect(() => {
     setFlashcardTitles(extractFlashcardTitles(flashcards));
-  }, [flashcards]);
+    if (flashcards.length > 0) {
+      dispatch(setRegFlashcardTitle(flashcards[0].title));
+    }
+  }, [flashcards, dispatch]);
 
   return (
     <div>
