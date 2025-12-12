@@ -1,21 +1,37 @@
 // store/flashcardSlice.ts
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { DictionarySearchResult } from "@/types/index";
+import type {
+  DictionarySearchResult,
+  DictionarySearchResultWithId,
+} from "@/types/index";
 import { dictionary } from "@/api/gemini";
+import { nanoid } from "nanoid";
 
-// ログイン中のユーザーの単語帳リストを取得する非同期処理
-export const getGeminiResults = createAsyncThunk(
-  "dictionary/getGeminiResults",
-  async (text: string) => {
+// gemini APIにユーザーinputを与え、返答を取得する非同期処理
+export const getGeminiResults = createAsyncThunk<
+  DictionarySearchResultWithId[], // Return type
+  string, // Argument (text)
+  { rejectValue: string } // Error type when rejecting
+>("dictionary/getGeminiResults", async (text, thunkAPI) => {
+  try {
     const response = await dictionary(text);
-    console.log(response);
 
-    return response.data as DictionarySearchResult[];
+    const geminiResults = response.data as DictionarySearchResult[];
+
+    const withId: DictionarySearchResultWithId[] = geminiResults.map((res) => ({
+      ...res,
+      id: nanoid(),
+    }));
+
+    return withId;
+  } catch (error: unknown) {
+    console.error("Gemini API error:", error);
+    return thunkAPI.rejectWithValue("Failed to fetch Gemini results");
   }
-);
+});
 
 interface DictionarySearchState {
-  results: DictionarySearchResult[];
+  results: DictionarySearchResultWithId[];
   loading: boolean;
   language: "EN" | "FR" | "IT" | "DE";
   regFlashcardTitle: string;
@@ -38,6 +54,12 @@ const dictionarySlice = createSlice({
     setRegFlashcardTitle: (state, action) => {
       state.regFlashcardTitle = action.payload;
     },
+    // 単語帳に登録完了したresultをstateから削除する
+    removeResult: (state, action) => {
+      state.results = state.results.filter(
+        (result) => result.id !== action.payload.id
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,6 +76,7 @@ const dictionarySlice = createSlice({
   },
 });
 
-export const { setLanguage, setRegFlashcardTitle } = dictionarySlice.actions;
+export const { setLanguage, setRegFlashcardTitle, removeResult } =
+  dictionarySlice.actions;
 
 export default dictionarySlice.reducer;
