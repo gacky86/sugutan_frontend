@@ -68,7 +68,7 @@ const RegCardButton = ({ result }: Props) => {
 
   return (
     <FaBook
-      className="hover:bg-amber-200 rounded-sm duration-300"
+      className="hover:bg-amber-200 rounded-sm duration-300 cursor-pointer"
       onClick={() => regCardToFlashcard()}
     />
   );

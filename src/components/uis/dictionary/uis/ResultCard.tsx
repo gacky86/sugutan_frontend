@@ -38,25 +38,32 @@ const ResultCard = ({ result }: Props) => {
           ) : (
             <WordInfo label="解説" content={result.definition.jp} />
           )}
-          <WordInfo label="語源" content={result.etymology} />
         </div>
         <div className="text-2xl ml-2 flex flex-col justify-start gap-5">
           <HiLanguage
             onClick={() => setOriginalLang(!originalLang)}
-            className="hover:bg-amber-200 rounded-sm duration-300"
+            className="hover:bg-amber-200 rounded-sm duration-300 cursor-pointer"
           />
           <RegCardButton result={result} />
         </div>
       </div>
       {/* 補足情報 */}
-      <div className="border-t border-gray-500">
-        {result.antonyms.length > 0 && (
+      <div>
+        {(result.synonyms.length > 0 ||
+          result.antonyms.length > 0 ||
+          result.collocations.length > 0) && (
+          <div className="border-t border-gray-500"></div>
+        )}
+        {result.etymology.length > 0 && (
+          <WordInfo label="語源" content={result.etymology} />
+        )}
+        {result.synonyms.length > 0 && (
           <WordInfo label="類義語" content={result.synonyms.join(", ")} />
         )}
         {result.antonyms.length > 0 && (
           <WordInfo label="反義語" content={result.antonyms.join(", ")} />
         )}
-        {result.antonyms.length > 0 && (
+        {result.collocations.length > 0 && (
           <WordInfo label="用法" content={result.collocations.join(", ")} />
         )}
       </div>
