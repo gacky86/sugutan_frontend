@@ -13,7 +13,7 @@ import { selectFlashcardByTitle } from "@/utils/selectors";
 
 // redux
 import type { RootState } from "@/stores";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { buildCardParamsDictionary } from "@/utils/buildCardParams";
 
 // type
@@ -22,6 +22,7 @@ import { buildExtraNotesParamsDictionary } from "@/utils/buildExtraNoteParams";
 import { createCard } from "@/api/card";
 import { createExtraNote } from "@/api/extraNote";
 import type { AxiosError } from "axios";
+import { removeResult } from "@/stores/dictionarySlice";
 
 type Props = {
   result: DictionarySearchResult;
@@ -35,6 +36,8 @@ const RegCardButton = ({ result }: Props) => {
   // 登録先となるFlashcardを取得
   const regFlashcard = useSelector(selectFlashcardByTitle(regFlashcardTitle));
 
+  const dispatch = useDispatch();
+
   const regCardToFlashcard = async () => {
     // 登録ボタン押下時に登録先単語帳が見つからない場合は何もしない（エラーメッセージとか必要）
     if (!regFlashcard) return;
@@ -45,8 +48,6 @@ const RegCardButton = ({ result }: Props) => {
     // noteTypeは日本語へ変換する（DB上では日本語で管理する）
     const extraNotesParamsList = buildExtraNotesParamsDictionary(result);
 
-    console.log(result);
-
     try {
       const res = await createCard(regFlashcard.id, cardParams);
       if (res.status === 200) {
@@ -54,7 +55,7 @@ const RegCardButton = ({ result }: Props) => {
         for (const params of extraNotesParamsList) {
           await createExtraNote(res.data.id, params);
         }
-        console.log("問題なく登録されました");
+        dispatch(removeResult(result));
       } else {
         console.log("card create error");
       }
