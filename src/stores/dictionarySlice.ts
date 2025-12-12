@@ -17,6 +17,7 @@ export const getGeminiResults = createAsyncThunk<
     const response = await dictionary(text);
 
     const geminiResults = response.data as DictionarySearchResult[];
+    console.log(geminiResults);
 
     const withId: DictionarySearchResultWithId[] = geminiResults.map((res) => ({
       ...res,
