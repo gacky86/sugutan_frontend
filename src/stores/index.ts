@@ -4,6 +4,7 @@ import flashcardReducer from "@/stores/flashcardsSlice";
 import cardReducer from "@/stores/cardsSlice";
 import modalReducer from "@/stores/modalSlice";
 import dictionaryReducer from "@/stores/dictionarySlice";
+import learningReducer from "@/stores/learningSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     cards: cardReducer,
     modal: modalReducer,
     dictionary: dictionaryReducer,
+    learning: learningReducer,
   },
 });
 
