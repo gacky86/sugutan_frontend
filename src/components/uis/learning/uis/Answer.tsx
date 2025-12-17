@@ -1,7 +1,17 @@
+import { useSelector } from "react-redux";
+import type { RootState } from "@/stores/index";
+
 const Answer = () => {
+  const { queue, currentIndex, mode, thinking } = useSelector(
+    (state: RootState) => state.learning
+  );
+  if (thinking) {
+    return null;
+  }
+  const card = queue[currentIndex].card;
   return (
     <div className="m-auto text-center  py-3 border-t border-gray-400">
-      <p>別に彼になりたいわけじゃないんだ。ただ、自分自身でありたいんだ。</p>
+      <p>{mode === "input" ? card.frontSentence : card.backSentence}</p>
     </div>
   );
 };

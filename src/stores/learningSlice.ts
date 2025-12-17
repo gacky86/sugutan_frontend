@@ -4,10 +4,12 @@ import type { CardProgress, Difficulty } from "@/types";
 
 // 本日学習対象のカードと学習記録を取得
 export const fetchDueProgresses = createAsyncThunk(
-  "learning/fetchDueCards",
+  "learning/fetchDueProgresses",
   async () => {
     const response = await getDueCardProgresses();
-    return response.data;
+    console.log(response);
+
+    return response.data as CardProgress[];
   }
 );
 
@@ -66,9 +68,6 @@ const learningSlice = createSlice({
         state.queue = action.payload;
         state.currentIndex = 0;
         state.loading = false;
-      })
-      .addCase(submitReview.fulfilled, (state) => {
-        state.currentIndex += 1;
       });
   },
 });

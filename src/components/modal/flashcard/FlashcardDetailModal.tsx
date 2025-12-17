@@ -6,6 +6,8 @@ import MainButton from "@/components/uis/common/MainButton";
 import { openModal, closeModal } from "@/stores/modalSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { initializeCardProgresses } from "@/api/cardProgress";
+import { setMode } from "@/stores/learningSlice";
 
 type Props = {
   flashcard: Flashcard;
@@ -14,6 +16,15 @@ type Props = {
 const FlashcardDetailModal = ({ flashcard }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Flashcard中のCardに対するCardProgressの初期化を行い、学習ページに遷移させる
+  // 学習モードを設定する
+  const startLearning = (mode: "input" | "output") => {
+    initializeCardProgresses(flashcard.id);
+    dispatch(setMode(mode));
+    dispatch(closeModal());
+    navigate("/learning");
+  };
 
   return (
     <div>
@@ -32,16 +43,12 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
         <MainButton
           text="Inputモードで学習"
           disabled={false}
-          onClick={() => {
-            console.log("clicked");
-          }}
+          onClick={() => startLearning("input")}
         />
         <MainButton
           text="Outputモードで学習"
           disabled={false}
-          onClick={() => {
-            console.log("clicked");
-          }}
+          onClick={() => startLearning("output")}
         />
       </div>
       <div className="mx-auto my-5 w-[60%]">
