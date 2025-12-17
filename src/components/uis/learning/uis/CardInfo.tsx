@@ -2,18 +2,23 @@
 import { useState } from "react";
 // components
 import WordInfo from "@/components/uis/dictionary/uis/WordInfo";
-// types
-import type { Card, ExtraNote } from "@/types";
 // icons
 import { HiLanguage } from "react-icons/hi2";
+// redux
+import { useSelector } from "react-redux";
+import type { RootState } from "@/stores/index";
 
-type Props = {
-  card: Card;
-  extraNotes: ExtraNote[];
-};
-
-const CardInfo = ({ card, extraNotes }: Props) => {
+const CardInfo = () => {
+  const { queue, currentIndex, thinking } = useSelector(
+    (state: RootState) => state.learning
+  );
   const [originalLang, setOriginalLang] = useState<boolean>(true);
+  if (thinking) {
+    return null;
+  }
+
+  const card = queue[currentIndex].card;
+  const extraNotes = queue[currentIndex].card.extraNotes;
 
   return (
     <div className="border-gray-400 border rounded-lg flex flex-col shadow-lg px-2 py-1 mb-4 max-w-[450px] mx-auto">
