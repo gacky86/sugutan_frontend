@@ -15,12 +15,12 @@ import { fetchDueProgresses } from "@/stores/learningSlice";
 
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { queue, currentIndex, loading } = useSelector(
+  const { queue, currentIndex, loading, mode } = useSelector(
     (state: RootState) => state.learning
   );
 
   useEffect(() => {
-    dispatch(fetchDueProgresses());
+    dispatch(fetchDueProgresses(mode));
   }, [dispatch]);
 
   return (

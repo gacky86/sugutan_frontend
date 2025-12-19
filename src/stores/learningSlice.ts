@@ -5,8 +5,8 @@ import type { CardProgress, Difficulty } from "@/types";
 // 本日学習対象のカードと学習記録を取得
 export const fetchDueProgresses = createAsyncThunk(
   "learning/fetchDueProgresses",
-  async () => {
-    const response = await getDueCardProgresses();
+  async (mode: "input" | "output") => {
+    const response = await getDueCardProgresses(mode);
     console.log(response);
 
     return response.data as CardProgress[];

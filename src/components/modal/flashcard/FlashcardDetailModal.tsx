@@ -20,7 +20,7 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
   // Flashcard中のCardに対するCardProgressの初期化を行い、学習ページに遷移させる
   // 学習モードを設定する
   const startLearning = (mode: "input" | "output") => {
-    initializeCardProgresses(flashcard.id);
+    initializeCardProgresses(flashcard.id, mode);
     dispatch(setMode(mode));
     dispatch(closeModal());
     navigate("/learning");
