@@ -11,11 +11,11 @@ const MenuButton = ({ text, icon: Icon, path }: Props) => {
   const navigate = useNavigate();
   return (
     <div
-      className="text-xl flex items-center gap-2 py-3 rounded-lg cursor-pointer duration-300 hover:bg-orange-50"
+      className="md:text-xl md:flex md:items-center md:gap-2 md:py-3 md:rounded-lg cursor-pointer duration-300 hover:bg-orange-50"
       onClick={() => navigate(path)}
     >
       <Icon />
-      <p>{text}</p>
+      <p className="hidden md:inline">{text}</p>
     </div>
   );
 };
