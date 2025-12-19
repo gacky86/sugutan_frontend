@@ -3,6 +3,10 @@ import type { Card, Flashcard } from "@/types";
 import { useDispatch } from "react-redux";
 import { MdModeEdit } from "react-icons/md";
 import { limitString } from "@/utils/limitString";
+import {
+  getPartOfSpeechLabels,
+  type PartOfSpeech,
+} from "@/utils/dictionaryLabelMapper";
 
 type Props = {
   flashcard: Flashcard;
@@ -12,7 +16,7 @@ const CardRow = ({ flashcard, card }: Props) => {
   const dispatch = useDispatch();
   return (
     <tr data-testid={`card-${card.id}`}>
-      <td>{card.cardType}</td>
+      <td>{getPartOfSpeechLabels(card.cardType as PartOfSpeech)}</td>
       <td>{limitString(card.front, 15)}</td>
       <td>{limitString(card.back, 15)}</td>
       <td

@@ -10,7 +10,7 @@ const Answer = () => {
   }
   const card = queue[currentIndex].card;
   return (
-    <div className="m-auto text-center  py-3 border-t border-gray-400">
+    <div className="mx-auto mb-6 text-center  py-3 border-t border-gray-400">
       <p>{mode === "input" ? card.frontSentence : card.backSentence}</p>
     </div>
   );

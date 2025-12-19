@@ -18,33 +18,33 @@ const Buttons = () => {
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
       {thinking ? (
         <button
-          className="px-6 py-2 bg-green-500 text-white rounded"
+          className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-black rounded-full text-sm"
           onClick={() => dispatch(showAnswer())}
         >
           Show Answer
         </button>
       ) : (
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded"
+            className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-red-500 rounded-full text-sm"
             onClick={() => submitReviewNextCard("again")}
           >
             Again
           </button>
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded"
+            className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-black rounded-full text-sm"
             onClick={() => submitReviewNextCard("hard")}
           >
             Hard
           </button>
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded"
+            className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-blue-500 rounded-full text-sm"
             onClick={() => submitReviewNextCard("normal")}
           >
             Normal
           </button>
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded"
+            className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-green-700 rounded-full text-sm"
             onClick={() => submitReviewNextCard("easy")}
           >
             Easy
