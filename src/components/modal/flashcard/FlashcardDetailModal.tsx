@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { initializeCardProgresses } from "@/api/cardProgress";
 import { setMode } from "@/stores/learningSlice";
+import { getLanguageName } from "@/utils/langNameMapper";
 
 type Props = {
   flashcard: Flashcard;
@@ -31,13 +32,13 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
       <div className="text-center">
         <h1 className="text-2xl mt-4">{flashcard.title}</h1>
         <div className="text-sm text-gray-500">
-          <p>設定言語:{flashcard.language}</p>
+          <p>設定言語: {getLanguageName(flashcard.language)}</p>
           <p>{flashcard.description}</p>
         </div>
       </div>
       <div className="mx-auto mt-3 flex justify-between text-sm text-gray-500 max-w-[300px]">
-        <p>登録されているカード数:120枚</p>
-        <p>最終学習日:3日前</p>
+        <p>登録されているカード数: {flashcard.cardsCount}枚</p>
+        <p>最終学習日: {flashcard.lastReviewedDaysAgo ?? "-"}日前</p>
       </div>
       <div className="mx-auto mt-10 w-[60%]">
         <MainButton

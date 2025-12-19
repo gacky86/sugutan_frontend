@@ -5,9 +5,7 @@ import client from "@/api/client";
 
 // 一覧
 export const getMyFlashcardList = () => {
-  return client.get<Flashcard[]>("/flashcards", {
-    params: { only_mine: "onlyMine" },
-  });
+  return client.get<Flashcard[]>("/flashcards");
 };
 
 // 詳細
