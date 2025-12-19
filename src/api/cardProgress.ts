@@ -1,12 +1,15 @@
 import client from "@/api/client";
 import type { Difficulty } from "@/types";
 
-export const initializeCardProgresses = (flashcardId: number) => {
-  return client.post("/card_progresses/start_learning", { flashcardId });
+export const initializeCardProgresses = (
+  flashcardId: number,
+  mode: "input" | "output"
+) => {
+  return client.post("/card_progresses/start_learning", { flashcardId, mode });
 };
 
-export const getDueCardProgresses = () => {
-  return client.get("/card_progresses/due");
+export const getDueCardProgresses = (mode: "input" | "output") => {
+  return client.get("/card_progresses/due", { params: { mode } });
 };
 
 export const submitProgress = (progressId: number, difficulty: Difficulty) => {
