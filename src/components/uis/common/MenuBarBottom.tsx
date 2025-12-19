@@ -2,8 +2,8 @@
 import { FaSearch } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
-import { BiLogOut } from "react-icons/bi";
 import MenuButton from "@/components/uis/common/MenuButton";
+import SignOutButton from "@/components/uis/common/SignOutButton";
 
 const MenuBarBottom = () => {
   return (
@@ -11,7 +11,7 @@ const MenuBarBottom = () => {
       <MenuButton text="" icon={FaSearch} path="/dictionary" />
       <MenuButton text="" icon={FaBook} path="/" />
       <MenuButton text="" icon={CiSettings} path="/" />
-      <MenuButton text="" icon={BiLogOut} path="/" />
+      <SignOutButton />
     </div>
   );
 };

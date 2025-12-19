@@ -1,8 +1,8 @@
 import MenuButton from "@/components/uis/common/MenuButton";
+import SignOutButton from "@/components/uis/common/SignOutButton";
 import { FaSearch } from "react-icons/fa";
 import { FaBook } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
-import { BiLogOut } from "react-icons/bi";
 
 const MenuBar = () => {
   return (
@@ -13,7 +13,7 @@ const MenuBar = () => {
         <MenuButton text="設定" icon={CiSettings} path="/" />
       </div>
       <div className="p-2 absolute bottom-0">
-        <MenuButton text="ログアウト" icon={BiLogOut} path="/" />
+        <SignOutButton />
       </div>
     </div>
   );
