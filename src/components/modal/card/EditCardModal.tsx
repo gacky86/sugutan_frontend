@@ -219,7 +219,7 @@ const EditCardModal = ({
         {/* Submitボタン */}
         <div className="mx-auto my-6 max-w-[200px]">
           <SubmitButton
-            text="作成"
+            text="更新"
             disabled={
               !fields.front.input ||
               !fields.back.input ||

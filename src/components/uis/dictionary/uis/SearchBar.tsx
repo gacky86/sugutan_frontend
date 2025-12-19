@@ -23,7 +23,7 @@ const SearchBar = () => {
           setText={setText}
         />
         <button
-          className="border-indigo-400 text-indigo-500 border rounded-md px-1 absolute right-1 top-[5px] hover:bg-indigo-400 hover:text-white duration-300 cursor-pointer"
+          className="border-indigo-400 text-indigo-500 bg-white border rounded-md px-1 absolute right-1 top-[5px] hover:bg-indigo-400 hover:text-white duration-300 cursor-pointer"
           onClick={() => dispatch(getGeminiResults(text.input))}
         >
           検索

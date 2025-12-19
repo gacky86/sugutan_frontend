@@ -31,7 +31,9 @@ const LearningContent = () => {
           <>
             <Question />
             <Answer />
-            <CardInfo />
+            <div className="max-h-[60vh] overflow-y-auto block">
+              <CardInfo />
+            </div>
             <Buttons />
           </>
         ) : (
