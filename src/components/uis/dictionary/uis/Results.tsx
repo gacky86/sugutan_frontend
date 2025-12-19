@@ -6,11 +6,13 @@ const Results = () => {
   const results = useSelector((state: RootState) => state.dictionary.results);
 
   if (results.length === 0) {
-    return <p>検索結果はありません</p>;
+    return <h2 className="m-auto text-center">検索結果はありません</h2>;
   }
   if (!results[0].success) {
     return (
-      <h2 className="m-auto">該当する単語・表現が見つかりませんでした。</h2>
+      <h2 className="m-auto text-center">
+        該当する単語・表現が見つかりませんでした。
+      </h2>
     );
   }
 
