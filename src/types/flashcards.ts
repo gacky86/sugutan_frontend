@@ -3,7 +3,8 @@ export interface Flashcard {
   title: string;
   description: string;
   language: string;
-  iconColor: string;
+  cardsCount: number;
+  lastReviewedDaysAgo: number;
 }
 export interface FlashcardParams {
   title: string;

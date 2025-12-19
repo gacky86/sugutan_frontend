@@ -26,6 +26,6 @@ export type CardProgress = {
   nextReviewAt: string;
   reviewCount: number;
   easinessFactor: number;
-  lastReviewed_at: string;
+  lastReviewedAt: string;
   card: Card;
 };

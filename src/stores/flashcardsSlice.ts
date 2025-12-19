@@ -8,6 +8,7 @@ export const fetchFlashcards = createAsyncThunk(
   "flashcards/fetchFlashcards",
   async () => {
     const response = await getMyFlashcardList();
+    console.log(response);
 
     return response.data as Flashcard[];
   }

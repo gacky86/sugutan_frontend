@@ -2,6 +2,7 @@ import type { Flashcard } from "@/types/index";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/stores/modalSlice";
 import { limitString } from "@/utils/limitString";
+import { getLanguageName } from "@/utils/langNameMapper";
 type Props = { flashcard: Flashcard };
 
 const FlashcardsCard = ({ flashcard }: Props) => {
@@ -25,13 +26,13 @@ const FlashcardsCard = ({ flashcard }: Props) => {
         <p>{limitString(flashcard.description, 30)}</p>
         <div className="grid grid-cols-2 grid-rows-2 gap-0 ml-1 mt-1">
           <div>
-            <p>登録枚数:10枚</p>
+            <p>登録枚数: {flashcard.cardsCount}枚</p>
           </div>
           <div>
-            <p>最終学習日:1日前</p>
+            <p>最終学習日: {flashcard.lastReviewedDaysAgo ?? "-"}日前</p>
           </div>
           <div>
-            <p>Language:{flashcard.language}</p>
+            <p>設定言語: {getLanguageName(flashcard.language)}</p>
           </div>
         </div>
       </div>
