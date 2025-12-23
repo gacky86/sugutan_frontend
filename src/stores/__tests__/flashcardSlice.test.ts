@@ -26,6 +26,7 @@ const initialState: FlashcardState = {
   loading: false,
 };
 
+// reducer 単体テスト
 describe("flashcardSlice reducers", () => {
   it("addFlashcard should add a flashcard", () => {
     const newFlashcard: Flashcard = {
@@ -33,7 +34,8 @@ describe("flashcardSlice reducers", () => {
       title: "Test Flashcard",
       description: "test",
       language: "EN",
-      iconColor: "red",
+      cardsCount: 0,
+      lastReviewedDaysAgo: 0,
     };
     const state = reducer(initialState, addFlashcard(newFlashcard));
 
@@ -47,14 +49,16 @@ describe("flashcardSlice reducers", () => {
       title: "Test Flashcard A",
       description: "test A",
       language: "EN",
-      iconColor: "red",
+      cardsCount: 50,
+      lastReviewedDaysAgo: 1,
     };
     const testFlashcardB = {
       id: 2,
       title: "Test Flashcard B",
       description: "test B",
-      language: "EN",
-      iconColor: "red",
+      language: "FR",
+      cardsCount: 100,
+      lastReviewedDaysAgo: 3,
     };
     const startState = {
       ...initialState,
@@ -72,14 +76,16 @@ describe("flashcardSlice reducers", () => {
       title: "Test Flashcard Before",
       description: "test",
       language: "EN",
-      iconColor: "red",
+      cardsCount: 50,
+      lastReviewedDaysAgo: 1,
     };
     const testFlashcardAfter = {
       id: 1,
       title: "Test Flashcard After",
       description: "test",
       language: "EN",
-      iconColor: "red",
+      cardsCount: 50,
+      lastReviewedDaysAgo: 1,
     };
     const startState = {
       ...initialState,
@@ -92,6 +98,7 @@ describe("flashcardSlice reducers", () => {
   });
 });
 
+// ExtraReducer単体テスト
 describe("flashcardSlice extraReducers (async thunk)", () => {
   it("pending should set loading=true", () => {
     const action = { type: fetchFlashcards.pending.type };
@@ -122,6 +129,7 @@ describe("flashcardSlice extraReducers (async thunk)", () => {
   });
 });
 
+// AsyncThunk単体テスト
 describe("fetchFlashcards async", () => {
   it("dispatching fetchFlashcards should call API and return data", async () => {
     const mockResponse = {
@@ -131,7 +139,8 @@ describe("fetchFlashcards async", () => {
           title: "Flashcard 1",
           description: "desc",
           language: "EN",
-          iconColor: "red",
+          cardsCount: 50,
+          lastReviewedDaysAgo: 1,
         },
       ],
       status: 200,
