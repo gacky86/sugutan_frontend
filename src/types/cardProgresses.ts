@@ -29,3 +29,15 @@ export type CardProgress = {
   lastReviewedAt: string;
   card: Card;
 };
+
+export type SubmitedProgresss = {
+  userId: number;
+  cardId: number;
+  id: number;
+  intervalDays: number;
+  nextReviewAt: string;
+  reviewCount: number;
+  easinessFactor: number;
+  lastReviewedAt: string;
+  mode: "input" | "output";
+};

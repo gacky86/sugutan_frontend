@@ -5,26 +5,41 @@ import type { CardProgress, Difficulty } from "@/types";
 // 本日学習対象のカードと学習記録を取得
 export const fetchDueProgresses = createAsyncThunk(
   "learning/fetchDueProgresses",
-  async (mode: "input" | "output") => {
-    const response = await getDueCardProgresses(mode);
-    console.log(response);
+  async (mode: "input" | "output", thunkAPI) => {
+    try {
+      const response = await getDueCardProgresses(mode);
+      console.log(response);
 
-    return response.data as CardProgress[];
+      return response.data as CardProgress[];
+    } catch (error: unknown) {
+      console.error("Gemini API error:", error);
+      return thunkAPI.rejectWithValue("Failed to fetch due progress results");
+    }
   }
 );
 
 // カードの学習記録をユーザー入力とともに記録
 export const submitReview = createAsyncThunk(
   "learning/submitReview",
-  async ({
-    progressId,
-    difficulty,
-  }: {
-    progressId: number;
-    difficulty: Difficulty;
-  }) => {
-    const response = await submitProgress(progressId, difficulty);
-    return response.data;
+  async (
+    {
+      progressId,
+      difficulty,
+    }: {
+      progressId: number;
+      difficulty: Difficulty;
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await submitProgress(progressId, difficulty);
+      console.log(response);
+
+      return response.data;
+    } catch (error: unknown) {
+      console.error("Gemini API error:", error);
+      return thunkAPI.rejectWithValue("Failed to submit progress");
+    }
   }
 );
 
