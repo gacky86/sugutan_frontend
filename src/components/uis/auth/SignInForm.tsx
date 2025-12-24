@@ -1,9 +1,7 @@
 // import Cookies from "js-cookie";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 
 // components
 // import { GoogleIcon } from "@/components/auth/GoogleIcon";
@@ -11,10 +9,10 @@ import SubmitButton from "@/components/uis/common/SubmitButton";
 import EmailInput from "@/components/uis/common/EmailInput";
 import PasswordInput from "@/components/uis/common/PasswordInput";
 
-// func
-import { signIn } from "@/api/auth";
 // type
-import type { SignInParams, RailsErrorResponse } from "@/types";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/stores";
+import { signInThunk } from "@/stores/authSlice";
 
 const SignInForm: React.FC = () => {
   // ============= State定義 開始 ==============
@@ -37,35 +35,24 @@ const SignInForm: React.FC = () => {
   });
   // ============= State定義 終了 ==============
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const params: SignInParams = {
-      email: email,
-      password: password.input,
-    };
     try {
-      const res = await signIn(params);
-      console.log(res);
+      await dispatch(
+        signInThunk({
+          email,
+          password: password.input,
+        })
+      ).unwrap();
 
-      if (res.status === 200) {
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
-        navigate("/");
-      } else {
-        console.log("login error");
-      }
-      // エラー処理
+      navigate("/");
     } catch (err) {
-      console.log(err);
-
-      const error = err as AxiosError<RailsErrorResponse>;
-      const message = error.response?.data?.error || "エラーが発生しました";
       setErrorMessage({
-        message: message,
+        message: err as string,
         hasError: true,
       });
     }

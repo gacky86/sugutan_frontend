@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 
 // components
 // import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import SubmitButton from "@/components/uis/common/SubmitButton";
 import EmailInput from "@/components/uis/common/EmailInput";
 import PasswordInput from "@/components/uis/common/PasswordInput";
-// func
-import { signUp } from "@/api/auth";
-// type
-import type { SignUpParams, RailsErrorResponse } from "@/types";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/stores";
+import { signUpThunk } from "@/stores/authSlice";
 
 const SignUpForm = () => {
   // ============= State定義 開始 ==============
@@ -44,34 +42,25 @@ const SignUpForm = () => {
   // ============= State定義 終了 ==============
 
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   // ============= ボタン押下時関数 開始 ==============
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const params: SignUpParams = {
-      email: email,
-      password: password.input,
-      passwordConfirmation: passwordConfirmation.input,
-    };
-
-    // パスワードと確認用パスワードの一致確認
     if (password.input === passwordConfirmation.input) {
-      // API関数を実行
       try {
-        const res = await signUp(params);
-        if (res.status === 200) {
-          // アカウント作成に成功した場合はログイン画面にリダイレクト
-          navigate("/checkemail");
-        } else {
-          console.log("Account creation error");
-        }
-        // エラー処理
+        await dispatch(
+          signUpThunk({
+            email: email,
+            password: password.input,
+            passwordConfirmation: passwordConfirmation.input,
+          })
+        ).unwrap();
+
+        navigate("/checkemail");
       } catch (err) {
-        const error = err as AxiosError<RailsErrorResponse>;
-        const message = error.response?.data?.error || "エラーが発生しました";
         setErrorMessage({
-          message: message,
+          message: err as string,
           hasError: true,
         });
       }
