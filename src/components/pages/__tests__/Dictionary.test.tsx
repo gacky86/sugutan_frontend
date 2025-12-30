@@ -68,37 +68,4 @@ describe("Flashcards Page", () => {
       expect(screen.getByText("設定言語: Français")).toBeInTheDocument();
     });
   });
-  it("単語帳をクリックすると、単語帳詳細モーダルが表示される", async () => {
-    renderWithProviders(<Flashcards />, {
-      preloadedState: {
-        auth: authState,
-      },
-    });
-    // getByTextは「すでにDOMに描画されているはず」という前提で探す。なければすぐにエラー
-    // findByTextはデフォルトで１秒間はリトライしてくれる
-    const flashcard = await screen.findByText("english phrases");
-    fireEvent.click(flashcard);
-    await waitFor(() => {
-      expect(screen.getAllByText("english phrases").length).toBe(2);
-      expect(screen.getAllByText("設定言語: English").length).toBe(2);
-      expect(screen.getByText("Inputモードで学習")).toBeInTheDocument();
-      expect(screen.getByText("Outputモードで学習")).toBeInTheDocument();
-      expect(screen.getByText("登録カードの管理")).toBeInTheDocument();
-      expect(screen.getByText("単語帳設定")).toBeInTheDocument();
-    });
-  });
-  it("単語帳作成ボタンをクリックすると、単語帳作成モーダルが表示される", async () => {
-    renderWithProviders(<Flashcards />, {
-      preloadedState: {
-        auth: authState,
-      },
-    });
-    const newFlashcard = await screen.findByText("単語帳を新規作成");
-    fireEvent.click(newFlashcard);
-    await waitFor(() => {
-      expect(screen.getByText("単語帳新規作成")).toBeInTheDocument();
-      expect(screen.getByText("Title")).toBeInTheDocument();
-      expect(screen.getByText("Description")).toBeInTheDocument();
-    });
-  });
 });

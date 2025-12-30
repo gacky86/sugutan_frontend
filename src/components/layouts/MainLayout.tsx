@@ -9,31 +9,26 @@ type Props = {
 const MainLayout = ({ childrenContent }: Props) => {
   return (
     <div className="h-screen flex flex-col">
-      {/* --- Header（MD以上で表示） --- */}
-      <div className="border border-gray-300 hidden md:block">
+      {/* Header: PCのみ */}
+      <div className="hidden md:block border border-gray-300">
         <Header />
       </div>
 
-      {/* --- PCレイアウト（md 以上）--- */}
-      <div className="hidden md:grid md:grid-cols-5 md:flex-1 md:grid-rows-1">
-        <div className="border border-gray-300">
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar: PCのみ */}
+        <div className="hidden md:block w-1/5 border border-gray-300">
           <MenuBar />
         </div>
 
-        <div className="col-span-4 border border-gray-300 bg-white overflow-y-auto">
+        {/* Main Content: 常に1つだけ配置 */}
+        <main className="flex-1 overflow-y-auto bg-white border border-gray-300">
           {childrenContent}
-        </div>
+        </main>
       </div>
 
-      {/* --- モバイル / タブレットレイアウト（md 未満）--- */}
-      <div className="flex flex-col flex-1 md:hidden">
-        <div className="flex-1 overflow-y-auto bg-white border border-gray-300">
-          {childrenContent}
-        </div>
-
-        <div className="border border-gray-300">
-          <MenuBarBottom />
-        </div>
+      {/* Bottom Nav: モバイルのみ */}
+      <div className="md:hidden border border-gray-300">
+        <MenuBarBottom />
       </div>
     </div>
   );

@@ -60,6 +60,8 @@ const CardsList = () => {
                 openModal({ modalContent: "newCard", modalProps: flashcard })
               )
             }
+            role="button"
+            aria-label="単語カード新規作成"
           >
             <IoMdAddCircle className="text-4xl text-blue-500" />
             <p className="text-lg">単語カードを追加</p>
