@@ -43,6 +43,8 @@ const EditCardModal = ({
   const handleGetExtraNotesList = async () => {
     try {
       const res = await getExtraNotesList(card.id);
+      console.log(res);
+
       setExtraNotes(res.data);
     } catch (err) {
       const error = err as AxiosError<RailsErrorResponse>;

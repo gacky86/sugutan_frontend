@@ -33,16 +33,16 @@ export type CardInputState = {
 };
 
 export const cardTypes: string[] = [
-  "名詞",
-  "動詞",
-  "形容詞",
-  "副詞",
-  "連語・フレーズ",
-  "イディオム",
-  "助動詞",
-  "接続詞",
-  "代名詞",
-  "前置詞",
-  "冠詞",
-  "その他",
+  "名詞", // noun
+  "動詞", // verb
+  "形容詞", // adjective
+  "副詞", // adverb
+  "連語・フレーズ", // phrase
+  "イディオム", // idiom
+  "助動詞", // auxiliary verb
+  "接続詞", // conjunction
+  "代名詞", // pronoun
+  "前置詞", // preposition
+  "冠詞", // article
+  "その他", // other
 ];
