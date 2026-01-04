@@ -31,6 +31,8 @@ const CardRow = ({ flashcard, card }: Props) => {
             })
           )
         }
+        role="button"
+        aria-label={`カード ${card.front} を編集`}
       >
         <MdModeEdit className="text-lg border border-gray-600 rounded-sm cursor-pointer" />
       </td>

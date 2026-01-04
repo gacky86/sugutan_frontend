@@ -8,7 +8,6 @@ export const fetchDueProgresses = createAsyncThunk(
   async (mode: "input" | "output", thunkAPI) => {
     try {
       const response = await getDueCardProgresses(mode);
-      console.log(response);
 
       return response.data as CardProgress[];
     } catch (error: unknown) {
@@ -33,7 +32,6 @@ export const submitReview = createAsyncThunk(
   ) => {
     try {
       const response = await submitProgress(progressId, difficulty);
-      console.log(response);
 
       return response.data;
     } catch (error: unknown) {

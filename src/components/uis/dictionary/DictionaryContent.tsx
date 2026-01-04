@@ -16,28 +16,20 @@ const DictionaryContent = () => {
     <div>
       <PageTitle text="表現検索" icon={FaSearch} />
 
-      {/* メディアクエリmd以上で表示 */}
-      <div className="hidden md:grid md:grid-cols-6 md:grid-rows-1 md:gap-4">
-        <div className="col-span-4">
+      <div className="flex flex-col md:grid md:grid-cols-6 md:gap-4">
+        {/* 1. 検索バー (常に最初) */}
+        <div className="md:col-span-4 order-1">
           <SearchBar />
-          <div className="mx-6 mt-7">
-            <Results />
-          </div>
         </div>
-        <div className="col-span-2 col-start-5">
-          <RegFlashcard />
-          <NewFlashcardButton />
-        </div>
-      </div>
 
-      {/* メディアクエリmd以下で表示 */}
-      <div className="md:hidden ">
-        <SearchBar />
-        <div className="flex gap-3 justify-center items-center mb-3">
+        {/* 2. ボタン類 (モバイルでは2番目、デスクトップではサイドバー) */}
+        <div className="order-2 flex gap-3 justify-center my-3 md:block md:col-span-2 md:my-0">
           <RegFlashcard />
           <NewFlashcardButton />
         </div>
-        <div className="mx-3">
+
+        {/* 3. 検索結果 (モバイルでは3番目、デスクトップでは左側の下) */}
+        <div className="order-3 md:col-span-4 md:mx-6">
           <Results />
         </div>
       </div>

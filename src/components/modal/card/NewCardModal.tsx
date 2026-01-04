@@ -51,8 +51,6 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
           const params = buildExtraNoteParams(fields);
           await createExtraNote(res.data.id, params);
         }
-      } else {
-        console.log("card create error");
       }
       // エラー処理
     } catch (err) {
@@ -71,7 +69,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">単語帳新規作成</h1>
+        <h1 className="text-2xl mt-4">単語カード作成</h1>
       </div>
       <form onSubmit={handleSubmit}>
         {/* カード入力項目 */}

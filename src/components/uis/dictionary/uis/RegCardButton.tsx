@@ -56,8 +56,6 @@ const RegCardButton = ({ result }: Props) => {
           await createExtraNote(res.data.id, params);
         }
         dispatch(removeResult(result));
-      } else {
-        console.log("card create error");
       }
       // エラー処理
     } catch (err) {
@@ -70,6 +68,8 @@ const RegCardButton = ({ result }: Props) => {
     <FaBook
       className="hover:bg-amber-200 rounded-sm duration-300 cursor-pointer"
       onClick={() => regCardToFlashcard()}
+      role="button"
+      aria-label={`${result.translation.jp} を登録`}
     />
   );
 };
