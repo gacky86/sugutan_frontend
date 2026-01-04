@@ -1,7 +1,8 @@
 import { http, HttpResponse } from "msw";
-import type { Flashcard, Card } from "@/types";
+import type { Flashcard, Card, DictionarySearchResult } from "@/types";
 
 export const handlers = [
+  // Flashcard一覧取得
   http.get("*/api/v1/flashcards", () => {
     const mockData: Flashcard[] = [
       {
@@ -54,4 +55,76 @@ export const handlers = [
 
     return HttpResponse.json(mockCards);
   }),
+  // gemini生成
+  http.post("*/api/v1/gemini/dictionary", () => {
+    const mockResults: DictionarySearchResult[] = [
+      {
+        translation: { jp: "りんご", en: "apple" },
+        definition: {
+          jp: "バラ科リンゴ属の落葉高木、およびその果実。世界中で広く栽培され、食用とされる。",
+          en: "A common, edible fruit, typically round, with red,…nd crisp, white flesh. It grows on an apple tree.",
+        },
+        example: {
+          jp: "毎日りんごを食べると医者いらず。",
+          en: "An apple a day keeps the doctor away.",
+        },
+        synonyms: [],
+        antonyms: [],
+        etymology: "From Old English æppel.",
+        partOfSpeech: "noun",
+        collocations: [
+          "red apple",
+          "green apple",
+          "apple pie",
+          "apple juice",
+          "apple tree",
+        ],
+        success: true,
+      },
+    ];
+
+    return HttpResponse.json(mockResults);
+  }),
+  // card作成
+  http.post(
+    "*/api/v1/flashcards/:flashcard_id/cards",
+    async ({ request, params }) => {
+      // 1. パスパラメータを取得
+      const { flashcard_id } = params;
+
+      // 2. リクエストボディを取得 (params: CardParams の中身)
+      const newCardData = await request.json();
+
+      // 3. 成功レスポンスを返す
+      return HttpResponse.json(
+        {
+          id: Math.floor(Math.random() * 1000),
+          flashcard_id: Number(flashcard_id),
+          ...newCardData,
+        },
+        { status: 200 }
+      );
+    }
+  ),
+  // extraNote作成
+  http.post(
+    "*/api/v1/cards/:card_id/extra_notes",
+    async ({ request, params }) => {
+      // 1. パスパラメータを取得
+      const { card_id } = params;
+
+      // 2. リクエストボディを取得 (params: CardParams の中身)
+      const newExtraNoteData = await request.json();
+
+      // 3. 成功レスポンスを返す
+      return HttpResponse.json(
+        {
+          id: Math.floor(Math.random() * 1000),
+          card_id: Number(card_id),
+          ...newExtraNoteData,
+        },
+        { status: 200 }
+      );
+    }
+  ),
 ];

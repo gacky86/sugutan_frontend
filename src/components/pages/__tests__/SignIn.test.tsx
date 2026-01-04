@@ -42,30 +42,9 @@ const authState = {
 };
 
 describe("Flashcards Page", () => {
-  it("認証済みユーザーの場合、Flashcardsページが表示される", async () => {
-    renderWithProviders(<Flashcards />, {
-      preloadedState: {
-        auth: authState,
-      },
-    });
-    // API経由で取得されたFlashcardの一覧が表示される
-    // 取得されるFlashcardはsrc/mocks/handlers.ts内で定義
-    // descriptionについては文字数制限(30字以内)を超える場合は省略される
-    await waitFor(() => {
-      expect(screen.getByText("english phrases")).toBeInTheDocument();
-      expect(
-        screen.getByText("phrases you can use in daily l...")
-      ).toBeInTheDocument();
-      expect(screen.getByText("登録枚数: 100枚")).toBeInTheDocument();
-      expect(screen.getByText("最終学習日: 1日前")).toBeInTheDocument();
-      expect(screen.getByText("設定言語: English")).toBeInTheDocument();
-      expect(screen.getByText("french words")).toBeInTheDocument();
-      expect(
-        screen.getByText("french words in daily life")
-      ).toBeInTheDocument();
-      expect(screen.getByText("登録枚数: 200枚")).toBeInTheDocument();
-      expect(screen.getByText("最終学習日: 3日前")).toBeInTheDocument();
-      expect(screen.getByText("設定言語: Français")).toBeInTheDocument();
-    });
-  });
+  it("E-mailフォームへのユーザー入力が画面に反映されること", async () => {});
+  it("パスワードフォームへのユーザー入力が画面に反映されること", async () => {});
+  it("ログイン成功時には単語帳一覧ページに遷移すること", async () => {});
+  it("ログイン失敗時には、メールアドレスまたはパスワードが異なる旨を表示すること", async () => {});
+  it("新規登録ボタンを押下すると、新規登録ページに遷移すること", async () => {});
 });

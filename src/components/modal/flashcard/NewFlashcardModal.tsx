@@ -52,19 +52,14 @@ const NewFlashcardModal = () => {
     };
     try {
       const res = await createFlashcard(params);
-      console.log(res);
 
       if (res.status === 200) {
         dispatch(closeModal());
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(addFlashcard(res.data));
-      } else {
-        console.log("flashcard create error");
       }
       // エラー処理
     } catch (err) {
-      console.log(err);
-
       const error = err as AxiosError<RailsErrorResponse>;
       const message =
         error.response?.data?.error ||

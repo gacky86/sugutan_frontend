@@ -86,12 +86,9 @@ const EditCardModal = ({
         dispatch(closeModal());
         // 先にUIだけ更新できる(楽観的UI)
         dispatch(editCard(res.data));
-        console.log("cardの更新完了");
 
         // cardの更新が正常終了した場合、extra_noteの更新・削除・作成を行う
         await handleExtraNotesSubmit(res.data.id);
-      } else {
-        console.log("card create error");
       }
       // エラー処理
     } catch (err) {
@@ -138,8 +135,6 @@ const EditCardModal = ({
         const params = buildExtraNoteParams(note);
         await createExtraNote(cardId, params);
       }
-
-      console.log("extra note の更新が完了しました");
     } catch (err) {
       console.error("extra note update error", err);
       throw err; // 呼び出し元 handleSubmit 側でエラーハンドリング可能
@@ -156,8 +151,6 @@ const EditCardModal = ({
         dispatch(closeModal());
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(removeCard(card));
-      } else {
-        console.log("card delete error");
       }
       // エラー処理
     } catch (err) {

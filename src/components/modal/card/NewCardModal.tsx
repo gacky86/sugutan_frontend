@@ -51,8 +51,6 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
           const params = buildExtraNoteParams(fields);
           await createExtraNote(res.data.id, params);
         }
-      } else {
-        console.log("card create error");
       }
       // エラー処理
     } catch (err) {

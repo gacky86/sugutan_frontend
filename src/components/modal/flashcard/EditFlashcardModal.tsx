@@ -54,16 +54,12 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
     };
     try {
       const res = await updateFlashcard(flashcard.id, params);
-      console.log(res);
-
       if (res.status === 200) {
         dispatch(
           openModal({ modalContent: "flashcardDetail", modalProps: res.data })
         );
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(editFlashcard(res.data));
-      } else {
-        console.log("flashcard edit error");
       }
       // エラー処理
     } catch (err) {
@@ -88,8 +84,6 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         dispatch(closeModal());
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(removeFlashcard(flashcard));
-      } else {
-        console.log("flashcard delete error");
       }
       // エラー処理
     } catch (err) {

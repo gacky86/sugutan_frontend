@@ -23,6 +23,10 @@ const SelectFlashcardForm = () => {
   const regFlashcardTitle = useSelector(
     (state: RootState) => state.dictionary.regFlashcardTitle
   );
+  // flashcardSlice.flashcardsにユーザーが持つ単語帳を取得する
+  useEffect(() => {
+    dispatch(fetchFlashcards());
+  }, [dispatch]);
   // flashcardSlice.flashcards取得
   const flashcards = useSelector(
     (state: RootState) => state.flashcards.flashcards
@@ -31,10 +35,6 @@ const SelectFlashcardForm = () => {
   const extractFlashcardTitles = (flashcards: Flashcard[]): string[] => {
     return flashcards.map((flashcard) => flashcard.title);
   };
-  // flashcardSlice.flashcardsにユーザーが持つ単語帳を取得する
-  useEffect(() => {
-    dispatch(fetchFlashcards());
-  }, [dispatch]);
   // flashcardSlice.flashcardsが更新されたら、本コンポーネント内で定義している
   // セレクタフォームのオプションに使う単語帳のtitle一覧のリストを更新する
   useEffect(() => {

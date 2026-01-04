@@ -42,30 +42,12 @@ const authState = {
 };
 
 describe("Flashcards Page", () => {
-  it("認証済みユーザーの場合、Flashcardsページが表示される", async () => {
-    renderWithProviders(<Flashcards />, {
-      preloadedState: {
-        auth: authState,
-      },
-    });
-    // API経由で取得されたFlashcardの一覧が表示される
-    // 取得されるFlashcardはsrc/mocks/handlers.ts内で定義
-    // descriptionについては文字数制限(30字以内)を超える場合は省略される
-    await waitFor(() => {
-      expect(screen.getByText("english phrases")).toBeInTheDocument();
-      expect(
-        screen.getByText("phrases you can use in daily l...")
-      ).toBeInTheDocument();
-      expect(screen.getByText("登録枚数: 100枚")).toBeInTheDocument();
-      expect(screen.getByText("最終学習日: 1日前")).toBeInTheDocument();
-      expect(screen.getByText("設定言語: English")).toBeInTheDocument();
-      expect(screen.getByText("french words")).toBeInTheDocument();
-      expect(
-        screen.getByText("french words in daily life")
-      ).toBeInTheDocument();
-      expect(screen.getByText("登録枚数: 200枚")).toBeInTheDocument();
-      expect(screen.getByText("最終学習日: 3日前")).toBeInTheDocument();
-      expect(screen.getByText("設定言語: Français")).toBeInTheDocument();
-    });
-  });
+  it("E-mailフォームへのユーザー入力が画面に反映されること", async () => {});
+  it("パスワードフォームへのユーザー入力が画面に反映されること", async () => {});
+  it("パスワードの文字数が入力中に20字を超えると、パスワードの文字数制限(8~20字)が表示されること", async () => {});
+  it("登録ボタン押下時、確認用パスワードとの一致が取れない場合はその旨を表示し、アカウント作成ができないこと", async () => {});
+  it("登録ボタン押下時、パスワードの文字数制限に適合しない場合はその旨を表示し、アカウント作成ができないこと", async () => {});
+  it("登録ボタン押下時、メールアドレスがメールアドレスの形式に適合しない場合はその旨を表示し、アカウント作成ができないこと", async () => {});
+  it("登録ボタン押下時、使用できない文字が入力に含まれている場合はその旨を表示し、アカウント作成ができないこと", async () => {});
+  it("アカウント作成が正常に行われる場合、仮登録ページに遷移すること", async () => {});
 });

@@ -9,6 +9,8 @@ const NewFlashcardButton = () => {
     <div
       className="flex items-center cursor-pointer mt-3"
       onClick={() => dispatch(openModal({ modalContent: "newFlashcard" }))}
+      role="button"
+      aria-label="単語帳新規作成"
     >
       <IoMdAddCircle className="text-2xl text-blue-500" />
       <p className="text-base">単語帳を新規作成</p>
