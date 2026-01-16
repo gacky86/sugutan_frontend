@@ -94,7 +94,7 @@ describe("Dictionary Page", () => {
             synonyms: [],
             antonyms: [],
             etymology: "",
-            partOfSpeech: "",
+            partOfSpeech: "noun",
             collocations: [],
             success: false,
           },

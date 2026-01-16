@@ -1,5 +1,11 @@
 import { http, HttpResponse } from "msw";
-import type { Flashcard, Card, DictionarySearchResult } from "@/types";
+import type {
+  Flashcard,
+  Card,
+  DictionarySearchResult,
+  CardParams,
+  ExtraNoteParams,
+} from "@/types";
 
 export const handlers = [
   // Flashcard一覧取得
@@ -93,7 +99,7 @@ export const handlers = [
       const { flashcard_id } = params;
 
       // 2. リクエストボディを取得 (params: CardParams の中身)
-      const newCardData = await request.json();
+      const newCardData = (await request.json()) as CardParams;
 
       // 3. 成功レスポンスを返す
       return HttpResponse.json(
@@ -114,7 +120,7 @@ export const handlers = [
       const { card_id } = params;
 
       // 2. リクエストボディを取得 (params: CardParams の中身)
-      const newExtraNoteData = await request.json();
+      const newExtraNoteData = (await request.json()) as ExtraNoteParams;
 
       // 3. 成功レスポンスを返す
       return HttpResponse.json(
