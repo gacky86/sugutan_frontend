@@ -46,7 +46,7 @@ const SignInForm: React.FC = () => {
         signInThunk({
           email,
           password: password.input,
-        })
+        }),
       ).unwrap();
 
       navigate("/");
@@ -62,7 +62,7 @@ const SignInForm: React.FC = () => {
   return (
     <div className="max-w-md m-auto text-center">
       <div className="my-6">
-        <h2 className="text-2xl">Welcom back to Sugutan</h2>
+        <h2 className="text-2xl">Welcome back to Sugutan</h2>
         <p className="text-sm text-gray-500">
           Look up to your AI dictionary for English words whenever you want to
           build your own Flashcards!
