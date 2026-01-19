@@ -9,7 +9,7 @@ const testFields: CardInputState = {
   backSentence: { input: "back sentence", lengthCheck: true },
   explanationFront: { input: "explanation front", lengthCheck: true },
   explanationBack: { input: "explanation back", lengthCheck: true },
-  cardType: { input: "card type", lengthCheck: true },
+  cardType: { input: "名詞", lengthCheck: true },
 };
 
 describe("buildCardParams", () => {
@@ -22,7 +22,7 @@ describe("buildCardParams", () => {
       backSentence: "back sentence",
       explanationFront: "explanation front",
       explanationBack: "explanation back",
-      cardType: "card type",
+      cardType: "noun",
     });
   });
 });

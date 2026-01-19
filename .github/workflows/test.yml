@@ -1,6 +1,14 @@
 name: Vitest
 
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write # OIDC認証に必須
+  contents: read
 
 jobs:
   test:
@@ -26,3 +34,37 @@ jobs:
 
       - name: Show coverage report
         uses: davelosert/vitest-coverage-report-action@v2
+
+  deploy:
+    name: Deploy to AWS
+    needs: test # テストジョブが成功した後に実行
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # mainへのpush時のみ
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+
+      - name: Install dependencies and Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::178795222462:role/oidc-frontend-role
+          aws-region: ap-northeast-1
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./dist s3://prd-sugutan-frontend --delete
+
+      - name: Clear CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id E1B4AHWUZHUAYN --paths "/*"
