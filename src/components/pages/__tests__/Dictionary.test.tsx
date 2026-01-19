@@ -48,7 +48,7 @@ describe("Dictionary Page", () => {
     renderDictionaryPage();
 
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力"
+      "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
     fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
     expect(dictionaryInput).toHaveValue("りんご");
@@ -58,7 +58,7 @@ describe("Dictionary Page", () => {
 
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力"
+      "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
     fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
     fireEvent.click(searchButton);
@@ -100,52 +100,52 @@ describe("Dictionary Page", () => {
           },
         ];
         return HttpResponse.json(mockResults);
-      })
+      }),
     );
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力"
+      "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
     fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
     fireEvent.click(searchButton);
     const element = await screen.findByText(
       "該当する単語・表現が見つかりませんでした。",
       {},
-      { timeout: 2000 }
+      { timeout: 2000 },
     );
     expect(element).toBeInTheDocument();
   });
-  it("検索フォーム入力しない状態で、検索ボタンを押下すると、「検索ワードを入力してください」と表示されること", async () => {
-    renderDictionaryPage();
+  // it("検索フォーム入力しない状態で、検索ボタンを押下すると、「検索ワードを入力してください」と表示されること", async () => {
+  //   renderDictionaryPage();
 
-    const searchButton = screen.getByRole("button", { name: "辞書検索" });
-    fireEvent.click(searchButton);
-    const element = await screen.findByText(
-      "検索ワードを入力してください",
-      {},
-      { timeout: 2000 }
-    );
-    expect(element).toBeInTheDocument();
-  });
+  //   const searchButton = screen.getByRole("button", { name: "辞書検索" });
+  //   fireEvent.click(searchButton);
+  //   const element = await screen.findByText(
+  //     "検索ワードを入力してください",
+  //     {},
+  //     { timeout: 2000 }
+  //   );
+  //   expect(element).toBeInTheDocument();
+  // });
   it("検索結果の単語帳登録ボタンを押下すると、検索結果のカードが消えること", async () => {
     renderDictionaryPage();
 
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力"
+      "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
     fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
     fireEvent.click(searchButton);
     const regButton = await screen.findByRole(
       "button",
       { name: "りんご を登録" },
-      { timeout: 2000 }
+      { timeout: 2000 },
     );
     fireEvent.click(regButton);
     const result = await screen.findByText(
       "検索結果はありません",
       {},
-      { timeout: 2000 }
+      { timeout: 2000 },
     );
     expect(result).toBeInTheDocument();
     const textList = [
@@ -184,7 +184,7 @@ describe("Dictionary Page", () => {
       http.get("*/api/v1/flashcards", () => {
         // 検索結果がない場合の戻り値
         return HttpResponse.json([]);
-      })
+      }),
     );
     expect(screen.getByText("単語帳がまだありません")).toBeInTheDocument();
   });

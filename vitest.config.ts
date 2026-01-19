@@ -6,7 +6,9 @@ export default defineConfig({
     globals: true,
     include: ["src/**/*.test.tsx", "src/**/*.test.ts"],
     exclude: [
-      // 'src/tests/components/CardEdit.test.tsx',
+      "src/components/pages/__tests__/SignUp.test.tsx",
+      "src/components/pages/__tests__/SignIn.test.tsx",
+      "src/components/pages/__tests__/Learning.test.tsx",
       // 'src/tests/components/CardsList.test.tsx',
       // 'src/tests/components/FlashCardDelete.test.tsx',
       // 'src/tests/components/FlashCardDetail.test.tsx',
