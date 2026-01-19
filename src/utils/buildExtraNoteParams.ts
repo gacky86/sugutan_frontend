@@ -3,12 +3,12 @@ import type {
   ExtraNoteInputState,
   ExtraNoteParams,
 } from "@/types";
-import { getWordInfoLabels, type WordInfo } from "./dictionaryLabelMapper";
+import { convertNoteTypeJPtoEN, type NoteTypeJP } from "@/utils/noteTypeMapper";
 // フォームの入力値をAPI payload用に編集する
 export const buildExtraNoteParams = (
   fields: ExtraNoteInputState
 ): ExtraNoteParams => ({
-  noteType: fields.noteType.input,
+  noteType: convertNoteTypeJPtoEN(fields.noteType.input as NoteTypeJP),
   content: fields.content.input,
 });
 
@@ -48,7 +48,7 @@ export function buildExtraNotesParamsDictionary(
         content = value ?? "";
       }
       return {
-        noteType: getWordInfoLabels(key as WordInfo),
+        noteType: key,
         content,
       };
     });

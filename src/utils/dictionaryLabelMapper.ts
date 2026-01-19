@@ -27,6 +27,7 @@ const partOfSpeechLabels: Record<PartOfSpeech, string> = {
   other: "その他",
 };
 
+// 英語名のpart of speech(品詞)を日本語名の品詞に変換する
 export function getPartOfSpeechLabels(PartOfSpeech: PartOfSpeech): string {
   return partOfSpeechLabels[PartOfSpeech];
 }

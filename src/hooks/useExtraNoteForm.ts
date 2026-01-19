@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ExtraNoteInputState, FieldState, ExtraNote } from "@/types";
 import { extraNoteTypes } from "@/types";
+import { convertNoteTypeENtoJP, type NoteTypeEN } from "@/utils/noteTypeMapper";
 
 export const useExtraNotesForm = (extraNotes?: ExtraNote[]) => {
   // 以下の両方のパターンに対応
@@ -10,8 +11,14 @@ export const useExtraNotesForm = (extraNotes?: ExtraNote[]) => {
     extraNotes && extraNotes.length > 0
       ? extraNotes.map((note) => ({
           id: note.id,
-          noteType: { input: note.noteType, lengthCheck: true },
-          content: { input: note.content, lengthCheck: true },
+          noteType: {
+            input: convertNoteTypeENtoJP(note.noteType as NoteTypeEN),
+            lengthCheck: true,
+          },
+          content: {
+            input: note.content,
+            lengthCheck: true,
+          },
         }))
       : [];
 

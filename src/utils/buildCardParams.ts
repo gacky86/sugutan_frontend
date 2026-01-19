@@ -3,6 +3,10 @@ import type {
   CardParams,
   DictionarySearchResult,
 } from "@/types";
+import {
+  convertPartOfSpeechJPtoEN,
+  type PartOfSpeechJP,
+} from "@/utils/partOfSpeechMapper";
 // フォームの入力値をAPI payload用に編集する
 export const buildCardParams = (fields: CardInputState): CardParams => ({
   front: fields.front.input,
@@ -11,7 +15,7 @@ export const buildCardParams = (fields: CardInputState): CardParams => ({
   backSentence: fields.backSentence.input,
   explanationFront: fields.explanationFront.input,
   explanationBack: fields.explanationBack.input,
-  cardType: fields.cardType.input,
+  cardType: convertPartOfSpeechJPtoEN(fields.cardType.input as PartOfSpeechJP),
 });
 
 // Gemini APIからの返答をcard登録ように編集する
