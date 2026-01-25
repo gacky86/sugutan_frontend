@@ -22,7 +22,7 @@ import { renderSignInPage } from "@/tests/utils/renderPage";
 vi.mock("@/assets/sugutan_logo.svg?react", () => ({
   default: () => <svg data-testid="logo" />,
 }));
-// motionのモック
+// ローディング中のロゴのモック
 vi.mock("react-loader-spinner", () => ({
   DNA: () => <div data-testid="loading-dna" />,
 }));
