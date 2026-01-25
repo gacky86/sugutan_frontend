@@ -5,6 +5,9 @@ import type {
   DictionarySearchResult,
   CardParams,
   ExtraNoteParams,
+  User,
+  RailsErrorResponse,
+  SignInParams,
 } from "@/types";
 
 export const handlers = [
@@ -108,9 +111,9 @@ export const handlers = [
           flashcard_id: Number(flashcard_id),
           ...newCardData,
         },
-        { status: 200 }
+        { status: 200 },
       );
-    }
+    },
   ),
   // extraNote作成
   http.post(
@@ -129,8 +132,36 @@ export const handlers = [
           card_id: Number(card_id),
           ...newExtraNoteData,
         },
-        { status: 200 }
+        { status: 200 },
       );
-    }
+    },
   ),
+  // sign in関数
+  http.post("*/auth/sign_in", async ({ request }) => {
+    const body = (await request.json()) as SignInParams;
+    const { email, password } = body;
+    console.log("MSW received body:", body);
+
+    const isValidUser =
+      email === "sample-user@example.com" && password === "password";
+    if (isValidUser) {
+      const mockUser: User = {
+        id: 1,
+        uid: "abc-123-def-456",
+        provider: "email",
+        email: "sample-user@example.com",
+        name: "taro",
+        allowPasswordChange: true,
+        created_at: new Date("2023-10-01T10:00:00Z"),
+        updated_at: new Date("2024-01-20T15:30:00Z"),
+      };
+      return HttpResponse.json({ data: { data: mockUser } });
+    } else {
+      const errorResponse: RailsErrorResponse = {
+        error: "メールアドレスまたはパスワードが違います",
+      };
+
+      return HttpResponse.json(errorResponse, { status: 401 });
+    }
+  }),
 ];

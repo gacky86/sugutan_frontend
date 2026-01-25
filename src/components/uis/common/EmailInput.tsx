@@ -10,7 +10,7 @@ type Props = {
 const EmailInput = ({ label, name, id, type, value, onChange }: Props) => {
   return (
     <div className="text-start">
-      <label className="block w-full text-gray-400" htmlFor="email">
+      <label className="block w-full text-gray-400" htmlFor={id}>
         {label}
       </label>
       <input

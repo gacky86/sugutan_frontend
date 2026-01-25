@@ -111,7 +111,12 @@ const SignInForm: React.FC = () => {
       <div className="text-base">
         <p>
           アカウントをお持ちでない方は
-          <Link to="/signup" className="text-sky-500 cursor-pointer">
+          <Link
+            to="/signup"
+            className="text-sky-500 cursor-pointer"
+            role="button"
+            aria-label="Sign up"
+          >
             新規登録
           </Link>
         </p>

@@ -12,9 +12,10 @@ const SubmitButton = ({ text, disabled }: Props) => {
         disabled
           ? "bg-indigo-300"
           : "bg-indigo-500 duration-300 hover:bg-indigo-600",
-        "text-white text-sm h-10 w-full rounded-full"
+        "text-white text-sm h-10 w-full rounded-full",
       )}
       disabled={disabled}
+      aria-label={text}
     >
       <p className="text-base">{text}</p>
     </button>

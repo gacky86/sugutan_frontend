@@ -1,5 +1,6 @@
 import applyCaseMiddleware from "axios-case-converter";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_URL;
 
 // ヘッダーに関してはケバブケースのままで良いので適用を無視するオプションを追加
 const options = {
@@ -8,8 +9,7 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: "https://api.sugutan.site/api/v1",
-    // baseURL: "http://localhost:3000/api/v1",
+    baseURL: baseURL,
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
