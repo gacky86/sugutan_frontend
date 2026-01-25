@@ -1,36 +1,27 @@
 // images
 import Logo from "@/assets/sugutan_logo.svg?react";
+import IntroHeader from "@/components/uis/auth/uis/IntroHeader";
+import IntroSentence from "@/components/uis/auth/uis/IntroSentence";
 
 const Introduction = () => {
   return (
-    <div className="border border-black h-full ">
-      <Logo className="w-[150px] h-[150px] border border-black m-auto" />
+    <div className=" h-full bg-[#CCF5FF] shadow-2xl">
+      <Logo className="w-[150px] h-[150px] mx-auto mb-10" />
       <div className="p-3">
         {/* アプリの概要の説明 */}
-        <div>
-          <h3 className="text-2xl">スグ単とは？</h3>
-          <p>
-            わからない単語・表現を「スグ」調べて「スグ」単語帳に登録できる、自分でつくる単語帳です。
-          </p>
+        <div className="mb-4">
+          <IntroHeader text="What is スグ単?" delay={0} />
+          <IntroSentence
+            text="わからない単語・表現を「スグ」調べて「スグ」単語帳に登録できる、自分でつくる単語帳です"
+            delay={0.2}
+          />
         </div>
         {/* 検索機能の紹介 */}
-        <div>
-          <h3 className="text-2xl">AI辞書機能</h3>
-          <p>
-            「英語で何て言えばいいんだろう？」をAI辞書を使って調べることができます！
-          </p>
-          <p>また、英語から日本語の意味を調べることもできます。</p>
-        </div>
-        {/* 検索から登録へ */}
-        <div>
-          <h3 className="text-2xl">単語帳登録機能</h3>
-          <p>調べた単語・表現は、そのまま単語帳に登録できます！</p>
-        </div>
-        {/* 単語帳学習機能 */}
-        <div>
-          <h3 className="text-2xl">単語帳学習機能</h3>
-          <p>登録した単語・表現は後から繰り返し復習できます！</p>
-          <p>復習のタイミングは忘却曲線に基づいて自動で調整されます。</p>
+        <div className="mb-4">
+          <IntroHeader text="How to use?" delay={0.4} />
+          <IntroSentence text="まずは自分の単語帳を作成" delay={0.6} />
+          <IntroSentence text="知りたい表現や単語を検索" delay={0.8} />
+          <IntroSentence text="単語帳で復習" delay={1} />
         </div>
       </div>
     </div>
