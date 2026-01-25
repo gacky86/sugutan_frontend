@@ -21,7 +21,7 @@ const PasswordInput = ({ label, name, id, setPassword }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
     <div className="text-start">
-      <label className="block w-full text-gray-400" htmlFor="email">
+      <label className="block w-full text-gray-400" htmlFor={id}>
         {label}
       </label>
       <div className="relative">

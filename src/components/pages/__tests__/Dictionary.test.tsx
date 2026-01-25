@@ -115,18 +115,18 @@ describe("Dictionary Page", () => {
     );
     expect(element).toBeInTheDocument();
   });
-  // it("検索フォーム入力しない状態で、検索ボタンを押下すると、「検索ワードを入力してください」と表示されること", async () => {
-  //   renderDictionaryPage();
+  it("検索フォーム入力しない状態で、検索ボタンを押下すると、「検索ワードを入力してください」と表示されること", async () => {
+    renderDictionaryPage();
 
-  //   const searchButton = screen.getByRole("button", { name: "辞書検索" });
-  //   fireEvent.click(searchButton);
-  //   const element = await screen.findByText(
-  //     "検索ワードを入力してください",
-  //     {},
-  //     { timeout: 2000 }
-  //   );
-  //   expect(element).toBeInTheDocument();
-  // });
+    const searchButton = screen.getByRole("button", { name: "辞書検索" });
+    fireEvent.click(searchButton);
+    const element = await screen.findByText(
+      "検索ワードを入力してください",
+      {},
+      { timeout: 2000 },
+    );
+    expect(element).toBeInTheDocument();
+  });
   it("検索結果の単語帳登録ボタンを押下すると、検索結果のカードが消えること", async () => {
     renderDictionaryPage();
 

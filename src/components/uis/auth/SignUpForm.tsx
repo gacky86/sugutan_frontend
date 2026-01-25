@@ -109,7 +109,8 @@ const SignUpForm = () => {
               アンダースコアのみ使用可）
             </p>
           )}
-          {password.lengthCheck === false && (
+          {(password.lengthCheck === false ||
+            passwordConfirmation.lengthCheck === false) && (
             <p>パスワードの入力文字数は8文字以上20文字以下です</p>
           )}
           {samePassword === false && (
@@ -145,7 +146,12 @@ const SignUpForm = () => {
       <div className="text-base">
         <p>
           アカウントを既にお持ちの方は
-          <Link to="/signin" className="text-sky-500 cursor-pointer">
+          <Link
+            to="/signin"
+            className="text-sky-500 cursor-pointer"
+            role="button"
+            aria-label="Log in"
+          >
             ログイン
           </Link>
         </p>

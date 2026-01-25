@@ -33,13 +33,14 @@ export const signInThunk = createAsyncThunk<
   SignInParams,
   { rejectValue: string }
 >("auth/signIn", async (params, { rejectWithValue }) => {
+  console.log("Thunk received params:", params);
   try {
     const res = await signIn(params);
     return res.data.data;
   } catch (err) {
     const error = err as AxiosError<RailsErrorResponse>;
     return rejectWithValue(
-      error.response?.data?.error || "ログインに失敗しました"
+      error.response?.data?.error || "ログインに失敗しました",
     );
   }
 });
@@ -56,7 +57,7 @@ export const signUpThunk = createAsyncThunk<
   } catch (err) {
     const error = err as AxiosError<RailsErrorResponse>;
     return rejectWithValue(
-      error.response?.data?.error || "ユーザー登録に失敗しました"
+      error.response?.data?.error || "ユーザー登録に失敗しました",
     );
   }
 });
