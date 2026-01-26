@@ -18,6 +18,8 @@ import Flashcards from "@/components/pages/Flashcards";
 import Cards from "@/components/pages/Cards";
 import Dictionary from "@/components/pages/Dictionary";
 import Learning from "@/components/pages/Learning";
+import NotFoundError from "@/components/pages/NotFoundError";
+import ServerError from "@/components/pages/ServerError";
 
 import { useEffect } from "react";
 
@@ -57,6 +59,8 @@ const App: React.FC = () => {
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="checkemail" element={<CheckEmail />} />
+        <Route path="/not-found" element={<NotFoundError />} />
+        <Route path="/server-error" element={<ServerError />} />
         <Route element={<Private />}>
           <Route path="/" element={<Flashcards />} />
           <Route path="/dictionary" element={<Dictionary />} />
