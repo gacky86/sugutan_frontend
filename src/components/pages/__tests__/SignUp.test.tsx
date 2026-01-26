@@ -50,7 +50,7 @@ const USUAL_USER_INPUT = {
   PASSWORDCONFIRMATION: "01234567",
 } as const;
 
-describe.only("SignUp Page", () => {
+describe("SignUp Page", () => {
   let user: ReturnType<typeof userEvent.setup>;
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;

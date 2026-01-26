@@ -19,7 +19,7 @@ const Introduction = () => {
         {/* 検索機能の紹介 */}
         <div className="mb-4">
           <IntroHeader text="How to use?" delay={0.4} />
-          <IntroSentence text="まずは自分の単語帳を作成" delay={0.6} />
+          <IntroSentence text="自分の単語帳を作成" delay={0.6} />
           <IntroSentence text="知りたい表現や単語を検索" delay={0.8} />
           <IntroSentence text="単語帳で復習" delay={1} />
         </div>

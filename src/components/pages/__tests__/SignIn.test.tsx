@@ -33,7 +33,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe.only("Flashcards Page", () => {
+describe("Flashcards Page", () => {
   it("E-mailフォームへのユーザー入力が画面に反映されること", async () => {
     renderSignInPage();
     const emailInput = screen.getByLabelText("E-mail") as HTMLInputElement;
@@ -50,7 +50,7 @@ describe.only("Flashcards Page", () => {
     });
     expect(passwordInput.value).toBe("password");
   });
-  it.only("ログイン成功時には単語帳一覧ページに遷移すること", async () => {
+  it("ログイン成功時には単語帳一覧ページに遷移すること", async () => {
     const user = userEvent.setup();
     renderSignInPage();
     const emailInput = screen.getByLabelText("E-mail") as HTMLInputElement;
