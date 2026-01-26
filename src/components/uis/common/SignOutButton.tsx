@@ -8,7 +8,7 @@ const SignOutButton = () => {
     try {
       await signOut();
     } finally {
-      navigate("signin");
+      navigate("/signin");
     }
   };
   return (
