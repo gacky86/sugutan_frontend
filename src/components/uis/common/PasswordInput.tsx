@@ -36,6 +36,7 @@ const PasswordInput = ({ label, name, id, setPassword }: Props) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(checkPassword(event));
           }}
+          autoComplete="new-password"
         />
         {/* パスワードvisibility ボタン */}
         <button
