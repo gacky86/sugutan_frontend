@@ -17,7 +17,7 @@ const Results = () => {
   }
 
   return (
-    <div>
+    <div className="mx-3">
       {results.map((result, key) => {
         return <ResultCard key={key} result={result} />;
       })}

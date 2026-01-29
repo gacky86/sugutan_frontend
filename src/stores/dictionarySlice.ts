@@ -57,7 +57,7 @@ const dictionarySlice = createSlice({
     // 単語帳に登録完了したresultをstateから削除する
     removeResult: (state, action) => {
       state.results = state.results.filter(
-        (result) => result.id !== action.payload.id
+        (result) => result.id !== action.payload.id,
       );
     },
   },
