@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import { screen, fireEvent, within, waitFor } from "@testing-library/react";
+import { screen, within, waitFor } from "@testing-library/react";
 import {
   describe,
   it,
@@ -8,7 +8,9 @@ import {
   beforeAll,
   afterEach,
   afterAll,
+  beforeEach,
 } from "vitest";
+import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom/vitest";
 
@@ -35,9 +37,13 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Dictionary Page", () => {
-  it("認証済みユーザーの場合、表現検索ページが初期状態で表示されること", async () => {
-    renderDictionaryPage();
+  let user: ReturnType<typeof userEvent.setup>;
 
+  beforeEach(() => {
+    user = userEvent.setup(); // userEventの初期化
+    renderDictionaryPage();
+  });
+  it("認証済みユーザーの場合、表現検索ページが初期状態で表示されること", async () => {
     expect(screen.getAllByText("表現検索").length).toBe(2);
     expect(screen.getByText("検索")).toBeInTheDocument();
     expect(screen.getByText("検索結果はありません")).toBeInTheDocument();
@@ -45,23 +51,19 @@ describe("Dictionary Page", () => {
     expect(screen.getByText("単語帳を新規作成")).toBeInTheDocument();
   });
   it("検索フォームへのユーザー入力が表示されること", async () => {
-    renderDictionaryPage();
-
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
+    user.type(dictionaryInput, "りんご");
     expect(dictionaryInput).toHaveValue("りんご");
   });
   it("検索フォーム入力、検索ボタン押下後、検索結果が表示されること", async () => {
-    renderDictionaryPage();
-
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
-    fireEvent.click(searchButton);
+    user.type(dictionaryInput, "りんご");
+    user.click(searchButton);
     const textList = [
       "[名詞]apple",
       "毎日りんごを食べると医者いらず。",
@@ -74,8 +76,6 @@ describe("Dictionary Page", () => {
     }
   });
   it("検索フォーム入力、検索ボタン押下後、検索結果がない場合は検索ワードに対する結果がない旨が表示されること", async () => {
-    renderDictionaryPage();
-
     // 検索結果がない場合の戻り値を定義
     server.use(
       http.post("*/api/v1/gemini/dictionary", () => {
@@ -106,8 +106,9 @@ describe("Dictionary Page", () => {
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
-    fireEvent.click(searchButton);
+    user.type(dictionaryInput, "りんご");
+
+    user.click(searchButton);
     const element = await screen.findByText(
       "該当する単語・表現が見つかりませんでした。",
       {},
@@ -116,10 +117,8 @@ describe("Dictionary Page", () => {
     expect(element).toBeInTheDocument();
   });
   it("検索フォーム入力しない状態で、検索ボタンを押下すると、「検索ワードを入力してください」と表示されること", async () => {
-    renderDictionaryPage();
-
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
-    fireEvent.click(searchButton);
+    user.click(searchButton);
     const element = await screen.findByText(
       "検索ワードを入力してください",
       {},
@@ -128,20 +127,19 @@ describe("Dictionary Page", () => {
     expect(element).toBeInTheDocument();
   });
   it("検索結果の単語帳登録ボタンを押下すると、検索結果のカードが消えること", async () => {
-    renderDictionaryPage();
-
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    fireEvent.change(dictionaryInput, { target: { value: "りんご" } });
-    fireEvent.click(searchButton);
+    user.type(dictionaryInput, "りんご");
+
+    user.click(searchButton);
     const regButton = await screen.findByRole(
       "button",
       { name: "りんご を登録" },
       { timeout: 2000 },
     );
-    fireEvent.click(regButton);
+    user.click(regButton);
     const result = await screen.findByText(
       "検索結果はありません",
       {},
@@ -161,8 +159,6 @@ describe("Dictionary Page", () => {
     screen.debug();
   });
   it("登録先単語帳のボックスに、ユーザーの単語帳が選択肢として表示されること", async () => {
-    renderDictionaryPage();
-
     const mockTitles = ["english phrases", "french words"];
     // 1. select要素を取得（Roleならcombobox）
     const select = await screen.findByRole("combobox");
@@ -178,8 +174,6 @@ describe("Dictionary Page", () => {
     });
   });
   it("単語帳が未作成の場合、「単語帳がまだありません」と表示されること", async () => {
-    renderDictionaryPage();
-
     server.use(
       http.get("*/api/v1/flashcards", () => {
         // 検索結果がない場合の戻り値
@@ -189,12 +183,10 @@ describe("Dictionary Page", () => {
     expect(screen.getByText("単語帳がまだありません")).toBeInTheDocument();
   });
   it("単語帳新規作成ボタンを押下すると、単語帳作成モーダルが表示されること", async () => {
-    renderDictionaryPage();
-
     const newFlashcardButton = screen.getByRole("button", {
       name: "単語帳新規作成",
     });
-    fireEvent.click(newFlashcardButton);
+    user.click(newFlashcardButton);
     await waitFor(() => {
       expect(screen.getByText("単語帳新規作成")).toBeInTheDocument();
       expect(screen.getByText("Title")).toBeInTheDocument();

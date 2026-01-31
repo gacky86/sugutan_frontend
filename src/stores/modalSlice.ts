@@ -14,7 +14,7 @@ export type ModalPayload = {
   };
 };
 
-type ModalState = {
+export type ModalState = {
   isVisible: boolean;
   modalContent: ModalPayload["modalContent"] | null;
   modalProps: {

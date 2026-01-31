@@ -18,7 +18,8 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Flashcard中のCardに対するCardProgressの初期化を行い、学習ページに遷移させる
+  // Flashcard中のCardに対するCardProgressの初期化(CardにCardProgressがなければ初期化をして準備する)
+  // を行い、学習ページに遷移させる
   // 学習モードを設定する
   const startLearning = (mode: "input" | "output") => {
     initializeCardProgresses(flashcard.id, mode);
@@ -69,7 +70,7 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
               openModal({
                 modalContent: "editFlashcard",
                 modalProps: flashcard,
-              })
+              }),
             );
           }}
         />

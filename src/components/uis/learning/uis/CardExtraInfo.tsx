@@ -1,5 +1,6 @@
 import type { ExtraNote } from "@/types";
 import ExtraInfoContent from "./ExtraInfoContent";
+import { convertNoteTypeENtoJP, type NoteTypeEN } from "@/utils/noteTypeMapper";
 
 type Props = {
   extraNotes: ExtraNote[];
@@ -11,7 +12,7 @@ const CardExtraInfo = ({ extraNotes }: Props) => {
       {extraNotes.map((extraNote, index) => (
         <ExtraInfoContent
           key={index}
-          label={extraNote.noteType}
+          label={convertNoteTypeENtoJP(extraNote.noteType as NoteTypeEN)}
           content={extraNote.content}
         />
       ))}
