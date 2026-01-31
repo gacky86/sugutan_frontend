@@ -12,10 +12,11 @@ const MainButton = ({ text, disabled, onClick }: Props) => {
         disabled
           ? "border-gray-500 text-gray-500"
           : "border-indigo-500 text-indigo-500 duration-300 hover:shadow-lg",
-        "text-sm h-10 w-full min-w-[200px] rounded-lg border my-2"
+        "text-sm h-10 w-full min-w-[200px] rounded-lg border my-2",
       )}
       disabled={disabled}
       onClick={onClick}
+      aria-label={text}
     >
       <p className="text-base">{text}</p>
     </button>

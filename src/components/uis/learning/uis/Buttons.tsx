@@ -7,7 +7,7 @@ import type { Difficulty } from "@/types";
 const Buttons = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { queue, currentIndex, thinking } = useSelector(
-    (state: RootState) => state.learning
+    (state: RootState) => state.learning,
   );
   const submitReviewNextCard = (difficulty: Difficulty) => {
     dispatch(submitReview({ progressId: queue[currentIndex].id, difficulty }));
@@ -20,6 +20,7 @@ const Buttons = () => {
         <button
           className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-black rounded-full text-sm"
           onClick={() => dispatch(showAnswer())}
+          aria-label="show answer"
         >
           Show Answer
         </button>
@@ -28,24 +29,28 @@ const Buttons = () => {
           <button
             className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-red-500 rounded-full text-sm"
             onClick={() => submitReviewNextCard("again")}
+            aria-label="again"
           >
             Again
           </button>
           <button
             className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-black rounded-full text-sm"
             onClick={() => submitReviewNextCard("hard")}
+            aria-label="hard"
           >
             Hard
           </button>
           <button
             className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-blue-500 rounded-full text-sm"
             onClick={() => submitReviewNextCard("normal")}
+            aria-label="normal"
           >
             Normal
           </button>
           <button
             className="px-4 py-1 border border-gray-400 bg-white shadow-xl text-green-700 rounded-full text-sm"
             onClick={() => submitReviewNextCard("easy")}
+            aria-label="easy"
           >
             Easy
           </button>

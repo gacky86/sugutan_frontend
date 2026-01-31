@@ -1,98 +1,33 @@
 import { http, HttpResponse } from "msw";
 import type {
-  Flashcard,
-  Card,
-  DictionarySearchResult,
   CardParams,
   ExtraNoteParams,
   User,
   RailsErrorResponse,
   SignInParams,
 } from "@/types";
+import {
+  mockFlashcards,
+  mockCards,
+  mockDictionaryResults,
+  mockCardProgresses,
+} from "@/mocks/mockData";
 
 export const handlers = [
   // Flashcard一覧取得
   http.get("*/api/v1/flashcards", () => {
-    const mockData: Flashcard[] = [
-      {
-        id: 0,
-        title: "english phrases",
-        description: "phrases you can use in daily life",
-        language: "EN",
-        cardsCount: 100,
-        lastReviewedDaysAgo: 1,
-      },
-      {
-        id: 1,
-        title: "french words",
-        description: "french words in daily life",
-        language: "FR",
-        cardsCount: 200,
-        lastReviewedDaysAgo: 3,
-      },
-    ];
-    return HttpResponse.json(mockData);
+    return HttpResponse.json(mockFlashcards);
   }),
   // カード一覧取得 (GET)
-  // :flashcard_id の部分はワイルドカードとして機能し、paramsから取得できます
+  // :flashcard_id の部分はワイルドカードとして機能し、paramsから取得
   http.get("*/api/v1/flashcards/:flashcard_id/cards", ({ params }) => {
-    const { flashcard_id } = params;
-    const mockCards: Card[] = [
-      {
-        id: 101,
-        flashcardId: Number(flashcard_id),
-        front: "りんご",
-        back: "apple",
-        frontSentence: "私はりんごを食べる。",
-        backSentence: "I eat an apple.",
-        explanationFront: "",
-        explanationBack: "",
-        cardType: "noun",
-      },
-      {
-        id: 102,
-        flashcardId: Number(flashcard_id),
-        front: "飲む",
-        back: "take",
-        frontSentence: "その薬を毎日飲む。",
-        backSentence: "Take the medicine everyday.",
-        explanationFront: "",
-        explanationBack: "",
-        cardType: "verb",
-      },
-    ];
-
+    // const { flashcard_id } = params;
+    console.log(params);
     return HttpResponse.json(mockCards);
   }),
   // gemini生成
   http.post("*/api/v1/gemini/dictionary", () => {
-    const mockResults: DictionarySearchResult[] = [
-      {
-        translation: { jp: "りんご", en: "apple" },
-        definition: {
-          jp: "バラ科リンゴ属の落葉高木、およびその果実。世界中で広く栽培され、食用とされる。",
-          en: "A common, edible fruit, typically round, with red,…nd crisp, white flesh. It grows on an apple tree.",
-        },
-        example: {
-          jp: "毎日りんごを食べると医者いらず。",
-          en: "An apple a day keeps the doctor away.",
-        },
-        synonyms: [],
-        antonyms: [],
-        etymology: "From Old English æppel.",
-        partOfSpeech: "noun",
-        collocations: [
-          "red apple",
-          "green apple",
-          "apple pie",
-          "apple juice",
-          "apple tree",
-        ],
-        success: true,
-      },
-    ];
-
-    return HttpResponse.json(mockResults);
+    return HttpResponse.json(mockDictionaryResults);
   }),
   // card作成
   http.post(
@@ -140,7 +75,6 @@ export const handlers = [
   http.post("*/auth/sign_in", async ({ request }) => {
     const body = (await request.json()) as SignInParams;
     const { email, password } = body;
-    console.log("MSW received body:", body);
 
     const isValidUser =
       email === "sample-user@example.com" && password === "password";
@@ -163,5 +97,29 @@ export const handlers = [
 
       return HttpResponse.json(errorResponse, { status: 401 });
     }
+  }),
+  http.post("*/card_progresses/start_learning", async ({ request }) => {
+    // Flashcard中のCardに対するCardProgressの初期化(CardにCardProgressがなければ初期化をして準備する)
+    // テスト上では何もしない
+    const body = (await request.json()) as {
+      flashcardId: number;
+      mode: string;
+    };
+    const { flashcardId, mode } = body;
+    console.log(
+      `initializeCardProgresses was called with flashcardId: ${flashcardId}, mode: ${mode}`,
+    );
+    return HttpResponse.json(
+      { message: "cards in this flashcard were initialized" },
+      { status: 200 },
+    );
+  }),
+  http.get("*/card_progresses/due", async () => {
+    // 出題するカードの情報を返却する
+    console.log("==========================");
+    console.log("getDueCardProgresses was called");
+    console.log("==========================");
+
+    return HttpResponse.json(mockCardProgresses);
   }),
 ];

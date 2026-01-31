@@ -105,7 +105,6 @@ describe("SignUp Page", () => {
       await user.type(emailInput, USUAL_USER_INPUT.MAIL_ADDRESS);
       expect(emailInput.value).toBe(USUAL_USER_INPUT.MAIL_ADDRESS);
     });
-    // メールアドレスの型に合わない入力で登録ボタン押下
   });
   describe("パスワードフォーム動作確認", () => {
     // テスト対象以外のフォームは正常系で埋めておく

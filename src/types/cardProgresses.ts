@@ -1,5 +1,5 @@
 export type Difficulty = "again" | "hard" | "normal" | "easy";
-interface Card {
+export interface DueCard {
   id: number;
   flashcardId: number;
   front: string;
@@ -27,7 +27,7 @@ export type CardProgress = {
   reviewCount: number;
   easinessFactor: number;
   lastReviewedAt: string;
-  card: Card;
+  card: DueCard;
 };
 
 export type SubmitedProgresss = {

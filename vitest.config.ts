@@ -6,9 +6,9 @@ export default defineConfig({
     globals: true,
     include: ["src/**/*.test.tsx", "src/**/*.test.ts"],
     exclude: [
-      // "src/components/pages/__tests__/SignUp.test.tsx",
+      "src/components/pages/__tests__/SignUp.test.tsx",
       "src/components/pages/__tests__/SignIn.test.tsx",
-      "src/components/pages/__tests__/Learning.test.tsx",
+      // "src/components/pages/__tests__/Learning.test.tsx",
       "src/components/pages/__tests__/Cards.test.tsx",
       "src/components/pages/__tests__/Flashcards.test.tsx",
       "src/components/pages/__tests__/Dictionary.test.tsx",
