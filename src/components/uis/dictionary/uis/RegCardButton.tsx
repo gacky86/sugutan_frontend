@@ -1,4 +1,6 @@
 import { FaBook } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+
 // ここにバケツリレーされてきたresultの情報をcardとして登録する
 // extranotesとして登録する
 // 属するFCはdictionarySlice内のstate.regFlashcardTitleから、FCのidを特定する
@@ -24,6 +26,8 @@ import { createExtraNote } from "@/api/extraNote";
 import type { AxiosError } from "axios";
 import { removeResult } from "@/stores/dictionarySlice";
 
+import { toast } from "react-toastify";
+
 type Props = {
   result: DictionarySearchResult;
 };
@@ -31,7 +35,7 @@ type Props = {
 const RegCardButton = ({ result }: Props) => {
   // regFlashcardTitleの取得
   const regFlashcardTitle = useSelector(
-    (state: RootState) => state.dictionary.regFlashcardTitle
+    (state: RootState) => state.dictionary.regFlashcardTitle,
   );
   // 登録先となるFlashcardを取得
   const regFlashcard = useSelector(selectFlashcardByTitle(regFlashcardTitle));
@@ -56,6 +60,10 @@ const RegCardButton = ({ result }: Props) => {
           await createExtraNote(res.data.id, params);
         }
         dispatch(removeResult(result));
+        // toast(`${result.translation.en}を単語帳に登録しました！`, {
+        //   position: "bottom-right",
+        // });
+        toast.success(`${result.translation.en}を単語帳に登録しました！`);
       }
       // エラー処理
     } catch (err) {
@@ -65,12 +73,17 @@ const RegCardButton = ({ result }: Props) => {
   };
 
   return (
-    <FaBook
-      className="hover:bg-amber-200 rounded-sm duration-300 cursor-pointer"
+    <div
+      className="flex items-center hover:bg-amber-200 rounded-sm duration-300 cursor-pointer"
       onClick={() => regCardToFlashcard()}
       role="button"
       aria-label={`${result.translation.jp} を登録`}
-    />
+    >
+      <span className="text-sky-500">
+        <FaPlus />
+      </span>
+      <FaBook />
+    </div>
   );
 };
 
