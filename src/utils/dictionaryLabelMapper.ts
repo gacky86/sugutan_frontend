@@ -17,7 +17,7 @@ const partOfSpeechLabels: Record<PartOfSpeech, string> = {
   verb: "動詞",
   adjective: "形容詞",
   adverb: "副詞",
-  phrase: "コロケーション・フレーズ",
+  phrase: "フレーズ",
   idiom: "イディオム",
   "auxiliary verb": "助動詞",
   conjunction: "接続詞",
