@@ -26,6 +26,8 @@ import { createExtraNote } from "@/api/extraNote";
 import type { AxiosError } from "axios";
 import { removeResult } from "@/stores/dictionarySlice";
 
+import { toast } from "react-toastify";
+
 type Props = {
   result: DictionarySearchResult;
 };
@@ -58,6 +60,10 @@ const RegCardButton = ({ result }: Props) => {
           await createExtraNote(res.data.id, params);
         }
         dispatch(removeResult(result));
+        // toast(`${result.translation.en}を単語帳に登録しました！`, {
+        //   position: "bottom-right",
+        // });
+        toast.success(`${result.translation.en}を単語帳に登録しました！`);
       }
       // エラー処理
     } catch (err) {

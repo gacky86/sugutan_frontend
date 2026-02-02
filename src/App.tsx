@@ -28,6 +28,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch, type RootState } from "@/stores/index";
 import { fetchCurrentUser } from "./stores/authSlice";
 
+// toast
+import { ToastContainer } from "react-toastify";
+
 // 認証情報が確認できる場合はPrivate内を表示
 // それ以外の場合はSigninの表示
 const App: React.FC = () => {
@@ -54,21 +57,24 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="signin" element={<SignIn />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="checkemail" element={<CheckEmail />} />
-        <Route path="/not-found" element={<NotFoundError />} />
-        <Route path="/server-error" element={<ServerError />} />
-        <Route element={<Private />}>
-          <Route path="/" element={<Flashcards />} />
-          <Route path="/dictionary" element={<Dictionary />} />
-          <Route path="/flashcards/:id/cards" element={<Cards />} />
-          <Route path="/learning" element={<Learning />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="checkemail" element={<CheckEmail />} />
+          <Route path="/not-found" element={<NotFoundError />} />
+          <Route path="/server-error" element={<ServerError />} />
+          <Route element={<Private />}>
+            <Route path="/" element={<Flashcards />} />
+            <Route path="/dictionary" element={<Dictionary />} />
+            <Route path="/flashcards/:id/cards" element={<Cards />} />
+            <Route path="/learning" element={<Learning />} />
+          </Route>
+        </Routes>
+      </Router>
+      <ToastContainer closeOnClick autoClose={2000} />
+    </>
   );
 };
 
