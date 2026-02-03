@@ -83,10 +83,6 @@ describe("Dictionary Page", () => {
         const mockResults: DictionarySearchResult[] = [
           {
             translation: { jp: "", en: "" },
-            definition: {
-              jp: "",
-              en: "",
-            },
             example: {
               jp: "",
               en: "",
@@ -95,6 +91,7 @@ describe("Dictionary Page", () => {
             antonyms: [],
             etymology: "",
             partOfSpeech: "noun",
+            pronunciation: "",
             collocations: [],
             success: false,
           },

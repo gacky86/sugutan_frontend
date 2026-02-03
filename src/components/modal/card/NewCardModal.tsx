@@ -103,7 +103,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
               notes.length > 5
                 ? "border border-gray-500"
                 : "border border-red-500  hover:bg-red-500 hover:text-white duration-300",
-              "py-1 rounded-sm w-[140px] text-center text-gray-500"
+              "py-1 rounded-sm w-[140px] text-center text-gray-500",
             )}
           >
             + Add Extra note
@@ -121,9 +121,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
               !fields.front.lengthCheck ||
               !fields.back.lengthCheck ||
               !fields.frontSentence.lengthCheck ||
-              !fields.backSentence.lengthCheck ||
-              !fields.explanationFront.lengthCheck ||
-              !fields.explanationBack.lengthCheck
+              !fields.backSentence.lengthCheck
             }
           />
         </div>

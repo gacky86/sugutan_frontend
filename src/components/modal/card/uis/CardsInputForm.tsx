@@ -63,22 +63,22 @@ const CardsInputForm = ({ fields, updateField }: Props) => {
         </p>
       </div>
       <TextAreaInput
-        label="Explanation in Japanese"
-        name="explanationFront"
-        id="explanationFront"
-        placeholder="単語・表現の意味やニュアンスなどを入力（日本語）"
+        label="Explanation"
+        name="explanation"
+        id="explanation"
+        placeholder="単語・表現の意味やニュアンスなど"
         maxLength={256}
-        text={fields.explanationFront}
-        setText={(val) => updateField("explanationFront", val)}
+        text={fields.explanation}
+        setText={(val) => updateField("explanation", val)}
       />
-      <TextAreaInput
-        label="Explanation in English"
-        name="explanationBack"
-        id="explanationBack"
-        placeholder="単語・表現の意味やニュアンスなどを入力（英語）"
+      <TextInput
+        label="Pronunciation"
+        name="pronunciation"
+        id="pronunciation"
+        placeholder="発音記号などを入力"
         maxLength={256}
-        text={fields.explanationBack}
-        setText={(val) => updateField("explanationBack", val)}
+        text={fields.pronunciation}
+        setText={(val) => updateField("pronunciation", val)}
       />
     </>
   );

@@ -13,20 +13,20 @@ export const buildCardParams = (fields: CardInputState): CardParams => ({
   back: fields.back.input,
   frontSentence: fields.frontSentence.input,
   backSentence: fields.backSentence.input,
-  explanationFront: fields.explanationFront.input,
-  explanationBack: fields.explanationBack.input,
   cardType: convertPartOfSpeechJPtoEN(fields.cardType.input as PartOfSpeechJP),
+  pronunciation: fields.pronunciation.input,
+  explanation: fields.explanation.input,
 });
 
-// Gemini APIからの返答をcard登録ように編集する
+// Gemini APIからの返答をcard登録用に編集する
 export const buildCardParamsDictionary = (
-  result: DictionarySearchResult
+  result: DictionarySearchResult,
 ): CardParams => ({
   front: result.translation.jp,
   back: result.translation.en,
   frontSentence: result.example.jp,
   backSentence: result.example.en,
-  explanationFront: result.definition.jp,
-  explanationBack: result.definition.en,
   cardType: result.partOfSpeech,
+  pronunciation: result.pronunciation,
+  explanation: "",
 });

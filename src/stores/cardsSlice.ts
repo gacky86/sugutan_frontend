@@ -7,8 +7,10 @@ export const fetchCards = createAsyncThunk(
   "cards/fetchCards",
   async (flashcardId: number) => {
     const response = await getCardList(flashcardId);
+    console.log(response);
+
     return response.data as Card[];
-  }
+  },
 );
 
 interface CardState {

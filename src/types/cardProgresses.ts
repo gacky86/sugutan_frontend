@@ -6,10 +6,10 @@ export interface DueCard {
   back: string;
   frontSentence: string;
   backSentence: string;
-  explanationFront: string;
-  explanationBack: string;
   cardType: string;
   extraNotes: ExtraNote[];
+  pronunciation: string;
+  explanation: string;
 }
 interface ExtraNote {
   id: number;
