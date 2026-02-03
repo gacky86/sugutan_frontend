@@ -8,8 +8,8 @@ import SignOutButton from "@/components/uis/common/SignOutButton";
 const MenuBarBottom = () => {
   return (
     <div className="flex justify-between p-3 text-2xl">
-      <MenuButton text="" icon={FaSearch} path="/dictionary" />
       <MenuButton text="" icon={FaBook} path="/" />
+      <MenuButton text="" icon={FaSearch} path="/dictionary" />
       <MenuButton text="" icon={CiSettings} path="/" />
       <SignOutButton />
     </div>

@@ -8,8 +8,8 @@ const MenuBar = () => {
   return (
     <div className="relative h-full">
       <div className="p-2">
-        <MenuButton text="表現検索" icon={FaSearch} path="/dictionary" />
         <MenuButton text="単語帳一覧" icon={FaBook} path="/" />
+        <MenuButton text="AI辞書" icon={FaSearch} path="/dictionary" />
         <MenuButton text="設定" icon={CiSettings} path="/" />
       </div>
       <div className="p-2 absolute bottom-0">
