@@ -34,9 +34,9 @@ export const mockCards: Card[] = [
     back: "apple",
     frontSentence: "私はりんごを食べる。",
     backSentence: "I eat an apple.",
-    explanationFront: "",
-    explanationBack: "",
     cardType: "noun",
+    pronunciation: "/æpl/",
+    explanation: "test",
   },
   {
     id: 102,
@@ -45,19 +45,15 @@ export const mockCards: Card[] = [
     back: "take",
     frontSentence: "その薬を毎日飲む。",
     backSentence: "Take the medicine everyday.",
-    explanationFront: "",
-    explanationBack: "",
     cardType: "verb",
+    pronunciation: "/téɪk/",
+    explanation: "test",
   },
 ];
 
 export const mockDictionaryResults: DictionarySearchResult[] = [
   {
     translation: { jp: "りんご", en: "apple" },
-    definition: {
-      jp: "バラ科リンゴ属の落葉高木、およびその果実。世界中で広く栽培され、食用とされる。",
-      en: "A common, edible fruit, typically round, with red,…nd crisp, white flesh. It grows on an apple tree.",
-    },
     example: {
       jp: "毎日りんごを食べると医者いらず。",
       en: "An apple a day keeps the doctor away.",
@@ -74,6 +70,7 @@ export const mockDictionaryResults: DictionarySearchResult[] = [
       "apple tree",
     ],
     success: true,
+    pronunciation: "/æpl/",
   },
 ];
 
@@ -99,10 +96,10 @@ const mockDueCards: DueCard[] = [
     back: "apple",
     frontSentence: "私はりんごを食べる。",
     backSentence: "I eat an apple.",
-    explanationFront: "",
-    explanationBack: "",
     cardType: "noun",
     extraNotes: mockExtraNotes,
+    pronunciation: "/æpl/",
+    explanation: "test apple",
   },
   {
     id: 102,
@@ -111,10 +108,10 @@ const mockDueCards: DueCard[] = [
     back: "take",
     frontSentence: "その薬を毎日飲む。",
     backSentence: "Take the medicine everyday.",
-    explanationFront: "",
-    explanationBack: "",
     cardType: "verb",
     extraNotes: mockExtraNotes,
+    pronunciation: "/téɪk/",
+    explanation: "test take",
   },
 ];
 export const mockCardProgresses: CardProgress[] = [

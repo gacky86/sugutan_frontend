@@ -1,5 +1,5 @@
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // redux
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/index";
@@ -23,14 +23,20 @@ const CardInfo = () => {
     (state: RootState) => state.learning,
   );
 
+  // 回答表示時の単語カードの補足情報表示の制御
   const [isExtraInfoVisible, setIsExtraInfoVisible] = useState(false);
+
+  const card = queue[currentIndex].card;
+  const extraNotes = queue[currentIndex].card.extraNotes;
+
+  // カード切り替え時に補足情報は非表示にリセットする
+  useEffect(() => {
+    setIsExtraInfoVisible(false);
+  }, [card]);
 
   if (thinking) {
     return null;
   }
-
-  const card = queue[currentIndex].card;
-  const extraNotes = queue[currentIndex].card.extraNotes;
 
   return (
     <>
@@ -57,6 +63,8 @@ const CardInfo = () => {
         {/* 補足情報(togglable) */}
         <div
           className="border-t-2 border-gray-300 mt-2"
+          role="button"
+          aria-label="show extraInfo"
           onClick={() => setIsExtraInfoVisible(!isExtraInfoVisible)}
         >
           {isExtraInfoVisible ? (

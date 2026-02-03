@@ -116,10 +116,6 @@ export const handlers = [
   }),
   http.get("*/card_progresses/due", async () => {
     // 出題するカードの情報を返却する
-    console.log("==========================");
-    console.log("getDueCardProgresses was called");
-    console.log("==========================");
-
     return HttpResponse.json(mockCardProgresses);
   }),
 ];
