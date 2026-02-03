@@ -44,9 +44,12 @@ const ResultCard = ({ result }: Props) => {
         <h3>{result.translation.jp}</h3>
       </div>
       {/* 例文(英語) */}
-      <div className="text-sm flex items-center gap-1">
-        <p>{result.example.en}</p>
-        <HiSpeakerWave onClick={() => handleSpeak(result.example.en)} />
+      <div className="flex items-center gap-1">
+        <p className="text-sm">{result.example.en}</p>
+        <HiSpeakerWave
+          onClick={() => handleSpeak(result.example.en)}
+          className="text-lg"
+        />
       </div>
       {/* 例文(日本語) */}
       <div className="text-sm">
