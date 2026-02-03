@@ -10,11 +10,6 @@ export const useCardForm = (card?: Card) => {
     back: { input: card?.back || "", lengthCheck: true },
     frontSentence: { input: card?.frontSentence || "", lengthCheck: true },
     backSentence: { input: card?.backSentence || "", lengthCheck: true },
-    explanationFront: {
-      input: card?.explanationFront || "",
-      lengthCheck: true,
-    },
-    explanationBack: { input: card?.explanationBack || "", lengthCheck: true },
     cardType: {
       input:
         convertPartOfSpeechENtoJP(card?.cardType as PartOfSpeech) ||
@@ -22,6 +17,7 @@ export const useCardForm = (card?: Card) => {
       lengthCheck: true,
     },
     pronunciation: { input: card?.pronunciation || "", lengthCheck: true },
+    explanation: { input: card?.explanation || "", lengthCheck: true },
   };
 
   const [fields, setFields] = useState<CardInputState>(initialState);

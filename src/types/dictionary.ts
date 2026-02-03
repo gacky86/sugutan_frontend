@@ -2,7 +2,6 @@ import type { PartOfSpeech } from "@/utils/dictionaryLabelMapper";
 
 export interface DictionarySearchResult {
   translation: { jp: string; en: string };
-  definition: { jp: string; en: string };
   example: { jp: string; en: string };
   synonyms: string[] | [];
   antonyms: string[] | [];
@@ -17,7 +16,6 @@ export interface DictionarySearchResult {
 export interface DictionarySearchResultWithId {
   id: string;
   translation: { jp: string; en: string };
-  definition: { jp: string; en: string };
   example: { jp: string; en: string };
   synonyms: string[] | [];
   antonyms: string[] | [];
