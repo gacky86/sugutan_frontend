@@ -35,9 +35,9 @@ describe("cardsSlice reducers", () => {
       back: "test",
       frontSentence: "test",
       backSentence: "test",
-      explanationFront: "test",
-      explanationBack: "test",
       cardType: "test",
+      pronunciation: "test",
+      explanation: "test",
     };
     const state = reducer(initialState, addCard(newCard));
 
@@ -54,9 +54,9 @@ describe("cardsSlice reducers", () => {
       back: "testA",
       frontSentence: "testA",
       backSentence: "testA",
-      explanationFront: "testA",
-      explanationBack: "testA",
       cardType: "testA",
+      pronunciation: "testA",
+      explanation: "testA",
     };
     const cardB: Card = {
       id: 2,
@@ -65,9 +65,9 @@ describe("cardsSlice reducers", () => {
       back: "testB",
       frontSentence: "testB",
       backSentence: "testB",
-      explanationFront: "testB",
-      explanationBack: "testB",
       cardType: "testB",
+      pronunciation: "testB",
+      explanation: "testB",
     };
     const startState = {
       ...initialState,
@@ -89,9 +89,9 @@ describe("cardsSlice reducers", () => {
       back: "testBefore",
       frontSentence: "testBefore",
       backSentence: "testBefore",
-      explanationFront: "testBefore",
-      explanationBack: "testBefore",
       cardType: "testBefore",
+      pronunciation: "testBefore",
+      explanation: "testBefore",
     };
     const cardAfter: Card = {
       id: 1,
@@ -100,9 +100,9 @@ describe("cardsSlice reducers", () => {
       back: "testAfter",
       frontSentence: "testAfter",
       backSentence: "testAfter",
-      explanationFront: "testAfter",
-      explanationBack: "testAfter",
       cardType: "testAfter",
+      pronunciation: "testAfter",
+      explanation: "testAfter",
     };
     const startState = {
       ...initialState,
@@ -156,9 +156,9 @@ describe("fetchFlashcards async", () => {
           back: "test",
           frontSentence: "test",
           backSentence: "test",
-          explanationFront: "test",
-          explanationBack: "test",
           cardType: "test",
+          pronunciation: "test",
+          explanation: "test",
         },
       ],
       status: 200,
@@ -166,7 +166,7 @@ describe("fetchFlashcards async", () => {
 
     // mock関数の戻り値を定義
     (getCardList as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
-      mockResponse
+      mockResponse,
     );
 
     // create async thunkで通常内部的に必要になる値をモック化

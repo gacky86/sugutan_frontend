@@ -44,7 +44,7 @@ describe("Dictionary Page", () => {
     renderDictionaryPage();
   });
   it("認証済みユーザーの場合、表現検索ページが初期状態で表示されること", async () => {
-    expect(screen.getAllByText("表現検索").length).toBe(2);
+    expect(screen.getAllByText("AI辞書").length).toBe(2);
     expect(screen.getByText("検索")).toBeInTheDocument();
     expect(screen.getByText("検索結果はありません")).toBeInTheDocument();
     expect(screen.getByText("登録先の単語帳")).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe("Dictionary Page", () => {
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    user.type(dictionaryInput, "りんご");
+    await user.type(dictionaryInput, "りんご");
     expect(dictionaryInput).toHaveValue("りんご");
   });
   it("検索フォーム入力、検索ボタン押下後、検索結果が表示されること", async () => {
@@ -62,13 +62,12 @@ describe("Dictionary Page", () => {
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    user.type(dictionaryInput, "りんご");
-    user.click(searchButton);
+    await user.type(dictionaryInput, "りんご");
+    await user.click(searchButton);
     const textList = [
-      "[名詞]apple",
+      "apple",
       "毎日りんごを食べると医者いらず。",
       "An apple a day keeps the doctor away.",
-      "red apple, green apple, apple pie, apple juice, apple tree",
     ];
     for (const text of textList) {
       const element = await screen.findByText(text, {}, { timeout: 2000 });
@@ -103,9 +102,9 @@ describe("Dictionary Page", () => {
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    user.type(dictionaryInput, "りんご");
+    await user.type(dictionaryInput, "りんご");
 
-    user.click(searchButton);
+    await user.click(searchButton);
     const element = await screen.findByText(
       "該当する単語・表現が見つかりませんでした。",
       {},
@@ -128,15 +127,15 @@ describe("Dictionary Page", () => {
     const dictionaryInput = screen.getByPlaceholderText(
       "調べたい単語・フレーズを英語または日本語で入力",
     ) as HTMLInputElement;
-    user.type(dictionaryInput, "りんご");
+    await user.type(dictionaryInput, "りんご");
 
-    user.click(searchButton);
+    await user.click(searchButton);
     const regButton = await screen.findByRole(
       "button",
       { name: "りんご を登録" },
       { timeout: 2000 },
     );
-    user.click(regButton);
+    await user.click(regButton);
     const result = await screen.findByText(
       "検索結果はありません",
       {},
@@ -147,13 +146,11 @@ describe("Dictionary Page", () => {
       "[名詞]apple",
       "毎日りんごを食べると医者いらず。",
       "An apple a day keeps the doctor away.",
-      "red apple, green apple, apple pie, apple juice, apple tree",
     ];
     for (const text of textList) {
       const element = screen.queryByText(text);
       expect(element).toBeNull();
     }
-    screen.debug();
   });
   it("登録先単語帳のボックスに、ユーザーの単語帳が選択肢として表示されること", async () => {
     const mockTitles = ["english phrases", "french words"];

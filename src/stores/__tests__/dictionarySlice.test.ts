@@ -53,7 +53,6 @@ describe("dictionarySlice reducers", () => {
     const testResultA: DictionarySearchResultWithId = {
       id: "abc",
       translation: { jp: "japaneseA", en: "englishB" },
-      definition: { jp: "japaneseA", en: "englishB" },
       example: { jp: "japaneseA", en: "englishB" },
       synonyms: [],
       antonyms: [],
@@ -61,11 +60,11 @@ describe("dictionarySlice reducers", () => {
       partOfSpeech: "noun",
       collocations: [],
       success: true,
+      pronunciation: "pronunciation-abc",
     };
     const testResultB: DictionarySearchResultWithId = {
       id: "def",
       translation: { jp: "japaneseB", en: "englishB" },
-      definition: { jp: "japaneseB", en: "englishB" },
       example: { jp: "japaneseB", en: "englishB" },
       synonyms: [],
       antonyms: [],
@@ -73,6 +72,7 @@ describe("dictionarySlice reducers", () => {
       partOfSpeech: "noun",
       collocations: [],
       success: true,
+      pronunciation: "pronunciation-def",
     };
     const startState = {
       ...initialState,
@@ -96,7 +96,6 @@ describe("dictionarySlice extraReducers (async thunk)", () => {
     const testResultA: DictionarySearchResultWithId = {
       id: "abc",
       translation: { jp: "japaneseA", en: "englishB" },
-      definition: { jp: "japaneseA", en: "englishB" },
       example: { jp: "japaneseA", en: "englishB" },
       synonyms: [],
       antonyms: [],
@@ -104,6 +103,7 @@ describe("dictionarySlice extraReducers (async thunk)", () => {
       partOfSpeech: "noun",
       collocations: [],
       success: true,
+      pronunciation: "pronunciation-abc",
     };
     const mockData = [testResultA];
 
@@ -141,7 +141,6 @@ describe("getGeminiResults async", () => {
     const mockResults: DictionarySearchResult[] = [
       {
         translation: { jp: "japaneseA", en: "englishB" },
-        definition: { jp: "japaneseA", en: "englishB" },
         example: { jp: "japaneseA", en: "englishB" },
         synonyms: [],
         antonyms: [],
@@ -149,6 +148,7 @@ describe("getGeminiResults async", () => {
         partOfSpeech: "noun",
         collocations: [],
         success: true,
+        pronunciation: "pronunciation-abc",
       },
     ];
 
@@ -162,7 +162,7 @@ describe("getGeminiResults async", () => {
     const result = await getGeminiResults("test")(
       dispatch,
       getState,
-      undefined
+      undefined,
     );
     expect(dictionary).toHaveBeenCalledWith("test");
     expect(result.payload).toEqual<DictionarySearchResultWithId[]>([
@@ -183,7 +183,7 @@ describe("getGeminiResults async", () => {
     const result = await getGeminiResults("test")(
       dispatch,
       getState,
-      undefined
+      undefined,
     );
 
     expect(dictionary).toHaveBeenCalledWith("test");

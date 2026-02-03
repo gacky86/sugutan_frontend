@@ -23,7 +23,10 @@ import { renderCardsPage } from "@/tests/utils/renderPage";
 vi.mock("@/assets/sugutan_logo.svg?react", () => ({
   default: () => <svg data-testid="logo" />,
 }));
-
+// motionのモック
+vi.mock("react-loader-spinner", () => ({
+  DNA: () => <div data-testid="loading-dna" />,
+}));
 // MSWサーバーのセットアップ
 const server = setupServer(...handlers);
 beforeAll(() => server.listen());
@@ -91,14 +94,10 @@ describe("Cards Page", () => {
           "English sentence",
         ) as HTMLInputElement;
         expect(backSentence.value).toBe("I eat an apple.");
-        const frontExplanation = screen.getByLabelText(
-          "Explanation in Japanese",
+        const explanation = screen.getByLabelText(
+          "Explanation",
         ) as HTMLInputElement;
-        expect(frontExplanation.value).toBe("");
-        const backExplanation = screen.getByLabelText(
-          "Explanation in English",
-        ) as HTMLInputElement;
-        expect(backExplanation.value).toBe("");
+        expect(explanation.value).toBe("test");
       });
     });
     // 単語の編集（正常・異常入力時動作確認）
@@ -137,14 +136,10 @@ describe("Cards Page", () => {
           "English sentence",
         ) as HTMLInputElement;
         expect(backSentence.value).toBe("");
-        const frontExplanation = screen.getByLabelText(
-          "Explanation in Japanese",
+        const explanation = screen.getByLabelText(
+          "Explanation",
         ) as HTMLInputElement;
-        expect(frontExplanation.value).toBe("");
-        const backExplanation = screen.getByLabelText(
-          "Explanation in English",
-        ) as HTMLInputElement;
-        expect(backExplanation.value).toBe("");
+        expect(explanation.value).toBe("");
       });
     });
     // 単語の作成（正常・異常入力時動作確認）
