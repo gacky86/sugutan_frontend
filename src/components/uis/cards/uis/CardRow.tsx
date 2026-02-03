@@ -28,7 +28,7 @@ const CardRow = ({ flashcard, card }: Props) => {
                 flashcard: flashcard, // Flashcard オブジェクト
                 card: card, // Card オブジェクト
               },
-            })
+            }),
           )
         }
         role="button"

@@ -21,6 +21,7 @@ export const useCardForm = (card?: Card) => {
         cardTypes[0],
       lengthCheck: true,
     },
+    pronunciation: { input: card?.pronunciation || "", lengthCheck: true },
   };
 
   const [fields, setFields] = useState<CardInputState>(initialState);

@@ -1,7 +1,10 @@
+import { toast } from "react-toastify";
+
 export const handleSpeak = (text: string, lang = "en-US") => {
   // ブラウザが対応しているか確認
   if (!("speechSynthesis" in window)) {
     alert("このブラウザは音声読み上げに対応していません。");
+    toast.error("このブラウザは音声読み上げに対応していません。");
     return;
   }
 

@@ -10,6 +10,7 @@ export interface DictionarySearchResult {
   partOfSpeech: PartOfSpeech;
   collocations: string[];
   success: boolean;
+  pronunciation: string;
 }
 
 // idはnanoidによる付加なのでstring
@@ -24,4 +25,5 @@ export interface DictionarySearchResultWithId {
   partOfSpeech: PartOfSpeech;
   collocations: string[];
   success: boolean;
+  pronunciation: string;
 }

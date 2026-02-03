@@ -80,6 +80,15 @@ const CardsInputForm = ({ fields, updateField }: Props) => {
         text={fields.explanationBack}
         setText={(val) => updateField("explanationBack", val)}
       />
+      <TextInput
+        label="Pronunciation"
+        name="pronunciation"
+        id="pronunciation"
+        placeholder="発音記号などを入力"
+        maxLength={256}
+        text={fields.pronunciation}
+        setText={(val) => updateField("pronunciation", val)}
+      />
     </>
   );
 };

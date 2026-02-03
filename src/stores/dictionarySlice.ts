@@ -22,6 +22,7 @@ export const getGeminiResults = createAsyncThunk<
       ...res,
       id: nanoid(),
     }));
+    console.log(withId);
 
     return withId;
   } catch (error: unknown) {

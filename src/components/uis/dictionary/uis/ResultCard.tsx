@@ -33,7 +33,7 @@ const ResultCard = ({ result }: Props) => {
       {/* 発音、品詞 */}
       <div className="flex gap-3 text-sm text-gray-700 mb-2">
         <div>
-          <p>[bíːtn]</p>
+          <p>[{result.pronunciation}]</p>
         </div>
         <div className="border-gray-400 border rounded-sm px-1">
           {getPartOfSpeechLabels(result.partOfSpeech)}

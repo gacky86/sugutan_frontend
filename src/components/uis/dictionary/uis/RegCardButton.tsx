@@ -54,15 +54,14 @@ const RegCardButton = ({ result }: Props) => {
 
     try {
       const res = await createCard(regFlashcard.id, cardParams);
+      console.log(cardParams);
+
       if (res.status === 200) {
         // cardの作成が正常終了した場合、extra_noteの作成を行う
         for (const params of extraNotesParamsList) {
           await createExtraNote(res.data.id, params);
         }
         dispatch(removeResult(result));
-        // toast(`${result.translation.en}を単語帳に登録しました！`, {
-        //   position: "bottom-right",
-        // });
         toast.success(`${result.translation.en}を単語帳に登録しました！`);
       }
       // エラー処理

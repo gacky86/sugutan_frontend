@@ -8,6 +8,7 @@ export interface Card {
   explanationFront: string;
   explanationBack: string;
   cardType: string;
+  pronunciation: string;
 }
 export interface CardParams {
   front: string;
@@ -17,6 +18,7 @@ export interface CardParams {
   explanationFront: string;
   explanationBack: string;
   cardType: string;
+  pronunciation: string;
 }
 export type FieldState = {
   lengthCheck: boolean;
@@ -30,6 +32,7 @@ export type CardInputState = {
   explanationFront: FieldState;
   explanationBack: FieldState;
   cardType: FieldState;
+  pronunciation: FieldState;
 };
 
 export const cardTypes: string[] = [
