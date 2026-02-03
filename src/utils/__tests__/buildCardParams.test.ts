@@ -7,9 +7,9 @@ const testFields: CardInputState = {
   back: { input: "back", lengthCheck: true },
   frontSentence: { input: "front sentence", lengthCheck: true },
   backSentence: { input: "back sentence", lengthCheck: true },
-  explanationFront: { input: "explanation front", lengthCheck: true },
-  explanationBack: { input: "explanation back", lengthCheck: true },
   cardType: { input: "名詞", lengthCheck: true },
+  pronunciation: { input: "pronunciation", lengthCheck: true },
+  explanation: { input: "explanation", lengthCheck: true },
 };
 
 describe("buildCardParams", () => {
@@ -20,9 +20,9 @@ describe("buildCardParams", () => {
       back: "back",
       frontSentence: "front sentence",
       backSentence: "back sentence",
-      explanationFront: "explanation front",
-      explanationBack: "explanation back",
       cardType: "noun",
+      pronunciation: "pronunciation",
+      explanation: "explanation",
     });
   });
 });

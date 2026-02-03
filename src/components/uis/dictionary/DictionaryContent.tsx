@@ -14,7 +14,7 @@ const DictionaryContent = () => {
 
   return (
     <div>
-      <PageTitle text="表現検索" icon={FaSearch} />
+      <PageTitle text="AI辞書" icon={FaSearch} />
 
       <div className="flex flex-col md:grid md:grid-cols-6 md:gap-4">
         {/* 1. 検索バー (常に最初) */}

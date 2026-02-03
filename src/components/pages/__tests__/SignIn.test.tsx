@@ -79,7 +79,7 @@ describe("Login Page", () => {
       await user.type(passwordInput, USUAL_USER_INPUT.PASSWORD);
     });
     it("E-mailフォームへのユーザー入力が画面に反映されること", async () => {
-      user.type(emailInput, USUAL_USER_INPUT.MAIL_ADDRESS);
+      await user.type(emailInput, USUAL_USER_INPUT.MAIL_ADDRESS);
       expect(emailInput.value).toBe(USUAL_USER_INPUT.MAIL_ADDRESS);
     });
   });
@@ -89,7 +89,7 @@ describe("Login Page", () => {
       await user.type(emailInput, USUAL_USER_INPUT.MAIL_ADDRESS);
     });
     it("パスワードフォームへのユーザー入力が画面に反映されること", async () => {
-      user.type(passwordInput, USUAL_USER_INPUT.PASSWORD);
+      await user.type(passwordInput, USUAL_USER_INPUT.PASSWORD);
       expect(passwordInput.value).toBe(USUAL_USER_INPUT.PASSWORD);
     });
   });
