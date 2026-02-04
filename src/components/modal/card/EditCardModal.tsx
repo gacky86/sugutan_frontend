@@ -48,7 +48,13 @@ const EditCardModal = ({
       setExtraNotes(res.data);
     } catch (err) {
       const error = err as AxiosError<RailsErrorResponse>;
-      console.log(error);
+      const message =
+        error.response?.data?.error ||
+        "エラーが発生しました。もう一度やり直してください。";
+      setErrorMessage({
+        message: message,
+        hasError: true,
+      });
     }
   };
 
