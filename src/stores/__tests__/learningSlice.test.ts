@@ -1,4 +1,4 @@
-import type { CardProgress, SubmitedProgresss } from "@/types";
+import type { CardProgress, Flashcard, SubmitedProgresss } from "@/types";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import type { Mock } from "vitest";
 
@@ -10,6 +10,7 @@ import reducer, {
   submitReview,
 } from "@/stores/learningSlice";
 import { getDueCardProgresses, submitProgress } from "@/api/cardProgress";
+import { mockFlashcards } from "@/mocks/mockData";
 
 // 初期状態
 interface ReviewState {
@@ -18,6 +19,7 @@ interface ReviewState {
   loading: boolean;
   thinking: boolean;
   mode: "input" | "output";
+  flashcard: Flashcard | null;
 }
 
 const initialState: ReviewState = {
@@ -26,6 +28,7 @@ const initialState: ReviewState = {
   loading: false,
   thinking: true,
   mode: "input",
+  flashcard: null,
 };
 
 // reducerの単体テスト
@@ -135,12 +138,11 @@ describe("fetchDueProgresses async", () => {
     });
 
     // thunk関数の呼び出し
-    const result = await fetchDueProgresses("input")(
-      dispatch,
-      getState,
-      undefined
-    );
-    expect(getDueCardProgresses).toHaveBeenCalledWith("input");
+    const result = await fetchDueProgresses({
+      flashcardId: mockFlashcards[0].id,
+      mode: "input",
+    })(dispatch, getState, undefined);
+    expect(getDueCardProgresses).toHaveBeenCalledWith(0, "input");
     expect(result.payload).toEqual<CardProgress[]>([
       {
         ...testResult[0],
@@ -154,16 +156,15 @@ describe("fetchDueProgresses async", () => {
     const getState = vi.fn();
     // エラー時の戻り値を定義
     (getDueCardProgresses as unknown as Mock).mockRejectedValue(
-      new Error("API Error")
+      new Error("API Error"),
     );
 
-    const result = await fetchDueProgresses("input")(
-      dispatch,
-      getState,
-      undefined
-    );
+    const result = await fetchDueProgresses({
+      flashcardId: mockFlashcards[0].id,
+      mode: "input",
+    })(dispatch, getState, undefined);
 
-    expect(getDueCardProgresses).toHaveBeenCalledWith("input");
+    expect(getDueCardProgresses).toHaveBeenCalledWith(0, "input");
     expect(result.type).toBe("learning/fetchDueProgresses/rejected");
     expect(result.payload).toBe("Failed to fetch due progress results");
   });
@@ -200,7 +201,7 @@ describe("submitReview async", () => {
     const result = await submitReview({ progressId: 1, difficulty: "hard" })(
       dispatch,
       getState,
-      undefined
+      undefined,
     );
     expect(submitProgress).toHaveBeenCalledWith(1, "hard");
     expect(result.payload).toEqual<SubmitedProgresss>(submitedProgresss);
@@ -212,13 +213,13 @@ describe("submitReview async", () => {
     const getState = vi.fn();
     // エラー時の戻り値を定義
     (submitProgress as unknown as Mock).mockRejectedValue(
-      new Error("API Error")
+      new Error("API Error"),
     );
 
     const result = await submitReview({ progressId: 1, difficulty: "hard" })(
       dispatch,
       getState,
-      undefined
+      undefined,
     );
 
     expect(submitProgress).toHaveBeenCalledWith(1, "hard");

@@ -3,13 +3,16 @@ import type { Difficulty } from "@/types";
 
 export const initializeCardProgresses = (
   flashcardId: number,
-  mode: "input" | "output"
+  mode: "input" | "output",
 ) => {
   return client.post("/card_progresses/start_learning", { flashcardId, mode });
 };
 
-export const getDueCardProgresses = (mode: "input" | "output") => {
-  return client.get("/card_progresses/due", { params: { mode } });
+export const getDueCardProgresses = (
+  flashcardId: number,
+  mode: "input" | "output",
+) => {
+  return client.get("/card_progresses/due", { params: { flashcardId, mode } });
 };
 
 export const submitProgress = (progressId: number, difficulty: Difficulty) => {

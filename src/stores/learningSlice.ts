@@ -1,21 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getDueCardProgresses, submitProgress } from "@/api/cardProgress";
-import type { CardProgress, Difficulty } from "@/types";
+import type { CardProgress, Difficulty, Flashcard } from "@/types";
+
+type fetchDueProgressesArds = {
+  flashcardId: number;
+  mode: "input" | "output";
+};
 
 // 本日学習対象のカードと学習記録を取得
-export const fetchDueProgresses = createAsyncThunk(
-  "learning/fetchDueProgresses",
-  async (mode: "input" | "output", thunkAPI) => {
-    try {
-      const response = await getDueCardProgresses(mode);
+export const fetchDueProgresses = createAsyncThunk<
+  CardProgress[],
+  fetchDueProgressesArds
+>("learning/fetchDueProgresses", async ({ flashcardId, mode }, thunkAPI) => {
+  try {
+    const response = await getDueCardProgresses(flashcardId, mode);
 
-      return response.data as CardProgress[];
-    } catch (error: unknown) {
-      console.error("Gemini API error:", error);
-      return thunkAPI.rejectWithValue("Failed to fetch due progress results");
-    }
-  },
-);
+    return response.data as CardProgress[];
+  } catch (error: unknown) {
+    console.error("Gemini API error:", error);
+    return thunkAPI.rejectWithValue("Failed to fetch due progress results");
+  }
+});
 
 // カードの学習記録をユーザー入力とともに記録
 export const submitReview = createAsyncThunk(
@@ -47,7 +52,7 @@ interface ReviewState {
   loading: boolean;
   thinking: boolean;
   mode: "input" | "output";
-  flashcardTitle: string;
+  flashcard: Flashcard | null;
 }
 
 const initialState: ReviewState = {
@@ -56,7 +61,7 @@ const initialState: ReviewState = {
   loading: false,
   thinking: true,
   mode: "input",
-  flashcardTitle: "",
+  flashcard: null,
 };
 
 const learningSlice = createSlice({
@@ -73,8 +78,8 @@ const learningSlice = createSlice({
     showAnswer(state) {
       state.thinking = false;
     },
-    setFlashcardTitle(state, action) {
-      state.flashcardTitle = action.payload;
+    setFlashcard(state, action) {
+      state.flashcard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -90,6 +95,6 @@ const learningSlice = createSlice({
   },
 });
 
-export const { nextCard, setMode, showAnswer, setFlashcardTitle } =
+export const { nextCard, setMode, showAnswer, setFlashcard } =
   learningSlice.actions;
 export default learningSlice.reducer;
