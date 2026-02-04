@@ -1,6 +1,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 
-const IntroSentence = ({ text, delay }: { text: string; delay: number }) => {
+const IntroSentence = ({
+  text,
+  delay,
+  imgSrc,
+  imgAlt,
+}: {
+  text: string;
+  delay: number;
+  imgSrc?: string;
+  imgAlt?: string;
+}) => {
   return (
     <AnimatePresence mode="wait">
       {
@@ -29,6 +39,13 @@ const IntroSentence = ({ text, delay }: { text: string; delay: number }) => {
             <p>-</p>
             <span>{text}</span>
           </div>
+          {imgSrc && (
+            <img
+              src={imgSrc}
+              alt={imgAlt}
+              className="mx-auto h-[300px] rounded-md mb-2"
+            />
+          )}
         </motion.div>
       }
     </AnimatePresence>
