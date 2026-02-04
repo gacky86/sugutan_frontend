@@ -23,7 +23,7 @@ const LearningContent = () => {
 
   useEffect(() => {
     dispatch(fetchDueProgresses(mode));
-  }, [dispatch]);
+  }, [dispatch, mode]);
 
   const navigate = useNavigate();
 
@@ -43,11 +43,13 @@ const LearningContent = () => {
         ) : (
           <div className="m-auto text-center  py-3">
             <h2>おめでとう！本日分の学習は完了しました。</h2>
-            <MainButton
-              text="戻る"
-              disabled={false}
-              onClick={() => navigate("/")}
-            />
+            <div className="inline-block">
+              <MainButton
+                text="戻る"
+                disabled={false}
+                onClick={() => navigate("/")}
+              />
+            </div>
           </div>
         )}
       </div>
