@@ -12,6 +12,8 @@ import type { RootState, AppDispatch } from "@/stores/index";
 import LoadingOverlay from "@/components/uis/common/LoadingOverLay";
 import { useEffect } from "react";
 import { fetchDueProgresses } from "@/stores/learningSlice";
+import MainButton from "../common/MainButton";
+import { useNavigate } from "react-router-dom";
 
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +24,8 @@ const LearningContent = () => {
   useEffect(() => {
     dispatch(fetchDueProgresses(mode));
   }, [dispatch]);
+
+  const navigate = useNavigate();
 
   return (
     <div className="relative h-full">
@@ -39,6 +43,11 @@ const LearningContent = () => {
         ) : (
           <div className="m-auto text-center  py-3">
             <h2>おめでとう！本日分の学習は完了しました。</h2>
+            <MainButton
+              text="戻る"
+              disabled={false}
+              onClick={() => navigate("/")}
+            />
           </div>
         )}
       </div>
