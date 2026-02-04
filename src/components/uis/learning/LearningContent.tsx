@@ -15,7 +15,7 @@ import { fetchDueProgresses } from "@/stores/learningSlice";
 
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { queue, currentIndex, loading, mode } = useSelector(
+  const { queue, currentIndex, loading, mode, flashcardTitle } = useSelector(
     (state: RootState) => state.learning,
   );
 
@@ -25,7 +25,7 @@ const LearningContent = () => {
 
   return (
     <div className="relative h-full">
-      <PageTitle text="English Phrases" icon={FaBook} />
+      <PageTitle text={flashcardTitle} icon={FaBook} />
       <div className="p-5">
         {queue.length > currentIndex ? (
           <>

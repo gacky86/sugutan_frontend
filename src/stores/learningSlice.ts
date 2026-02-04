@@ -14,7 +14,7 @@ export const fetchDueProgresses = createAsyncThunk(
       console.error("Gemini API error:", error);
       return thunkAPI.rejectWithValue("Failed to fetch due progress results");
     }
-  }
+  },
 );
 
 // カードの学習記録をユーザー入力とともに記録
@@ -28,7 +28,7 @@ export const submitReview = createAsyncThunk(
       progressId: number;
       difficulty: Difficulty;
     },
-    thunkAPI
+    thunkAPI,
   ) => {
     try {
       const response = await submitProgress(progressId, difficulty);
@@ -38,7 +38,7 @@ export const submitReview = createAsyncThunk(
       console.error("Gemini API error:", error);
       return thunkAPI.rejectWithValue("Failed to submit progress");
     }
-  }
+  },
 );
 
 interface ReviewState {
@@ -47,6 +47,7 @@ interface ReviewState {
   loading: boolean;
   thinking: boolean;
   mode: "input" | "output";
+  flashcardTitle: string;
 }
 
 const initialState: ReviewState = {
@@ -55,6 +56,7 @@ const initialState: ReviewState = {
   loading: false,
   thinking: true,
   mode: "input",
+  flashcardTitle: "",
 };
 
 const learningSlice = createSlice({
@@ -71,6 +73,9 @@ const learningSlice = createSlice({
     showAnswer(state) {
       state.thinking = false;
     },
+    setFlashcardTitle(state, action) {
+      state.flashcardTitle = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -85,5 +90,6 @@ const learningSlice = createSlice({
   },
 });
 
-export const { nextCard, setMode, showAnswer } = learningSlice.actions;
+export const { nextCard, setMode, showAnswer, setFlashcardTitle } =
+  learningSlice.actions;
 export default learningSlice.reducer;
