@@ -7,7 +7,7 @@ import { openModal, closeModal } from "@/stores/modalSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { initializeCardProgresses } from "@/api/cardProgress";
-import { setFlashcardTitle, setMode } from "@/stores/learningSlice";
+import { setFlashcard, setMode } from "@/stores/learningSlice";
 import { getLanguageName } from "@/utils/langNameMapper";
 
 type Props = {
@@ -24,7 +24,7 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
   const startLearning = (mode: "input" | "output") => {
     initializeCardProgresses(flashcard.id, mode);
     dispatch(setMode(mode));
-    dispatch(setFlashcardTitle(flashcard.title));
+    dispatch(setFlashcard(flashcard));
     dispatch(closeModal());
     navigate("/learning");
   };

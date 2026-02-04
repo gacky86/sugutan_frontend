@@ -17,19 +17,26 @@ import { useNavigate } from "react-router-dom";
 
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { queue, currentIndex, loading, mode, flashcardTitle } = useSelector(
+  const { queue, currentIndex, loading, mode, flashcard } = useSelector(
     (state: RootState) => state.learning,
   );
 
+  //
   useEffect(() => {
-    dispatch(fetchDueProgresses(mode));
-  }, [dispatch, mode]);
+    if (flashcard) {
+      dispatch(fetchDueProgresses({ flashcardId: flashcard.id, mode: mode }));
+    }
+  }, [dispatch, mode, flashcard]);
 
   const navigate = useNavigate();
 
   return (
     <div className="relative h-full">
-      <PageTitle text={flashcardTitle} icon={FaBook} />
+      {flashcard ? (
+        <PageTitle text={flashcard.title} icon={FaBook} />
+      ) : (
+        <PageTitle text="不明な単語帳" icon={FaBook} />
+      )}
       <div className="p-5">
         {queue.length > currentIndex ? (
           <>
