@@ -12,20 +12,24 @@ import type { RootState, AppDispatch } from "@/stores/index";
 import LoadingOverlay from "@/components/uis/common/LoadingOverLay";
 import { useEffect } from "react";
 import { fetchDueProgresses } from "@/stores/learningSlice";
+import MainButton from "../common/MainButton";
+import { useNavigate } from "react-router-dom";
 
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { queue, currentIndex, loading, mode } = useSelector(
+  const { queue, currentIndex, loading, mode, flashcardTitle } = useSelector(
     (state: RootState) => state.learning,
   );
 
   useEffect(() => {
     dispatch(fetchDueProgresses(mode));
-  }, [dispatch]);
+  }, [dispatch, mode]);
+
+  const navigate = useNavigate();
 
   return (
     <div className="relative h-full">
-      <PageTitle text="English Phrases" icon={FaBook} />
+      <PageTitle text={flashcardTitle} icon={FaBook} />
       <div className="p-5">
         {queue.length > currentIndex ? (
           <>
@@ -39,6 +43,13 @@ const LearningContent = () => {
         ) : (
           <div className="m-auto text-center  py-3">
             <h2>おめでとう！本日分の学習は完了しました。</h2>
+            <div className="inline-block">
+              <MainButton
+                text="戻る"
+                disabled={false}
+                onClick={() => navigate("/")}
+              />
+            </div>
           </div>
         )}
       </div>
