@@ -67,7 +67,11 @@ const RegCardButton = ({ result }: Props) => {
       // エラー処理
     } catch (err) {
       const error = err as AxiosError<RailsErrorResponse>;
-      console.log(error);
+      const message =
+        error.response?.data?.error ??
+        "エラーが発生しました。もう一度やり直してください。";
+
+      toast.error(message);
     }
   };
 
