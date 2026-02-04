@@ -16,7 +16,7 @@ import { fetchDueProgresses } from "@/stores/learningSlice";
 const LearningContent = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { queue, currentIndex, loading, mode } = useSelector(
-    (state: RootState) => state.learning
+    (state: RootState) => state.learning,
   );
 
   useEffect(() => {
