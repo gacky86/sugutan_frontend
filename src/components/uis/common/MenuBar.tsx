@@ -10,7 +10,7 @@ const MenuBar = () => {
       <div className="p-2">
         <MenuButton text="単語帳一覧" icon={FaBook} path="/" />
         <MenuButton text="AI辞書" icon={FaSearch} path="/dictionary" />
-        <MenuButton text="設定" icon={CiSettings} path="/" />
+        <MenuButton text="設定" icon={CiSettings} path="/setting" />
       </div>
       <div className="p-2 absolute bottom-0">
         <SignOutButton />

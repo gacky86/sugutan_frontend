@@ -20,6 +20,7 @@ import Dictionary from "@/components/pages/Dictionary";
 import Learning from "@/components/pages/Learning";
 import NotFoundError from "@/components/pages/NotFoundError";
 import ServerError from "@/components/pages/ServerError";
+import Setting from "@/components/pages/Setting";
 
 import { useEffect } from "react";
 
@@ -70,6 +71,7 @@ const App: React.FC = () => {
             <Route path="/dictionary" element={<Dictionary />} />
             <Route path="/flashcards/:id/cards" element={<Cards />} />
             <Route path="/learning" element={<Learning />} />
+            <Route path="/setting" element={<Setting />} />
           </Route>
         </Routes>
       </Router>
