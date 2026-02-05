@@ -30,7 +30,7 @@ const TextInput = ({
       </label>
       <input
         className="block w-full h-9 p-1 border border-gray-300 rounded-md my-1
-            duration-300
+            duration-300 bg-white
             hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
             focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
         name={name}
