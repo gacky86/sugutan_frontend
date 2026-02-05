@@ -31,7 +31,7 @@ const SelectInput = ({
         name={name}
         value={text.input}
         onChange={(e) => setText({ lengthCheck: true, input: e.target.value })}
-        className="w-full border border-gray-300 rounded p-2 duration-300
+        className="w-full border border-gray-300 rounded p-2 duration-300 bg-white
             hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
             focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
       >

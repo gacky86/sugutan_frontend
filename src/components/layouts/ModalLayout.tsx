@@ -9,7 +9,6 @@ import { closeModal } from "@/stores/modalSlice";
 
 // components
 import ModalCloseButton from "@/components/uis/common/ModalCloseButton";
-import ModalBackButton from "@/components/uis/common/ModalBackButton";
 import ModalManager from "@/components/modal/ModalManager";
 
 const ModalLayout = () => {
@@ -30,7 +29,6 @@ const ModalLayout = () => {
       >
         {/* ヘッダー（固定） */}
         <div className="p-2 flex justify-between items-center shrink-0">
-          <ModalBackButton />
           <ModalCloseButton />
         </div>
 

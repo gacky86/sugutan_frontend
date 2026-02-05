@@ -83,7 +83,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
         {/* Extra note入力項目 */}
         <div className="mx-auto max-w-[600px]">
           <div className="border-t border-gray-300 mt-8 mb-6 relative">
-            <p className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 text-gray-500">
+            <p className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#EDEEE9] px-2 text-gray-500">
               Extra notes
             </p>
           </div>
