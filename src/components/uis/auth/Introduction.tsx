@@ -1,12 +1,16 @@
 // images
 import Logo from "@/assets/sugutan_logo.svg?react";
-import createFlashcardImg from "@/assets/appIntro/Screenshot_20260204-103957.png";
-// import flashcardListImg from "@/assets/appIntro/Screenshot_20260204-104032.png";
-import dictionaryImg from "@/assets/appIntro/Screenshot_20260204-104801.png";
-import learningImg from "@/assets/appIntro/Screenshot_20260204-105059.png";
+
+import createFlashcardImg from "@/assets/appIntroImages/Screenshot_20260205-153442.png";
+import flashcardsListImg from "@/assets/appIntroImages/Screenshot_20260205-153458.png";
+import dictionaryImg from "@/assets/appIntroImages/Screenshot_20260205-153527.png";
+import dictionaryResultImg from "@/assets/appIntroImages/Screenshot_20260205-153540.png";
+import startLearningImg from "@/assets/appIntroImages/Screenshot_20260205-153618.png";
+import learningImg from "@/assets/appIntroImages/Screenshot_20260205-153634.png";
 
 import IntroHeader from "@/components/uis/auth/uis/IntroHeader";
 import IntroSentence from "@/components/uis/auth/uis/IntroSentence";
+import HowToUse from "./uis/HowToUse";
 
 const Introduction = () => {
   return (
@@ -21,29 +25,29 @@ const Introduction = () => {
             delay={0.2}
           />
         </div>
-        {/* 検索機能の紹介 */}
+        {/* アプリの使い方 */}
         <div className="mb-4">
           <IntroHeader text="How to use?" delay={0.4} />
-          <IntroSentence text="まずは自分の単語帳を作成" delay={0.6} />
-          <IntroSentence
-            text="用途に応じて単語帳を管理できます！"
+          <HowToUse
+            header="1. 単語帳の作成"
+            content="タイトルと単語帳の説明を入力して単語帳を作成します。用途に合わせて単語帳を管理できます。"
             delay={0.6}
-            imgSrc={createFlashcardImg}
-            imgAlt="自分の単語帳を作成"
+            firstImgSrc={createFlashcardImg}
+            secondImgSrc={flashcardsListImg}
           />
-          <IntroSentence text="知りたい表現や単語をAI辞書で検索" delay={0.8} />
-          <IntroSentence
-            text="検索結果はその場で単語帳に登録できます！"
+          <HowToUse
+            header="2. AI辞書で検索&カード登録"
+            content="知りたい表現をAI辞書で検索します。日本語と英語の両方で検索が可能です。検索結果が表示されたら、単語カード登録ボタンをタップして単語帳へ登録します。"
             delay={0.8}
-            imgSrc={dictionaryImg}
-            imgAlt="AI辞書検索の画面"
+            firstImgSrc={dictionaryImg}
+            secondImgSrc={dictionaryResultImg}
           />
-          <IntroSentence text="単語帳に登録したカードを復習" delay={1} />
-          <IntroSentence
-            text="忘却曲線に基づいてカードを自動出題します！"
+          <HowToUse
+            header="3. 登録したカードを復習"
+            content="単語帳一覧から単語帳をタップするとInputモードまたはOutputモードで単語の復習ができます。Inputモードは英→日、Outputモードは日→英の形式で出題します。回答時に選択する難易度によって、次回の出題頻度が変化します。"
             delay={1}
-            imgSrc={learningImg}
-            imgAlt="単語帳学習時の画面"
+            firstImgSrc={startLearningImg}
+            secondImgSrc={learningImg}
           />
         </div>
       </div>
