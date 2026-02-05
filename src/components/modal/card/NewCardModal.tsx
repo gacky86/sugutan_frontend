@@ -21,6 +21,7 @@ import { buildExtraNoteParams } from "@/utils/buildExtraNoteParams";
 import { useCardForm } from "@/hooks/useCardForm";
 import { useExtraNotesForm } from "@/hooks/useExtraNoteForm";
 import clsx from "clsx";
+import ModalTitle from "@/components/uis/common/ModalTitle";
 
 const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const NewCardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">単語カード作成</h1>
+        <ModalTitle title="単語カード作成" />
       </div>
       <form onSubmit={handleSubmit}>
         {/* カード入力項目 */}

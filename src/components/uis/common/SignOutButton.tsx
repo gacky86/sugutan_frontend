@@ -13,7 +13,7 @@ const SignOutButton = () => {
   };
   return (
     <div
-      className="md:text-xl md:flex md:items-center md:gap-2 md:py-3 md:rounded-lg cursor-pointer duration-300 hover:bg-orange-50"
+      className="md:text-xl md:flex md:items-center md:gap-2 md:py-3 md:rounded-lg cursor-pointer duration-300 hover:bg-orange-50 hover:text-[#49678F] ml-2"
       onClick={() => handleSigngOut()}
     >
       <BiLogOut />

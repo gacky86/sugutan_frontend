@@ -14,6 +14,7 @@ import { updateFlashcard, deleteFlashcard } from "@/api/flashcard";
 import { useDispatch } from "react-redux";
 import { openModal, closeModal } from "@/stores/modalSlice";
 import { editFlashcard, removeFlashcard } from "@/stores/flashcardsSlice";
+import ModalTitle from "@/components/uis/common/ModalTitle";
 
 const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
       const res = await updateFlashcard(flashcard.id, params);
       if (res.status === 200) {
         dispatch(
-          openModal({ modalContent: "flashcardDetail", modalProps: res.data })
+          openModal({ modalContent: "flashcardDetail", modalProps: res.data }),
         );
         // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
         dispatch(editFlashcard(res.data));
@@ -102,7 +103,7 @@ const EditFlashcardModal = ({ flashcard }: { flashcard: Flashcard }) => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">単語帳編集</h1>
+        <ModalTitle title="単語帳編集" />
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mx-auto my-10 max-w-[600px]">

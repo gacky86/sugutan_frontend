@@ -21,7 +21,7 @@ const SelectFlashcardForm = () => {
   // でregFlashcardTitleをセットする
   // ただし、まだ単語帳がない場合はフォームを表示しないで、フォーム作成用のボタンを表示する
   const regFlashcardTitle = useSelector(
-    (state: RootState) => state.dictionary.regFlashcardTitle
+    (state: RootState) => state.dictionary.regFlashcardTitle,
   );
   // flashcardSlice.flashcardsにユーザーが持つ単語帳を取得する
   useEffect(() => {
@@ -29,7 +29,7 @@ const SelectFlashcardForm = () => {
   }, [dispatch]);
   // flashcardSlice.flashcards取得
   const flashcards = useSelector(
-    (state: RootState) => state.flashcards.flashcards
+    (state: RootState) => state.flashcards.flashcards,
   );
   // flashcardSlice.flashcardsのtitleだけを抜き出してstateに保持
   const extractFlashcardTitles = (flashcards: Flashcard[]): string[] => {
@@ -45,14 +45,14 @@ const SelectFlashcardForm = () => {
   }, [flashcards, dispatch]);
 
   return (
-    <div>
+    <div className="text-sm">
       {flashcards.length > 0 ? (
         <select
           id="flashcardTitleList"
           name="flashcardTitleList"
           value={regFlashcardTitle}
           onChange={(e) => dispatch(setRegFlashcardTitle(e.target.value))}
-          className="w-full border border-gray-300 rounded p-2 duration-300
+          className="w-full border border-gray-300 rounded px-1 duration-300
             hover:border-purple-400 hover:shadow-lg hover:shadow-purple-300/30
             focus:border-purple-400 focus:shadow-lg focus:shadow-purple-300/30"
         >

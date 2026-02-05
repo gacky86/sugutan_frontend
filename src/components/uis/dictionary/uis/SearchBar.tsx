@@ -30,7 +30,7 @@ const SearchBar = () => {
           label=""
           name="search"
           id="search"
-          placeholder="調べたい単語・フレーズを英語または日本語で入力"
+          placeholder="単語・フレーズを入力(日本語 / English)"
           maxLength={256}
           text={text}
           setText={setText}

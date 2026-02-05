@@ -8,7 +8,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { initializeCardProgresses } from "@/api/cardProgress";
 import { setFlashcard, setMode } from "@/stores/learningSlice";
-import { getLanguageName } from "@/utils/langNameMapper";
+import ModalTitle from "@/components/uis/common/ModalTitle";
+// import { getLanguageName } from "@/utils/langNameMapper";
 
 type Props = {
   flashcard: Flashcard;
@@ -32,9 +33,9 @@ const FlashcardDetailModal = ({ flashcard }: Props) => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">{flashcard.title}</h1>
+        <ModalTitle title={flashcard.title} />
         <div className="text-sm text-gray-500">
-          <p>設定言語: {getLanguageName(flashcard.language)}</p>
+          {/* <p>設定言語: {getLanguageName(flashcard.language)}</p> */}
           <p>{flashcard.description}</p>
         </div>
       </div>
