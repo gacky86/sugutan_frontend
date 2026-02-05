@@ -43,7 +43,7 @@ const IntroSentence = ({
             <img
               src={imgSrc}
               alt={imgAlt}
-              className="mx-auto h-[300px] rounded-md mb-2"
+              className="mx-auto w-[300px] rounded-md mb-2"
             />
           )}
         </motion.div>
