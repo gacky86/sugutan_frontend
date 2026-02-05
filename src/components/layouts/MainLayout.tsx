@@ -8,7 +8,7 @@ type Props = {
 
 const MainLayout = ({ childrenContent }: Props) => {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-dvh flex flex-col">
       {/* Header: PCのみ */}
       <div className="hidden md:block border border-gray-300">
         <Header />
