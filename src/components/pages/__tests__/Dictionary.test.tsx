@@ -52,7 +52,7 @@ describe("Dictionary Page", () => {
   });
   it("検索フォームへのユーザー入力が表示されること", async () => {
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力",
+      "単語・フレーズを入力(日本語 / English)",
     ) as HTMLInputElement;
     await user.type(dictionaryInput, "りんご");
     expect(dictionaryInput).toHaveValue("りんご");
@@ -60,7 +60,7 @@ describe("Dictionary Page", () => {
   it("検索フォーム入力、検索ボタン押下後、検索結果が表示されること", async () => {
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力",
+      "単語・フレーズを入力(日本語 / English)",
     ) as HTMLInputElement;
     await user.type(dictionaryInput, "りんご");
     await user.click(searchButton);
@@ -100,7 +100,7 @@ describe("Dictionary Page", () => {
     );
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力",
+      "単語・フレーズを入力(日本語 / English)",
     ) as HTMLInputElement;
     await user.type(dictionaryInput, "りんご");
 
@@ -125,7 +125,7 @@ describe("Dictionary Page", () => {
   it("検索結果の単語帳登録ボタンを押下すると、検索結果のカードが消えること", async () => {
     const searchButton = screen.getByRole("button", { name: "辞書検索" });
     const dictionaryInput = screen.getByPlaceholderText(
-      "調べたい単語・フレーズを英語または日本語で入力",
+      "単語・フレーズを入力(日本語 / English)",
     ) as HTMLInputElement;
     await user.type(dictionaryInput, "りんご");
 

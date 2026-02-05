@@ -25,7 +25,7 @@ const ModalLayout = () => {
       onClick={() => dispatch(closeModal())}
     >
       <div
-        className="m-auto mt-20 bg-white min-w-[350px] max-w-[800px] max-h-[80%] w-[60%] min-h-[300px] rounded-sm relative flex flex-col"
+        className="m-auto mt-20 bg-[#EDEEE9] min-w-[350px] max-w-[800px] max-h-[80%] w-[60%] min-h-[300px] rounded-sm relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ヘッダー（固定） */}

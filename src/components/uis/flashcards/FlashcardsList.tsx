@@ -15,7 +15,7 @@ import { openModal } from "@/stores/modalSlice";
 const FlashcardsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const flashcards = useSelector(
-    (state: RootState) => state.flashcards.flashcards
+    (state: RootState) => state.flashcards.flashcards,
   );
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const FlashcardsList = () => {
         className="flex items-center absolute bottom-15 right-5 cursor-pointer"
         onClick={() => dispatch(openModal({ modalContent: "newFlashcard" }))}
       >
-        <IoMdAddCircle className="text-4xl text-blue-500" />
+        <IoMdAddCircle className="text-4xl text-indigo-700" />
         <p className="text-lg">単語帳を新規作成</p>
       </div>
     </div>

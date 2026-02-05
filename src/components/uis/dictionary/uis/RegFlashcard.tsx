@@ -5,9 +5,8 @@ import SelectFlashcardForm from "@/components/uis/dictionary/uis/SelectFlashcard
 const RegFlashcard = () => {
   return (
     <div className="mt-3">
-      <h2 className="text-base">登録先の単語帳</h2>
       <div className="flex items-center">
-        <FaBook className="text-2xl mr-3" />
+        <FaBook className="text-lg mr-1" />
         <SelectFlashcardForm />
       </div>
     </div>

@@ -13,6 +13,7 @@ import { createFlashcard } from "@/api/flashcard";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/stores/modalSlice";
 import { addFlashcard } from "@/stores/flashcardsSlice";
+import ModalTitle from "@/components/uis/common/ModalTitle";
 
 const NewFlashcardModal = () => {
   // ============= State定義 開始 ==============
@@ -75,7 +76,7 @@ const NewFlashcardModal = () => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-2xl mt-4">単語帳新規作成</h1>
+        <ModalTitle title="単語帳新規作成" />
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mx-auto my-10 max-w-[600px]">

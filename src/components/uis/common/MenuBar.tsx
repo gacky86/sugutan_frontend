@@ -6,7 +6,7 @@ import { CiSettings } from "react-icons/ci";
 
 const MenuBar = () => {
   return (
-    <div className="relative h-full">
+    <div className="relative h-full bg-[#49678F] text-white">
       <div className="p-2">
         <MenuButton text="単語帳一覧" icon={FaBook} path="/" />
         <MenuButton text="AI辞書" icon={FaSearch} path="/dictionary" />

@@ -12,7 +12,7 @@ const NewFlashcardButton = () => {
       role="button"
       aria-label="単語帳新規作成"
     >
-      <IoMdAddCircle className="text-2xl text-blue-500" />
+      <IoMdAddCircle className="text-2xl text-indigo-700" />
       <p className="text-base">単語帳を新規作成</p>
     </div>
   );

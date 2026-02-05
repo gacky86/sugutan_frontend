@@ -1,5 +1,5 @@
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // components
 import WordInfo from "@/components/uis/dictionary/uis/WordInfo";
 import RegCardButton from "@/components/uis/dictionary/uis/RegCardButton";
@@ -12,6 +12,9 @@ import { GoTriangleUp } from "react-icons/go";
 import { getPartOfSpeechLabels } from "@/utils/dictionaryLabelMapper";
 import { handleSpeak } from "@/utils/handleSpeak";
 import { HiSpeakerWave } from "react-icons/hi2";
+// redux
+import { useSelector } from "react-redux";
+import { type RootState } from "@/stores/index";
 
 type Props = {
   result: DictionarySearchResult;
@@ -19,6 +22,11 @@ type Props = {
 
 const ResultCard = ({ result }: Props) => {
   const [isExtraInfoVisible, setIsExtraInfoVisible] = useState(false);
+  const { results } = useSelector((state: RootState) => state.dictionary);
+
+  useEffect(() => {
+    setIsExtraInfoVisible(false);
+  }, [results]);
 
   return (
     <div className="border-gray-400 border rounded-lg shadow-lg px-2 p-2 mb-4">
