@@ -10,7 +10,7 @@ const MenuBarBottom = () => {
     <div className="flex justify-between p-3 text-2xl text-white bg-[#49678F]">
       <MenuButton text="" icon={FaBook} path="/" />
       <MenuButton text="" icon={FaSearch} path="/dictionary" />
-      <MenuButton text="" icon={CiSettings} path="/" />
+      <MenuButton text="" icon={CiSettings} path="/setting" />
       <SignOutButton />
     </div>
   );
