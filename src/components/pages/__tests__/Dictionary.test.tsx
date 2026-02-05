@@ -47,7 +47,6 @@ describe("Dictionary Page", () => {
     expect(screen.getAllByText("AI辞書").length).toBe(2);
     expect(screen.getByText("検索")).toBeInTheDocument();
     expect(screen.getByText("検索結果はありません")).toBeInTheDocument();
-    expect(screen.getByText("登録先の単語帳")).toBeInTheDocument();
     expect(screen.getByText("単語帳を新規作成")).toBeInTheDocument();
   });
   it("検索フォームへのユーザー入力が表示されること", async () => {

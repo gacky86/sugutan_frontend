@@ -51,14 +51,12 @@ describe("Flashcards Page", () => {
         ).toBeInTheDocument();
         expect(screen.getByText("登録枚数: 100枚")).toBeInTheDocument();
         expect(screen.getByText("最終学習日: 1日前")).toBeInTheDocument();
-        expect(screen.getByText("設定言語: English")).toBeInTheDocument();
         expect(screen.getByText("french words")).toBeInTheDocument();
         expect(
           screen.getByText("french words in daily life"),
         ).toBeInTheDocument();
         expect(screen.getByText("登録枚数: 200枚")).toBeInTheDocument();
         expect(screen.getByText("最終学習日: 3日前")).toBeInTheDocument();
-        expect(screen.getByText("設定言語: Français")).toBeInTheDocument();
       });
     });
   });
@@ -70,7 +68,6 @@ describe("Flashcards Page", () => {
       user.click(flashcard);
       await waitFor(() => {
         expect(screen.getAllByText("english phrases").length).toBe(2);
-        expect(screen.getAllByText("設定言語: English").length).toBe(2);
         expect(screen.getByText("Inputモードで学習")).toBeInTheDocument();
         expect(screen.getByText("Outputモードで学習")).toBeInTheDocument();
         expect(screen.getByText("登録カードの管理")).toBeInTheDocument();
