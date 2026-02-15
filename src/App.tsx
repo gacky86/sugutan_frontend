@@ -14,6 +14,7 @@ import "@/App.css";
 import SignIn from "@/components/pages/SignIn";
 import SignUp from "@/components/pages/SignUp";
 import CheckEmail from "@/components/pages/CheckEmail";
+import CheckEmailEdit from "@/components/pages/CheckEmailEdit";
 import Flashcards from "@/components/pages/Flashcards";
 import Cards from "@/components/pages/Cards";
 import Dictionary from "@/components/pages/Dictionary";
@@ -21,6 +22,7 @@ import Learning from "@/components/pages/Learning";
 import NotFoundError from "@/components/pages/NotFoundError";
 import ServerError from "@/components/pages/ServerError";
 import Setting from "@/components/pages/Setting";
+import PasswordChanged from "@/components/pages/PasswordChanged";
 
 import { useEffect } from "react";
 
@@ -64,8 +66,10 @@ const App: React.FC = () => {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="checkemail" element={<CheckEmail />} />
+          <Route path="checkemail-edit" element={<CheckEmailEdit />} />
           <Route path="/not-found" element={<NotFoundError />} />
           <Route path="/server-error" element={<ServerError />} />
+          <Route path="/password-changed" element={<PasswordChanged />} />
           <Route element={<Private />}>
             <Route path="/" element={<Flashcards />} />
             <Route path="/dictionary" element={<Dictionary />} />
