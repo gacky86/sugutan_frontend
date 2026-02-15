@@ -7,7 +7,10 @@ export type ModalPayload = {
     | "newFlashcard"
     | "editFlashcard"
     | "newCard"
-    | "editCard";
+    | "editCard"
+    | "editEmail"
+    | "editPassword"
+    | "deleteAccount";
   modalProps?: {
     flashcard?: Flashcard;
     card?: Card;

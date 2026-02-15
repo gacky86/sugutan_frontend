@@ -9,10 +9,13 @@ import NewFlashcardModal from "@/components/modal/flashcard/NewFlashcardModal";
 import EditFlashcardModal from "@/components/modal/flashcard/EditFlashcardModal";
 import EditCardModal from "@/components/modal/card/EditCardModal";
 import NewCardModal from "@/components/modal/card/NewCardModal";
+import EditEmailModal from "@/components/modal/setting/EditEmailModal";
+import EditPasswordModal from "@/components/modal/setting/EditPasswordModal";
+import DeleteAccountModal from "@/components/modal/setting/DeleteAccountModal";
 
 const ModalManager = () => {
   const { isVisible, modalContent, modalProps } = useSelector(
-    (state: RootState) => state.modal
+    (state: RootState) => state.modal,
   );
 
   if (!isVisible) return null;
@@ -35,6 +38,12 @@ const ModalManager = () => {
           card={modalProps?.card as Card}
         />
       );
+    case "editEmail":
+      return <EditEmailModal />;
+    case "editPassword":
+      return <EditPasswordModal />;
+    case "deleteAccount":
+      return <DeleteAccountModal />;
     default:
       return null;
   }
